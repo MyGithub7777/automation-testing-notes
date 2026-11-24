@@ -87,7 +87,7 @@ if (root) {
             return;
         control.addEventListener('click', () => {
             if (control.textContent?.includes('Continue to Session 3'))
-                location.href = '/bdd-framework/session-3-advanced-playwright-bdd/';
+                location.href = window.documentationUrl('/bdd-framework/session-3-advanced-playwright-bdd/');
         });
     });
 }

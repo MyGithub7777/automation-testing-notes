@@ -46,7 +46,7 @@ No new tutorial content has been invented. The reference JSON records the origin
 
 Deploy the root HTML files, `assets/`, `images/`, `favicon.svg`, and tutorial directories to any static host at the website root. Exclude `astro-project-backup/`, `reference/`, the project requirement documents, and the local server from public deployment. Directory routes have real `index.html` files and work on direct refresh. Use `404.html` as the host's not-found page. No backend or build command is needed.
 
-Nothing has been deployed.
+The public website is hosted on GitHub Pages at https://mygithub7777.github.io/automation-testing-notes/.
 
 ## Formatting maintenance note
 
@@ -63,3 +63,8 @@ After formatting or editing an imported page, check the full page on desktop and
 - Session 3: `bdd-framework/session-3-advanced-playwright-bdd/index.html`.
 
 Each new session keeps its own presentation and interaction files under `assets/session-2.*` or `assets/session-3.*`. Original source text and code-block records are in `reference/session-2.source.json` and `reference/session-3.source.json`. All three sessions are registered in `assets/site-data.js`. Published sessions are available through the BDD Framework sidebar. Page spacing follows the documented normal-whitespace rule, preserving literal whitespace inside code blocks.
+
+
+## Update the GitHub Pages website
+
+After editing the HTML, CSS, or JavaScript, run `npm run build:pages`. This prepares the `docs/` publishing folder with repository-relative asset and navigation paths. Commit and push both the source edits and updated `docs/` to `main`. GitHub Pages automatically publishes `main` → `/docs`. Local development remains `npm start` on port 5181. No frontend framework or package installation is needed. Do not edit generated files in `docs/` directly.

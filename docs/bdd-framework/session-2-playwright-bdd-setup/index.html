@@ -1,0 +1,854 @@
+<!-- Plain HTML: edit visible text and markup directly in this file. -->
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr" data-theme="dark" data-has-toc="" data-has-sidebar="" data-astro-cid-g5ptsecz="">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Session 2 — Playwright BDD Setup & Step Definitions | Automation Testing</title>
+    <link rel="shortcut icon" href="/automation-testing-notes/favicon.svg" type="image/svg+xml">
+    <meta property="og:title" content="Session 2 — Playwright BDD Setup & Step Definitions">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en">
+    <meta property="og:description" content="Playwright BDD setup, TypeScript configuration, feature files, step definitions, test execution, and debugging.">
+    <meta property="og:site_name" content="Automation Testing">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="description" content="Playwright BDD setup, TypeScript configuration, feature files, step definitions, test execution, and debugging.">
+    <link rel="stylesheet" href="/automation-testing-notes/assets/print.css" media="print">
+    <link rel="stylesheet" href="/automation-testing-notes/assets/layout.css">
+    <link rel="stylesheet" href="/automation-testing-notes/assets/session-1.css">
+    <link rel="stylesheet" href="/automation-testing-notes/assets/session-2.css">
+    <link rel="stylesheet" href="/automation-testing-notes/assets/app.css">
+    <script src="/automation-testing-notes/assets/theme.js"></script>
+    <script defer="" src="/automation-testing-notes/assets/site-data.js"></script>
+    <script defer="" src="/automation-testing-notes/assets/app.js"></script>
+    <script defer="" src="/automation-testing-notes/assets/session-2.js"></script>
+  </head>
+  <body data-astro-cid-g5ptsecz="">
+    <a class="sl-skip-link" href="#_top" data-astro-cid-qb7clj6f="">Skip to content</a>
+    <div class="page sl-flex" data-astro-cid-yntsjkba="">
+      <header class="header" data-astro-cid-yntsjkba="">
+        <div class="header" data-astro-cid-by6fddyj="">
+          <div class="title-wrapper sl-flex" data-astro-cid-by6fddyj=""><a href="/automation-testing-notes/" class="site-title sl-flex" data-astro-cid-6rvad3va=""><img alt="" src="/automation-testing-notes/assets/logo.svg" width="32" height="32" data-astro-cid-6rvad3va=""><span translate="no" data-astro-cid-6rvad3va="">Automation Testing</span></a></div>
+          <div class="sl-flex print:hidden" data-astro-cid-by6fddyj=""><site-search data-translations="{&quot;placeholder&quot;:&quot;Search notes&quot;}" data-astro-cid-b5kgnn7o="true"><button data-open-modal="" disabled="" aria-label="Search notes" aria-keyshortcuts="Control+K" data-astro-cid-b5kgnn7o=""><svg data-astro-cid-b5kgnn7o="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;" data-astro-cid-hkc32dio=""><path d="M21.71 20.29 18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14Z" /></svg><span class="sl-hidden md:sl-block" aria-hidden="true" data-astro-cid-b5kgnn7o="">Search notes</span><kbd class="sl-hidden md:sl-flex" style="display: none" data-astro-cid-b5kgnn7o=""><kbd data-astro-cid-b5kgnn7o="">Ctrl</kbd><kbd data-astro-cid-b5kgnn7o="">K</kbd></kbd></button><dialog style="padding: 0" aria-label="Search notes" data-astro-cid-b5kgnn7o=""><div class="dialog-frame sl-flex" data-astro-cid-b5kgnn7o=""><button data-close-modal="" class="sl-flex md:sl-hidden" data-astro-cid-b5kgnn7o="">Cancel</button><div class="search-container" data-astro-cid-b5kgnn7o=""><div id="starlight__search" data-astro-cid-b5kgnn7o=""></div></div></div></dialog></site-search></div>
+          <div class="sl-hidden md:sl-flex print:hidden right-group" data-astro-cid-by6fddyj="">
+            <div class="sl-flex social-icons" data-astro-cid-by6fddyj=""></div>
+            <starlight-theme-select data-astro-cid-smhvfpqh="true"><label style="--sl-select-width: 6.25em" data-astro-cid-2z5xp7gb=""><span class="sr-only" data-astro-cid-2z5xp7gb="">Select theme</span><span class="icon label-icon" data-astro-cid-2z5xp7gb=""><svg class="sl-theme-icon-dark" data-astro-cid-smhvfpqh="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;" data-astro-cid-hkc32dio=""><path d="M21.64 13a1 1 0 0 0-1.05-.14 8.049 8.049 0 0 1-3.37.73 8.15 8.15 0 0 1-8.14-8.1 8.59 8.59 0 0 1 .25-2A1 1 0 0 0 8 2.36a10.14 10.14 0 1 0 14 11.69 1 1 0 0 0-.36-1.05Zm-9.5 6.69A8.14 8.14 0 0 1 7.08 5.22v.27a10.15 10.15 0 0 0 10.14 10.14 9.784 9.784 0 0 0 2.1-.22 8.11 8.11 0 0 1-7.18 4.32v-.04Z" /></svg><svg class="sl-theme-icon-light" data-astro-cid-smhvfpqh="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;" data-astro-cid-hkc32dio=""><path d="M5 12a1 1 0 0 0-1-1H3a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1Zm.64 5-.71.71a1 1 0 0 0 0 1.41 1 1 0 0 0 1.41 0l.71-.71A1 1 0 0 0 5.64 17ZM12 5a1 1 0 0 0 1-1V3a1 1 0 0 0-2 0v1a1 1 0 0 0 1 1Zm5.66 2.34a1 1 0 0 0 .7-.29l.71-.71a1 1 0 1 0-1.41-1.41l-.66.71a1 1 0 0 0 0 1.41 1 1 0 0 0 .66.29Zm-12-.29a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.71-.71a1.004 1.004 0 1 0-1.43 1.41l.73.71ZM21 11h-1a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2Zm-2.64 6A1 1 0 0 0 17 18.36l.71.71a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.76-.66ZM12 6.5a5.5 5.5 0 1 0 5.5 5.5A5.51 5.51 0 0 0 12 6.5Zm0 9a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Zm0 3.5a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 0-1-1Z" /></svg><svg class="sl-theme-icon-auto" data-astro-cid-smhvfpqh="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;" data-astro-cid-hkc32dio=""><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z" /></svg></span><select autocomplete="off" data-astro-cid-2z5xp7gb=""><option value="dark" data-astro-cid-2z5xp7gb="">Dark</option><option value="light" data-astro-cid-2z5xp7gb="">Light</option><option value="auto" selected="" data-astro-cid-2z5xp7gb="">Auto</option></select><svg class="icon caret" data-astro-cid-2z5xp7gb="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;" data-astro-cid-hkc32dio=""><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z" /></svg></label></starlight-theme-select>
+          </div>
+        </div>
+      </header>
+      <nav class="sidebar print:hidden" aria-label="Main" data-astro-cid-yntsjkba=""><button popovertarget="starlight__sidebar" class="sl-menu-button sl-flex md:sl-hidden print:hidden" data-astro-cid-r2osgdlg=""><svg class="open-menu" data-astro-cid-r2osgdlg="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;" data-astro-cid-hkc32dio=""><path d="M3 8h18a1 1 0 1 0 0-2H3a1 1 0 0 0 0 2Zm18 8H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Zm0-5H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Z" /></svg><svg class="close-menu" data-astro-cid-r2osgdlg="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;" data-astro-cid-hkc32dio=""><path d="m13.41 12 6.3-6.29a1.004 1.004 0 1 0-1.42-1.42L12 10.59l-6.29-6.3a1.004 1.004 0 0 0-1.42 1.42l6.3 6.29-6.3 6.29a1 1 0 0 0 0 1.42.998.998 0 0 0 1.42 0l6.29-6.3 6.29 6.3a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.42L13.41 12Z" /></svg><span class="sr-only" data-astro-cid-r2osgdlg="">Menu</span></button><sl-sidebar-pane popover="" id="starlight__sidebar" class="sidebar-pane" data-astro-cid-yntsjkba="true"><div class="sidebar-content sl-flex" data-astro-cid-yntsjkba=""><sl-sidebar-state-persist data-hash="0b553cu" data-astro-cid-ipdry5cl="true"><ul class="top-level" data-astro-cid-rmhv4bp6=""><li data-astro-cid-rmhv4bp6=""><a href="/automation-testing-notes/" class="large" data-astro-cid-rmhv4bp6=""><span data-astro-cid-rmhv4bp6="">Home</span></a></li><li data-astro-cid-rmhv4bp6=""><details data-astro-cid-rmhv4bp6=""><summary data-astro-cid-rmhv4bp6=""><span class="group-label" data-astro-cid-rmhv4bp6=""><span class="large" data-astro-cid-rmhv4bp6="">TypeScript</span></span><svg class="caret" data-astro-cid-rmhv4bp6="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;" data-astro-cid-hkc32dio=""><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z" /></svg></summary><sl-sidebar-restore data-index="0"></sl-sidebar-restore><ul data-astro-cid-rmhv4bp6=""><li data-astro-cid-rmhv4bp6=""><a href="/automation-testing-notes/#learning-path-typescript" data-astro-cid-rmhv4bp6=""><span data-astro-cid-rmhv4bp6="">Notes coming soon</span></a></li></ul></details></li><li data-astro-cid-rmhv4bp6=""><details data-astro-cid-rmhv4bp6=""><summary data-astro-cid-rmhv4bp6=""><span class="group-label" data-astro-cid-rmhv4bp6=""><span class="large" data-astro-cid-rmhv4bp6="">Playwright</span></span><svg class="caret" data-astro-cid-rmhv4bp6="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;" data-astro-cid-hkc32dio=""><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z" /></svg></summary><sl-sidebar-restore data-index="1"></sl-sidebar-restore><ul data-astro-cid-rmhv4bp6=""><li data-astro-cid-rmhv4bp6=""><a href="/automation-testing-notes/#learning-path-playwright" data-astro-cid-rmhv4bp6=""><span data-astro-cid-rmhv4bp6="">Notes coming soon</span></a></li></ul></details></li><li data-astro-cid-rmhv4bp6=""><details data-astro-cid-rmhv4bp6=""><summary data-astro-cid-rmhv4bp6=""><span class="group-label" data-astro-cid-rmhv4bp6=""><span class="large" data-astro-cid-rmhv4bp6="">POM</span></span><svg class="caret" data-astro-cid-rmhv4bp6="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;" data-astro-cid-hkc32dio=""><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z" /></svg></summary><sl-sidebar-restore data-index="2"></sl-sidebar-restore><ul data-astro-cid-rmhv4bp6=""><li data-astro-cid-rmhv4bp6=""><a href="/automation-testing-notes/#learning-path-pom" data-astro-cid-rmhv4bp6=""><span data-astro-cid-rmhv4bp6="">Notes coming soon</span></a></li></ul></details></li><li data-astro-cid-rmhv4bp6=""><details data-astro-cid-rmhv4bp6=""><summary data-astro-cid-rmhv4bp6=""><span class="group-label" data-astro-cid-rmhv4bp6=""><span class="large" data-astro-cid-rmhv4bp6="">Cucumber</span></span><svg class="caret" data-astro-cid-rmhv4bp6="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;" data-astro-cid-hkc32dio=""><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z" /></svg></summary><sl-sidebar-restore data-index="3"></sl-sidebar-restore><ul data-astro-cid-rmhv4bp6=""><li data-astro-cid-rmhv4bp6=""><a href="/automation-testing-notes/#learning-path-cucumber" data-astro-cid-rmhv4bp6=""><span data-astro-cid-rmhv4bp6="">Notes coming soon</span></a></li></ul></details></li><li data-astro-cid-rmhv4bp6=""><details open="" data-astro-cid-rmhv4bp6=""><summary data-astro-cid-rmhv4bp6=""><span class="group-label" data-astro-cid-rmhv4bp6=""><span class="large" data-astro-cid-rmhv4bp6="">BDD Framework</span></span><svg class="caret" data-astro-cid-rmhv4bp6="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;" data-astro-cid-hkc32dio=""><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z" /></svg></summary><sl-sidebar-restore data-index="4"></sl-sidebar-restore><ul data-astro-cid-rmhv4bp6=""><li data-astro-cid-rmhv4bp6=""><a href="/automation-testing-notes/bdd-framework/session-1-bdd-cucumber-gherkin/" aria-current="page" data-astro-cid-rmhv4bp6=""><span data-astro-cid-rmhv4bp6="">Session 1: BDD, Cucumber &amp; Gherkin</span></a></li></ul></details></li></ul></sl-sidebar-state-persist><div class="md:sl-hidden"><div class="mobile-preferences sl-flex" data-astro-cid-p4azlveh=""><div class="social-icons" data-astro-cid-p4azlveh=""></div><starlight-theme-select data-astro-cid-smhvfpqh="true"><label style="--sl-select-width: 6.25em" data-astro-cid-2z5xp7gb=""><span class="sr-only" data-astro-cid-2z5xp7gb="">Select theme</span><span class="icon label-icon" data-astro-cid-2z5xp7gb=""><svg class="sl-theme-icon-dark" data-astro-cid-smhvfpqh="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;" data-astro-cid-hkc32dio=""><path d="M21.64 13a1 1 0 0 0-1.05-.14 8.049 8.049 0 0 1-3.37.73 8.15 8.15 0 0 1-8.14-8.1 8.59 8.59 0 0 1 .25-2A1 1 0 0 0 8 2.36a10.14 10.14 0 1 0 14 11.69 1 1 0 0 0-.36-1.05Zm-9.5 6.69A8.14 8.14 0 0 1 7.08 5.22v.27a10.15 10.15 0 0 0 10.14 10.14 9.784 9.784 0 0 0 2.1-.22 8.11 8.11 0 0 1-7.18 4.32v-.04Z" /></svg><svg class="sl-theme-icon-light" data-astro-cid-smhvfpqh="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;" data-astro-cid-hkc32dio=""><path d="M5 12a1 1 0 0 0-1-1H3a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1Zm.64 5-.71.71a1 1 0 0 0 0 1.41 1 1 0 0 0 1.41 0l.71-.71A1 1 0 0 0 5.64 17ZM12 5a1 1 0 0 0 1-1V3a1 1 0 0 0-2 0v1a1 1 0 0 0 1 1Zm5.66 2.34a1 1 0 0 0 .7-.29l.71-.71a1 1 0 1 0-1.41-1.41l-.66.71a1 1 0 0 0 0 1.41 1 1 0 0 0 .66.29Zm-12-.29a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.71-.71a1.004 1.004 0 1 0-1.43 1.41l.73.71ZM21 11h-1a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2Zm-2.64 6A1 1 0 0 0 17 18.36l.71.71a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.76-.66ZM12 6.5a5.5 5.5 0 1 0 5.5 5.5A5.51 5.51 0 0 0 12 6.5Zm0 9a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Zm0 3.5a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 0-1-1Z" /></svg><svg class="sl-theme-icon-auto" data-astro-cid-smhvfpqh="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;" data-astro-cid-hkc32dio=""><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z" /></svg></span><select autocomplete="off" data-astro-cid-2z5xp7gb=""><option value="dark" data-astro-cid-2z5xp7gb="">Dark</option><option value="light" data-astro-cid-2z5xp7gb="">Light</option><option value="auto" selected="" data-astro-cid-2z5xp7gb="">Auto</option></select><svg class="icon caret" data-astro-cid-2z5xp7gb="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;" data-astro-cid-hkc32dio=""><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z" /></svg></label></starlight-theme-select></div></div></div></sl-sidebar-pane></nav>
+      <div class="main-frame" data-astro-cid-yntsjkba="">
+        <div class="lg:sl-flex" data-astro-cid-lrzkfocr="">
+          <aside class="right-sidebar-container print:hidden" data-astro-cid-lrzkfocr="">
+            <div class="right-sidebar" data-astro-cid-lrzkfocr="">
+              <div class="lg:sl-hidden" data-astro-cid-qok35upx=""><mobile-starlight-toc data-min-h="2" data-max-h="3" data-astro-cid-66cqc7ze="true"><nav aria-labelledby="starlight__on-this-page--mobile" data-astro-cid-66cqc7ze=""><details id="starlight__mobile-toc" data-astro-cid-66cqc7ze=""><summary id="starlight__on-this-page--mobile" class="sl-flex" data-astro-cid-66cqc7ze=""><span class="toggle sl-flex" data-astro-cid-66cqc7ze="">On this page<svg class="caret" data-astro-cid-66cqc7ze="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1rem;" data-astro-cid-hkc32dio=""><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z" /></svg></span><span class="display-current" data-astro-cid-66cqc7ze=""></span></summary><div class="dropdown" data-astro-cid-66cqc7ze=""><ul class="isMobile" style="--depth: 0;" data-astro-cid-jugkfwgx=""><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#_top" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">Overview</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#1-what-is-bdd" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">1. What is BDD?</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#2-what-is-cucumber" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">2. What is Cucumber?</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#3-what-is-gherkin" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">3. What is Gherkin?</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#4-given-when-then-and-but" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">4. Given, When, Then, And, But</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#5-what-is-background" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">5. What is Background?</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#6-scenario-outline-and-examples" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">6. Scenario Outline and Examples</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#_top-1" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">1 Scenario Outline + 3 Data Rows = 3 Tests</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#7-data-tables-and-doc-strings" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">7. Data Tables and Doc Strings</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#8-what-are-tags-in-gherkin" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">8. What are Tags in Gherkin?</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#9-rule-keyword" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">9. Rule keyword</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#10-gherkin-best-practices" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">10. Gherkin best practices</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#11-complete-practical-example" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">11. Complete practical example</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#12-quick-knowledge-check" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">12. Quick knowledge check</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#session-1-recap" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">Session 1 recap</span></a></li></ul></div></details></nav></mobile-starlight-toc></div>
+              <div class="right-sidebar-panel sl-hidden lg:sl-block" data-astro-cid-qok35upx="">
+                <div class="sl-container" data-astro-cid-qok35upx=""><starlight-toc data-min-h="2" data-max-h="3"><nav aria-labelledby="starlight__on-this-page"><h2 id="starlight__on-this-page">On this page</h2><ul style="--depth: 0;" data-astro-cid-jugkfwgx=""><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#_top" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">Overview</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#1-what-is-bdd" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">1. What is BDD?</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#2-what-is-cucumber" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">2. What is Cucumber?</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#3-what-is-gherkin" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">3. What is Gherkin?</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#4-given-when-then-and-but" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">4. Given, When, Then, And, But</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#5-what-is-background" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">5. What is Background?</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#6-scenario-outline-and-examples" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">6. Scenario Outline and Examples</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#_top-1" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">1 Scenario Outline + 3 Data Rows = 3 Tests</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#7-data-tables-and-doc-strings" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">7. Data Tables and Doc Strings</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#8-what-are-tags-in-gherkin" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">8. What are Tags in Gherkin?</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#9-rule-keyword" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">9. Rule keyword</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#10-gherkin-best-practices" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">10. Gherkin best practices</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#11-complete-practical-example" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">11. Complete practical example</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#12-quick-knowledge-check" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">12. Quick knowledge check</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#session-1-recap" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">Session 1 recap</span></a></li></ul></nav></starlight-toc></div>
+              </div>
+            </div>
+          </aside>
+          <div class="main-pane" data-astro-cid-lrzkfocr="">
+            <main data-pagefind-body="" lang="en" dir="ltr" data-astro-cid-g5ptsecz="">
+              <div class="content-panel" data-astro-cid-a7po4psb="">
+                <div class="sl-container" data-astro-cid-a7po4psb="">
+                  <h1 id="_top" data-astro-cid-bebwqqxs="">Session 2 — Playwright BDD Setup & Step Definitions</h1>
+                </div>
+              </div>
+              <div class="content-panel" data-astro-cid-a7po4psb="">
+                <div class="sl-container" data-astro-cid-a7po4psb="">
+                  <div class="sl-markdown-content">
+                    <div class="not-content">
+                      <section aria-label="DIL content" dir="auto" class="s2-0 shared-snapshot">
+                        <h1 data-d-component="title" class="s2-1" id="_top">Session 2 — Playwright BDD Setup &amp; Step Definitions</h1>
+                        <div data-d-component="row" data-d-direction="row" class="s2-2"><span data-d-component="badge" data-color="secondary" data-variant="soft" class="s2-3">60 Minutes</span><span data-d-component="badge" data-color="secondary" data-variant="soft" class="s2-3">Hands-on Tutorial</span><span data-d-component="badge" data-color="secondary" data-variant="soft" class="s2-3">TypeScript</span></div>
+                        <p data-d-component="text" class="s2-4"><span data-d-component="text" data-d-inline="" class="s2-5">Goal:</span> Build your first working Cucumber-style BDD automation project using <code data-d-component="code" class="s2-6">playwright-bdd</code>, Playwright Test, and TypeScript.</p>
+                        
+                        <p data-d-component="text" class="s2-4"><span data-d-component="text" data-d-inline="" class="s2-5">Important:</span> We are not using <code data-d-component="code" class="s2-6">cucumber-js</code> as our test runner. We will use Playwright Test for execution, assertions, debugging, reporting, and browser management.</p>
+                        <h2 data-d-component="title" class="s2-7" id="1-session-2-syllabus">1. Session 2 syllabus</h2>
+                        <div data-d-component="table" data-d-column-sizing="auto" class="s2-8">
+                          <div data-d-table-viewport="" class="s2-9">
+                            <table class="s2-10">
+                              <tbody data-d-component="table-section" class="s2-11">
+                                <tr data-d-component="table-row" class="s2-12"><th data-d-component="table-cell" scope="col" class="s2-13"><p data-d-component="text" class="s2-14">Time</p></th><th data-d-component="table-cell" scope="col" class="s2-15"><p data-d-component="text" class="s2-14">Topic</p></th></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17">0–10 min</p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Architecture, prerequisites, project setup</p></td></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17">10–20 min</p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Folder structure and <code data-d-component="code" class="s2-19">playwright.config.ts</code></p></td></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17">20–30 min</p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Gherkin feature files and step definitions</p></td></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17">30–40 min</p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Parameterization and Playwright locators</p></td></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17">40–50 min</p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Test generation and execution</p></td></tr>
+                                <tr data-d-component="table-row" class="s2-20"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17">50–60 min</p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Debugging, common errors, and practice</p></td></tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <div aria-hidden="true" data-d-overflow-edges="" class="s2-21">
+                            <div data-d-overflow-edge="start" class="s2-22"></div>
+                            <div data-d-overflow-edge="end" class="s2-23"></div>
+                          </div>
+                        </div>
+                        <p data-d-component="text" class="s2-4">By the end of the session, you will have a working login automation scenario.</p>
+                        <h2 data-d-component="title" class="s2-7" id="2-understand-playwright-bdd-architecture">2. Understand Playwright BDD architecture</h2>
+                                                <p data-d-component="text" class="s2-24">There are three common ways to organize browser tests with Playwright. The main choices are how we describe tests and which test runner executes them.</p>
+                        <h3 data-d-component="title" class="s2-26" id="approach-1-playwright-test">Approach 1 — Playwright Test with TypeScript</h3>
+                        <p data-d-component="text" class="s2-4">Write tests directly in TypeScript using <code class="s2-19">@playwright/test</code>. Playwright Test runs them and provides fixtures, assertions, reporting, and debugging tools. This is a straightforward choice when the team does not need Gherkin feature files.</p>
+                        <h3 data-d-component="title" class="s2-26" id="approach-2-cucumber-js">Approach 2 — Cucumber.js with the Playwright library</h3>
+                        <p data-d-component="text" class="s2-4">Write Gherkin scenarios and implement step definitions using <code class="s2-19">@cucumber/cucumber</code>. Cucumber.js runs the scenarios, while the Playwright library performs browser actions. Browser setup, cleanup, and integrations are managed through the Cucumber-based framework. This fits a team that wants to keep Cucumber.js as its runner.</p>
+                        <h3 data-d-component="title" class="s2-26" id="approach-3-playwright-bdd">Approach 3 — Playwright BDD with TypeScript</h3>
+                        <p data-d-component="text" class="s2-4">Write Gherkin feature files and TypeScript step definitions using the third-party <code class="s2-19">playwright-bdd</code> integration. Its <code class="s2-19">bddgen</code> command generates Playwright tests from those scenarios. Playwright Test then executes the generated tests.</p>
+                        <div data-d-component="table" data-d-column-sizing="auto" class="s2-8">
+                          <div data-d-table-viewport="" class="s2-9">
+                            <table class="s2-10">
+                              <tbody data-d-component="table-section" class="s2-11">
+                                <tr class="s2-12"><th scope="col" class="s2-13"><p class="s2-14">Approach</p></th><th scope="col" class="s2-13"><p class="s2-14">Test format</p></th><th scope="col" class="s2-15"><p class="s2-14">Runner</p></th></tr>
+                                <tr class="s2-12"><td class="s2-16"><p class="s2-17">Playwright Test</p></td><td class="s2-16"><p class="s2-17">TypeScript tests</p></td><td class="s2-18"><p class="s2-17">Playwright Test</p></td></tr>
+                                <tr class="s2-12"><td class="s2-16"><p class="s2-17">Cucumber.js + Playwright library</p></td><td class="s2-16"><p class="s2-17">Gherkin + step definitions</p></td><td class="s2-18"><p class="s2-17">Cucumber.js</p></td></tr>
+                                <tr class="s2-20"><td class="s2-16"><p class="s2-17">Playwright BDD</p></td><td class="s2-16"><p class="s2-17">Gherkin + step definitions, generated into tests</p></td><td class="s2-18"><p class="s2-17">Playwright Test</p></td></tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                        <h3 data-d-component="title" class="s2-26" id="why-we-select-playwright-bdd">Why are we selecting Playwright BDD?</h3>
+                        <p data-d-component="text" class="s2-4">This course aims to combine business-readable scenarios with Playwright Test execution:</p>
+                        <ul data-d-component="list" style="margin:0; padding-left:1.25rem">
+                          <li><p class="s2-4"><strong>Readable behavior:</strong> Gherkin describes scenarios that developers, testers, and business stakeholders can review together.</p></li>
+                          <li><p class="s2-4"><strong>Playwright fixtures:</strong> Browser contexts and pages can use Playwright's managed setup, isolation, and cleanup.</p></li>
+                          <li><p class="s2-4"><strong>One execution toolchain:</strong> Use Playwright Test's configured reporters, traces, retries, parallel workers, and debugging tools.</p></li>
+                          <li><p class="s2-4"><strong>Reusable implementation:</strong> TypeScript steps can use Page Object classes and custom fixtures as the framework grows.</p></li>
+                        </ul>
+                        <p data-d-component="text" class="s2-4"><strong>Trade-off:</strong> Playwright BDD adds an integration dependency, step-definition maintenance, and a test-generation step. If a team does not need Gherkin collaboration, direct Playwright Test may be simpler. For this course, Gherkin is an explicit learning goal, so Playwright BDD fits our chosen approach.</p>
+                        <p data-d-component="text" class="s2-4"><strong>Runner distinction:</strong> We use <code class="s2-19">playwright-bdd</code> to connect Gherkin to Playwright Test. We do not run these scenarios with <code class="s2-19">cucumber-js</code>.</p>
+
+                        <h3 data-d-component="title" class="s2-26" id="execution-flow">Execution flow</h3>
+                        <div data-d-component="box" data-d-direction="col" class="s2-27">
+                          <div data-d-component="box" data-d-direction="col" class="s2-28">
+                            <p data-d-component="text" class="s2-29"><span data-d-component="text" data-d-inline="" class="s2-5">1. Feature File</span></p>
+                            <p data-d-component="text" class="s2-30">login.feature — Given, When, Then</p>
+                          </div>
+                          <svg width="1em" height="1em" viewBox="0 0 24 24" data-d-component="icon" data-icon-name="arrow-down" aria-hidden="true" focusable="false" class="s2-31" fill="none"><g class="s2-32"><path d="M11.9999 5C12.5522 5.00003 12.9999 5.44774 12.9999 6V15.5859L16.2929 12.293C16.6834 11.9025 17.3164 11.9025 17.707 12.293C18.0974 12.6835 18.0974 13.3165 17.707 13.707L12.8837 18.5303C12.8514 18.5626 12.817 18.5921 12.7822 18.6201C12.599 18.8509 12.3174 19 11.9999 19C11.6822 19 11.3999 18.8511 11.2167 18.6201C11.1821 18.5922 11.1483 18.5625 11.1161 18.5303L6.29289 13.707C5.90237 13.3165 5.90237 12.6835 6.29289 12.293C6.68342 11.9025 7.31644 11.9025 7.70696 12.293L10.9999 15.5859V6C10.9999 5.44771 11.4476 5 11.9999 5Z" fill="currentColor" class="s2-33"></path></g></svg>
+                          <div data-d-component="box" data-d-direction="col" class="s2-28">
+                            <p data-d-component="text" class="s2-29"><span data-d-component="text" data-d-inline="" class="s2-5">2. Step Definitions</span></p>
+                            <p data-d-component="text" class="s2-30">login.steps.ts — TypeScript automation</p>
+                          </div>
+                          <svg width="1em" height="1em" viewBox="0 0 24 24" data-d-component="icon" data-icon-name="arrow-down" aria-hidden="true" focusable="false" class="s2-31" fill="none"><g class="s2-32"><path d="M11.9999 5C12.5522 5.00003 12.9999 5.44774 12.9999 6V15.5859L16.2929 12.293C16.6834 11.9025 17.3164 11.9025 17.707 12.293C18.0974 12.6835 18.0974 13.3165 17.707 13.707L12.8837 18.5303C12.8514 18.5626 12.817 18.5921 12.7822 18.6201C12.599 18.8509 12.3174 19 11.9999 19C11.6822 19 11.3999 18.8511 11.2167 18.6201C11.1821 18.5922 11.1483 18.5625 11.1161 18.5303L6.29289 13.707C5.90237 13.3165 5.90237 12.6835 6.29289 12.293C6.68342 11.9025 7.31644 11.9025 7.70696 12.293L10.9999 15.5859V6C10.9999 5.44771 11.4476 5 11.9999 5Z" fill="currentColor" class="s2-33"></path></g></svg>
+                          <div data-d-component="box" data-d-direction="col" class="s2-28">
+                            <p data-d-component="text" class="s2-29"><span data-d-component="text" data-d-inline="" class="s2-5">3. BDD Generation</span></p>
+                            <p data-d-component="text" class="s2-30">bddgen — generates Playwright test files</p>
+                          </div>
+                          <svg width="1em" height="1em" viewBox="0 0 24 24" data-d-component="icon" data-icon-name="arrow-down" aria-hidden="true" focusable="false" class="s2-31" fill="none"><g class="s2-32"><path d="M11.9999 5C12.5522 5.00003 12.9999 5.44774 12.9999 6V15.5859L16.2929 12.293C16.6834 11.9025 17.3164 11.9025 17.707 12.293C18.0974 12.6835 18.0974 13.3165 17.707 13.707L12.8837 18.5303C12.8514 18.5626 12.817 18.5921 12.7822 18.6201C12.599 18.8509 12.3174 19 11.9999 19C11.6822 19 11.3999 18.8511 11.2167 18.6201C11.1821 18.5922 11.1483 18.5625 11.1161 18.5303L6.29289 13.707C5.90237 13.3165 5.90237 12.6835 6.29289 12.293C6.68342 11.9025 7.31644 11.9025 7.70696 12.293L10.9999 15.5859V6C10.9999 5.44771 11.4476 5 11.9999 5Z" fill="currentColor" class="s2-33"></path></g></svg>
+                          <div data-d-component="box" data-d-direction="col" class="s2-28">
+                            <p data-d-component="text" class="s2-29"><span data-d-component="text" data-d-inline="" class="s2-5">4. Playwright Test Runner</span></p>
+                            <p data-d-component="text" class="s2-30">Runs scenarios using browser fixtures</p>
+                          </div>
+                          <svg width="1em" height="1em" viewBox="0 0 24 24" data-d-component="icon" data-icon-name="arrow-down" aria-hidden="true" focusable="false" class="s2-31" fill="none"><g class="s2-32"><path d="M11.9999 5C12.5522 5.00003 12.9999 5.44774 12.9999 6V15.5859L16.2929 12.293C16.6834 11.9025 17.3164 11.9025 17.707 12.293C18.0974 12.6835 18.0974 13.3165 17.707 13.707L12.8837 18.5303C12.8514 18.5626 12.817 18.5921 12.7822 18.6201C12.599 18.8509 12.3174 19 11.9999 19C11.6822 19 11.3999 18.8511 11.2167 18.6201C11.1821 18.5922 11.1483 18.5625 11.1161 18.5303L6.29289 13.707C5.90237 13.3165 5.90237 12.6835 6.29289 12.293C6.68342 11.9025 7.31644 11.9025 7.70696 12.293L10.9999 15.5859V6C10.9999 5.44771 11.4476 5 11.9999 5Z" fill="currentColor" class="s2-33"></path></g></svg>
+                          <div data-d-component="box" data-d-direction="col" class="s2-34">
+                            <p data-d-component="text" class="s2-29"><span data-d-component="text" data-d-inline="" class="s2-5">5. Test Results</span></p>
+                            <p data-d-component="text" class="s2-30">Pass / Fail, reports and traces</p>
+                          </div>
+                        </div>
+                        <p data-d-component="text" class="s2-4">The key idea is that <span data-d-component="text" data-d-inline="" class="s2-5">Gherkin remains the same, but Playwright handles the test execution</span>.</p>
+                        <h2 data-d-component="title" class="s2-7" id="3-project-setup-in-vs-code">3. Project setup in VS Code</h2>
+                        <p data-d-component="text" class="s2-24">We'll use the public Playwright documentation website for the first working example. This avoids depending on an application with unknown credentials or selectors.</p>
+                        <h3 data-d-component="title" class="s2-26" id="step-1-create-a-project">Step 1 — Create a project</h3>
+                        <p data-d-component="text" class="s2-24">Open a terminal in VS Code and run:</p>
+                        <div class="s2-35">
+                          <span data-message-content-controls="" class="s2-36"><button class="s2-37" type="button" data-icon-only="" data-icon-position="start" data-icon-shape="non-circular" data-radius="full" data-size="small" data-variant="ghost" data-w-component="button" aria-label="Copy code" data-code-copy-state="idle" data-oai-tooltip="" data-oai-tooltip-side="bottom" data-oai-tooltip-side-offset="8" data-session-copy="session-code-0"><svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16" class="s2-38"><use href="#lightweight-conversation-copy-compact" class="s2-39"></use></svg></button></span>
+                          <div class="s2-40"><span class="s2-41">bash</span></div>
+                          <pre class="s2-42" id="session-code-0"><code data-code-language="bash" class="s2-43">mkdir playwright-bdd-framework
+cd playwright-bdd-framework</code></pre>
+                        </div>
+                        <h3 data-d-component="title" class="s2-26" id="step-2-install-dependencies">Step 2 — Initialize Playwright and add BDD dependencies</h3>
+                        <div class="s2-35">
+                          <span data-message-content-controls="" class="s2-36"><button class="s2-44" type="button" data-icon-only="" data-icon-position="start" data-icon-shape="non-circular" data-radius="full" data-size="small" data-variant="ghost" data-w-component="button" aria-label="Copy code" data-code-copy-state="idle" data-oai-tooltip="" data-oai-tooltip-side="bottom" data-oai-tooltip-side-offset="8" data-session-copy="session-code-1"><svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16" class="s2-38"><use href="#lightweight-conversation-copy-compact" class="s2-39"></use></svg></button></span>
+                          <div class="s2-40"><span class="s2-41">bash</span></div>
+                          <pre class="s2-42" id="session-code-1"><code data-code-language="bash" class="s2-43">npm init playwright@latest</code></pre>
+                        </div>
+                        <p data-d-component="text" class="s2-4">Run the initializer from the project folder. Choose <strong>TypeScript</strong>, keep the default <code class="s2-19">tests</code> folder, and choose to install Playwright browsers. A GitHub Actions workflow is optional for this local lesson.</p>
+<p data-d-component="text" class="s2-4">The initializer installs Playwright Test and creates <code class="s2-19">playwright.config.ts</code>, a sample test, and package files. Keep the generated configuration and its browser projects. If you skip browser installation, run <code class="s2-19">npx playwright install</code> later so all configured browsers are available.</p>
+<p data-d-component="text" class="s2-4">Next, add the BDD integration, the TypeScript compiler, and Node.js types:</p>
+                        <div class="s2-35">
+                          <span data-message-content-controls="" class="s2-36"><button class="s2-44" type="button" data-icon-only="" data-icon-position="start" data-icon-shape="non-circular" data-radius="full" data-size="small" data-variant="ghost" data-w-component="button" aria-label="Copy code" data-code-copy-state="idle" data-oai-tooltip="" data-oai-tooltip-side="bottom" data-oai-tooltip-side-offset="8" data-session-copy="session-code-2"><svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16" class="s2-38"><use href="#lightweight-conversation-copy-compact" class="s2-39"></use></svg></button></span>
+                          <div class="s2-40"><span class="s2-41">bash</span></div>
+                          <pre class="s2-42" id="session-code-2"><code data-code-language="bash" class="s2-43">npm install -D playwright-bdd typescript @types/node</code></pre>
+                        </div>
+                        <div data-d-component="table" data-d-column-sizing="auto" class="s2-8">
+                          <div data-d-table-viewport="" class="s2-9">
+                            <table class="s2-10">
+                              <tbody data-d-component="table-section" class="s2-11">
+                                <tr data-d-component="table-row" class="s2-12"><th data-d-component="table-cell" scope="col" class="s2-13"><p data-d-component="text" class="s2-14">Package</p></th><th data-d-component="table-cell" scope="col" class="s2-15"><p data-d-component="text" class="s2-14">Purpose</p></th></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">@playwright/test</code></p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Test runner, browser fixtures, assertions</p></td></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">playwright-bdd</code></p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Gherkin integration and test generation</p></td></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">typescript</code></p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">TypeScript support</p></td></tr>
+                                <tr data-d-component="table-row" class="s2-20"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">@types/node</code></p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Node.js TypeScript types</p></td></tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <div aria-hidden="true" data-d-overflow-edges="" class="s2-45">
+                            <div data-d-overflow-edge="start" class="s2-22"></div>
+                            <div data-d-overflow-edge="end" class="s2-23"></div>
+                          </div>
+                        </div>
+                        <p data-d-component="text" class="s2-4">We do <span data-d-component="text" data-d-inline="" class="s2-5">not</span> need to install <code data-d-component="code" class="s2-6">@cucumber/cucumber</code> or <code data-d-component="code" class="s2-6">ts-node</code> for this setup.</p>
+                        <h3 data-d-component="title" class="s2-26" id="step-3-create-the-project-structure">Step 3 — Create the project structure</h3>
+                        <div class="s2-35">
+                          <span data-message-content-controls="" class="s2-36"><button class="s2-46" type="button" data-icon-only="" data-icon-position="start" data-icon-shape="non-circular" data-radius="full" data-size="small" data-variant="ghost" data-w-component="button" aria-label="Copy code" data-code-copy-state="idle" data-oai-tooltip="" data-oai-tooltip-side="bottom" data-oai-tooltip-side-offset="8" data-session-copy="session-code-3"><svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16" class="s2-38"><use href="#lightweight-conversation-copy-compact" class="s2-39"></use></svg></button></span>
+                          <div class="s2-40"><span class="s2-41">text</span></div>
+                          <pre class="s2-42" id="session-code-3"><code data-code-language="text" class="s2-43">playwright-bdd-framework/
+├── tests/                  # Created by the Playwright initializer
+│   └── example.spec.ts
+├── features/               # Add your Gherkin files here
+│   └── navigation.feature
+├── steps/                  # Add your step definitions here
+│   └── navigation.steps.ts
+├── playwright.config.ts    # Keep the generated file; extend it for BDD
+├── tsconfig.json           # Create only if one does not already exist
+├── package.json
+├── package-lock.json
+└── .features-gen/          # Generated by bddgen</code></pre>
+                        </div>
+                        <p data-d-component="text" class="s2-4">The <code data-d-component="code" class="s2-6">.features-gen</code> folder is generated automatically. We should not manually edit its test files.</p>
+                        <h2 data-d-component="title" class="s2-7" id="4-configure-typescript">4. Configure TypeScript</h2>
+                        <p data-d-component="text" class="s2-24">If the project does not already contain <code class="s2-19">tsconfig.json</code>, create it in the root folder using the example below. If one already exists, retain its settings and merge only the options needed for this lesson.</p>
+                        <div class="s2-35">
+                          <span data-message-content-controls="" class="s2-36"><button class="s2-47" type="button" data-icon-only="" data-icon-position="start" data-icon-shape="non-circular" data-radius="full" data-size="small" data-variant="ghost" data-w-component="button" aria-label="Copy code" data-code-copy-state="idle" data-oai-tooltip="" data-oai-tooltip-side="bottom" data-oai-tooltip-side-offset="8" data-session-copy="session-code-4"><svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16" class="s2-38"><use href="#lightweight-conversation-copy-compact" class="s2-39"></use></svg></button></span>
+                          <div class="s2-40"><span class="s2-41">json</span></div>
+                          <pre class="s2-42" id="session-code-4"><code data-code-language="json" class="s2-43">
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "strict": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "types": ["node"]
+  },
+  "include": [
+    "steps/**/*.ts",
+    "playwright.config.ts"
+  ]
+}
+</code></pre>
+                        </div>
+                        <div data-d-component="table" data-d-column-sizing="auto" class="s2-8">
+                          <div data-d-table-viewport="" class="s2-9">
+                            <table class="s2-10">
+                              <tbody data-d-component="table-section" class="s2-11">
+                                <tr data-d-component="table-row" class="s2-12"><th data-d-component="table-cell" scope="col" class="s2-13"><p data-d-component="text" class="s2-14">Property</p></th><th data-d-component="table-cell" scope="col" class="s2-15"><p data-d-component="text" class="s2-14">Meaning</p></th></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">target</code></p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">JavaScript version</p></td></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">module</code></p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Module output style</p></td></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">moduleResolution</code></p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">How TypeScript finds imports</p></td></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">strict</code></p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Enables stricter type checking</p></td></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">esModuleInterop</code></p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Helps with module interoperability</p></td></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">resolveJsonModule</code></p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Allows importing JSON data</p></td></tr>
+                                <tr data-d-component="table-row" class="s2-20"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">skipLibCheck</code></p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Skips type checking dependency declaration files</p></td></tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <div aria-hidden="true" data-d-overflow-edges="" class="s2-48">
+                            <div data-d-overflow-edge="start" class="s2-22"></div>
+                            <div data-d-overflow-edge="end" class="s2-23"></div>
+                          </div>
+                        </div>
+                        <p data-d-component="text" class="s2-4">Playwright can execute TypeScript tests directly, so we don't need a separate TypeScript compilation step to run this example.</p>
+                        <h2 data-d-component="title" class="s2-7" id="5-configure-playwright-bdd">5. Configure Playwright BDD</h2>
+                        <p data-d-component="text" class="s2-24">Extend the <code class="s2-19">playwright.config.ts</code> created by the initializer. Do not replace the generated configuration with a separate minimal file.</p>
+                        <p data-d-component="text" class="s2-4">Keep the existing imports, <code class="s2-19">defineConfig()</code> call, browser projects, reporters, retry settings, and other generated options. Add the following import alongside the existing imports, then declare <code class="s2-19">testDir</code> before the existing <code class="s2-19">export default defineConfig(...)</code>:</p>
+                        <div class="s2-35">
+                          <span data-message-content-controls="" class="s2-36"><button class="s2-49" type="button" data-icon-only="" data-icon-position="start" data-icon-shape="non-circular" data-radius="full" data-size="small" data-variant="ghost" data-w-component="button" aria-label="Copy code" data-code-copy-state="idle" data-oai-tooltip="" data-oai-tooltip-side="bottom" data-oai-tooltip-side-offset="8" data-session-copy="session-code-5"><svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16" class="s2-38"><use href="#lightweight-conversation-copy-compact" class="s2-39"></use></svg></button></span>
+                          <div class="s2-40"><span class="s2-41">typescript</span></div>
+                          <pre class="s2-42" id="session-code-5"><code data-code-language="typescript" class="s2-43">// Add this import alongside the existing imports.
+import { defineBddConfig } from 'playwright-bdd';
+
+// Add this before the existing export default defineConfig(...).
+const testDir = defineBddConfig({
+  features: 'features/**/*.feature',
+  steps: 'steps/**/*.ts',
+});</code></pre>
+                        </div>
+                        <ol style="margin:0; padding-left:1.25rem">
+  <li><p class="s2-4">In the existing configuration object, replace <code class="s2-19">testDir: './tests',</code> with <code class="s2-19">testDir,</code>. Use the initializer's equivalent path if its test folder name differs.</p></li>
+  <li><p class="s2-4">Inside the existing <code class="s2-19">use</code> object, add or uncomment <code class="s2-19">baseURL: 'https://playwright.dev',</code>. Keep the other <code class="s2-19">use</code> settings. The lesson uses <code class="s2-19">page.goto('/')</code>, which needs this base address.</p></li>
+  <li><p class="s2-4">Leave the remaining generated options unchanged. Keep all configured browser projects and install their browsers. Each BDD scenario runs once per configured browser project. Set screenshots or other optional settings only when you want to customize them.</p></li>
+</ol>
+<p data-d-component="text" class="s2-4"><strong>Why are small changes still needed?</strong> The generated config searches the sample-test folder. BDD must point Playwright at the tests produced by <code class="s2-19">bddgen</code>. We retain the generated file and defaults, adding only the BDD wiring and the base URL used in this lesson.</p>
+<p data-d-component="text" class="s2-4">Keep <code class="s2-19">tests/example.spec.ts</code> if you want the starter example. Once <code class="s2-19">testDir</code> points to the generated BDD directory, that sample is no longer included in this BDD run. Run <code class="s2-19">npx bddgen</code> before executing the BDD tests, as shown in Section 9.</p>
+                        <h3 data-d-component="title" class="s2-26" id="understand-every-important-configuration">Understand the generated settings and BDD additions</h3>
+                        <div data-d-component="table" data-d-column-sizing="auto" class="s2-8">
+                          <div data-d-table-viewport="" class="s2-9">
+                            <table class="s2-10">
+                              <tbody data-d-component="table-section" class="s2-11">
+                                <tr data-d-component="table-row" class="s2-12"><th data-d-component="table-cell" scope="col" class="s2-13"><p data-d-component="text" class="s2-14">Setting</p></th><th data-d-component="table-cell" scope="col" class="s2-15"><p data-d-component="text" class="s2-14">Purpose</p></th></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">defineBddConfig()</code></p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Connects Gherkin files and step definitions</p></td></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">features</code></p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Location of <code data-d-component="code" class="s2-19">.feature</code> files</p></td></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">steps</code></p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Location of step definition files</p></td></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">testDir</code></p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Generated Playwright tests directory</p></td></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">timeout</code></p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Maximum time allowed per test</p></td></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">reporter</code></p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Test output and HTML reporting</p></td></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">baseURL</code></p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Base website address</p></td></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">headless</code></p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Run browser without displaying the window</p></td></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">screenshot</code></p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Capture evidence on failure</p></td></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">trace</code></p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Record debugging information</p></td></tr>
+                                <tr data-d-component="table-row" class="s2-20"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">projects</code></p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Configure browser/device execution</p></td></tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <div aria-hidden="true" data-d-overflow-edges="" class="s2-21">
+                            <div data-d-overflow-edge="start" class="s2-22"></div>
+                            <div data-d-overflow-edge="end" class="s2-23"></div>
+                          </div>
+                        </div>
+                        <p data-d-component="text" class="s2-4">Notice that <code data-d-component="code" class="s2-6">defineBddConfig()</code> returns the generated test directory, which we pass into Playwright's <code data-d-component="code" class="s2-6">defineConfig()</code>.</p>
+                        <h3 data-d-component="title" class="s2-26" id="s4-configuration-mapping">S4 configuration mapping</h3>
+                        <div data-d-component="table" data-d-column-sizing="auto" class="s2-8">
+                          <div data-d-table-viewport="" class="s2-9">
+                            <table class="s2-10">
+                              <tbody data-d-component="table-section" class="s2-11">
+                                <tr data-d-component="table-row" class="s2-12"><th data-d-component="table-cell" scope="col" class="s2-13"><p data-d-component="text" class="s2-14">S4 PDF: <code data-d-component="code" class="s2-19">cucumber.json</code></p></th><th data-d-component="table-cell" scope="col" class="s2-15"><p data-d-component="text" class="s2-14">Playwright BDD equivalent</p></th></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">paths</code></p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">features</code> in <code data-d-component="code" class="s2-19">defineBddConfig()</code></p></td></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">require</code></p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">steps</code> in <code data-d-component="code" class="s2-19">defineBddConfig()</code></p></td></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">requireModule</code></p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Not required for this setup</p></td></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">format</code></p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Playwright <code data-d-component="code" class="s2-19">reporter</code></p></td></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">parallel</code></p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Playwright <code data-d-component="code" class="s2-19">workers</code></p></td></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">retry</code></p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Playwright <code data-d-component="code" class="s2-19">retries</code></p></td></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">failFast</code></p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Playwright <code data-d-component="code" class="s2-19">maxFailures</code></p></td></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">tags</code></p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">BDD tag configuration / Playwright filtering</p></td></tr>
+                                <tr data-d-component="table-row" class="s2-20"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">worldParameters</code></p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Playwright config and custom fixtures</p></td></tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <div aria-hidden="true" data-d-overflow-edges="" class="s2-25">
+                            <div data-d-overflow-edge="start" class="s2-22"></div>
+                            <div data-d-overflow-edge="end" class="s2-23"></div>
+                          </div>
+                        </div>
+                        <p data-d-component="text" class="s2-4">This is a conceptual mapping, not a direct one-to-one conversion of every Cucumber option.</p>
+                        <h2 data-d-component="title" class="s2-7" id="6-create-your-first-feature-file">6. Create your first feature file</h2>
+                        <p data-d-component="text" class="s2-24">Create:</p>
+                        <p data-d-component="text" class="s2-4"><code data-d-component="code" class="s2-6">features/navigation.feature</code></p>
+                        <div class="s2-35">
+                          <span data-message-content-controls="" class="s2-36"><button class="s2-65" type="button" data-icon-only="" data-icon-position="start" data-icon-shape="non-circular" data-radius="full" data-size="small" data-variant="ghost" data-w-component="button" aria-label="Copy code" data-code-copy-state="idle" data-oai-tooltip="" data-oai-tooltip-side="bottom" data-oai-tooltip-side-offset="8" data-session-copy="session-code-6"><svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16" class="s2-38"><use href="#lightweight-conversation-copy-compact" class="s2-39"></use></svg></button></span>
+                          <div class="s2-40"><span class="s2-41">gherkin</span></div>
+                          <pre class="s2-42" id="session-code-6"><code data-code-language="gherkin" class="s2-43">
+Feature: Playwright documentation navigation
+
+  Scenario: Open the installation documentation
+    Given I am on the Playwright homepage
+    When I click the "Get started" link
+    Then the page URL should contain "intro"
+</code></pre>
+                        </div>
+                        <p data-d-component="text" class="s2-4">This is the same Gherkin structure we learned in Session 1.</p>
+                        <div data-d-component="table" data-d-column-sizing="auto" class="s2-8">
+                          <div data-d-table-viewport="" class="s2-9">
+                            <table class="s2-10">
+                              <tbody data-d-component="table-section" class="s2-11">
+                                <tr data-d-component="table-row" class="s2-12"><th data-d-component="table-cell" scope="col" class="s2-13"><p data-d-component="text" class="s2-14">Step</p></th><th data-d-component="table-cell" scope="col" class="s2-15"><p data-d-component="text" class="s2-14">Purpose</p></th></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17">Given</p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Open the initial page</p></td></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17">When</p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Perform the user action</p></td></tr>
+                                <tr data-d-component="table-row" class="s2-20"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17">Then</p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Validate the result</p></td></tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <div aria-hidden="true" data-d-overflow-edges="" class="s2-21">
+                            <div data-d-overflow-edge="start" class="s2-22"></div>
+                            <div data-d-overflow-edge="end" class="s2-23"></div>
+                          </div>
+                        </div>
+                        <p data-d-component="text" class="s2-4">The feature file does not contain any Playwright code. It only describes the expected behavior.</p>
+                        <h2 data-d-component="title" class="s2-7" id="7-create-typescript-step-definitions">7. Create TypeScript step definitions</h2>
+                        <p data-d-component="text" class="s2-24">Create:</p>
+                        <p data-d-component="text" class="s2-4"><code data-d-component="code" class="s2-6">steps/navigation.steps.ts</code></p>
+                        <div class="s2-35">
+                          <span data-message-content-controls="" class="s2-36"><button class="s2-66" type="button" data-icon-only="" data-icon-position="start" data-icon-shape="non-circular" data-radius="full" data-size="small" data-variant="ghost" data-w-component="button" aria-label="Copy code" data-code-copy-state="idle" data-oai-tooltip="" data-oai-tooltip-side="bottom" data-oai-tooltip-side-offset="8" data-session-copy="session-code-7"><svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16" class="s2-38"><use href="#lightweight-conversation-copy-compact" class="s2-39"></use></svg></button></span>
+                          <div class="s2-40"><span class="s2-41">typescript</span></div>
+                          <pre class="s2-42" id="session-code-7"><code data-code-language="typescript" class="s2-43"><span class="s2-43">
+</span><span class="s2-50">import</span><span class="s2-51"> { createBdd } </span><span class="s2-50">from</span><span class="s2-51"> </span><span class="s2-52">'playwright-bdd'</span><span class="s2-51">;</span><span class="s2-43">
+</span><span class="s2-50">import</span><span class="s2-51"> { expect } </span><span class="s2-50">from</span><span class="s2-51"> </span><span class="s2-52">'@playwright/test'</span><span class="s2-51">;</span><span class="s2-43">
+
+</span><span class="s2-50">const</span><span class="s2-51"> { </span><span class="s2-53">Given</span><span class="s2-51">, </span><span class="s2-53">When</span><span class="s2-51">, </span><span class="s2-53">Then</span><span class="s2-51"> } </span><span class="s2-50">=</span><span class="s2-51"> </span><span class="s2-54">createBdd</span><span class="s2-51">();</span><span class="s2-43">
+
+</span><span class="s2-54">Given</span><span class="s2-51">(</span><span class="s2-43">
+</span><span class="s2-51">  </span><span class="s2-52">'I am on the Playwright homepage'</span><span class="s2-51">,</span><span class="s2-43">
+</span><span class="s2-51">  </span><span class="s2-50">async</span><span class="s2-51"> ({ </span><span class="s2-55">page</span><span class="s2-51"> }) </span><span class="s2-50">=&gt;</span><span class="s2-51"> {</span><span class="s2-43">
+</span><span class="s2-51">    </span><span class="s2-50">await</span><span class="s2-51"> page.</span><span class="s2-54">goto</span><span class="s2-51">(</span><span class="s2-52">'/'</span><span class="s2-51">);</span><span class="s2-43">
+</span><span class="s2-51">  }</span><span class="s2-43">
+</span><span class="s2-51">);</span><span class="s2-43">
+
+</span><span class="s2-54">When</span><span class="s2-51">(</span><span class="s2-43">
+</span><span class="s2-51">  </span><span class="s2-52">'I click the {string} link'</span><span class="s2-51">,</span><span class="s2-43">
+</span><span class="s2-51">  </span><span class="s2-50">async</span><span class="s2-51"> ({ </span><span class="s2-55">page</span><span class="s2-51"> }, </span><span class="s2-55">linkName</span><span class="s2-50">:</span><span class="s2-51"> </span><span class="s2-53">string</span><span class="s2-51">) </span><span class="s2-50">=&gt;</span><span class="s2-51"> {</span><span class="s2-43">
+</span><span class="s2-51">    </span><span class="s2-50">await</span><span class="s2-51"> page</span><span class="s2-43">
+</span><span class="s2-51">      .</span><span class="s2-54">getByRole</span><span class="s2-51">(</span><span class="s2-52">'link'</span><span class="s2-51">, { name: linkName, exact: </span><span class="s2-53">true</span><span class="s2-51"> })</span><span class="s2-43">
+</span><span class="s2-51">      .</span><span class="s2-54">click</span><span class="s2-51">();</span><span class="s2-43">
+</span><span class="s2-51">  }</span><span class="s2-43">
+</span><span class="s2-51">);</span><span class="s2-43">
+
+</span><span class="s2-54">Then</span><span class="s2-51">(</span><span class="s2-43">
+</span><span class="s2-51">  </span><span class="s2-52">'the page URL should contain {string}'</span><span class="s2-51">,</span><span class="s2-43">
+</span><span class="s2-51">  </span><span class="s2-50">async</span><span class="s2-51"> ({ </span><span class="s2-55">page</span><span class="s2-51"> }, </span><span class="s2-55">expectedText</span><span class="s2-50">:</span><span class="s2-51"> </span><span class="s2-53">string</span><span class="s2-51">) </span><span class="s2-50">=&gt;</span><span class="s2-51"> {</span><span class="s2-43">
+</span><span class="s2-51">    </span><span class="s2-50">await</span><span class="s2-51"> </span><span class="s2-54">expect</span><span class="s2-51">(page).</span><span class="s2-54">toHaveURL</span><span class="s2-51">(</span><span class="s2-43">
+</span><span class="s2-51">      </span><span class="s2-50">new</span><span class="s2-51"> </span><span class="s2-54">RegExp</span><span class="s2-51">(expectedText)</span><span class="s2-43">
+</span><span class="s2-51">    );</span><span class="s2-43">
+</span><span class="s2-51">  }</span><span class="s2-43">
+</span><span class="s2-51">);</span><span class="s2-43">
+</span></code></pre>
+                        </div>
+                        <p data-d-component="text" class="s2-4">The <code data-d-component="code" class="s2-6">createBdd()</code> function provides step registration functions. Playwright-style steps receive fixtures as the first argument and Gherkin parameters afterward. <span data-d-component="text" data-d-inline="" class="s2-56"><span class="s2-36"><span id=":in-15:-trigger" role="button" tabindex="0" aria-haspopup="dialog" aria-expanded="false" aria-controls=":in-15:-content" data-d-component="popover-trigger" data-d-inline-text="" data-state="closed" class="s2-57"><span data-d-component="badge" data-color="secondary" data-variant="soft" data-d-hoverable="" class="s2-58"><div data-d-component="row" data-d-direction="row" data-d-auto-spacing="" class="s2-59"><span data-d-component="favicon" role="presentation" class="s2-60"><img src="https://www.google.com/s2/favicons?domain=https://github.com&amp;sz=32" draggable="false" class="s2-61" data-loaded=""></span></div><div data-d-component="row" data-d-direction="row" class="s2-62"><div data-d-component="row" data-d-direction="row" data-d-auto-spacing="" class="s2-63"><span data-d-component="text" data-d-inline="" class="s2-64">GitHub</span></div></div></span></span></span></span></p>
+                        <h3 data-d-component="title" class="s2-26" id="how-step-matching-works">How step matching works</h3>
+                        <div data-d-component="box" data-d-direction="col" class="s2-67">
+                          <div data-d-component="box" data-d-direction="col" class="s2-68">
+                            <p data-d-component="text" class="s2-69">Gherkin step</p>
+                            <p data-d-component="text" class="s2-29">When I click the "Get started" link</p>
+                          </div>
+                          <div data-d-component="row" data-d-direction="row" class="s2-70">
+                            <svg width="1em" height="1em" viewBox="0 0 24 24" data-d-component="icon" data-icon-name="arrow-down" aria-hidden="true" focusable="false" class="s2-31" fill="none"><g class="s2-32"><path d="M11.9999 5C12.5522 5.00003 12.9999 5.44774 12.9999 6V15.5859L16.2929 12.293C16.6834 11.9025 17.3164 11.9025 17.707 12.293C18.0974 12.6835 18.0974 13.3165 17.707 13.707L12.8837 18.5303C12.8514 18.5626 12.817 18.5921 12.7822 18.6201C12.599 18.8509 12.3174 19 11.9999 19C11.6822 19 11.3999 18.8511 11.2167 18.6201C11.1821 18.5922 11.1483 18.5625 11.1161 18.5303L6.29289 13.707C5.90237 13.3165 5.90237 12.6835 6.29289 12.293C6.68342 11.9025 7.31644 11.9025 7.70696 12.293L10.9999 15.5859V6C10.9999 5.44771 11.4476 5 11.9999 5Z" fill="currentColor" class="s2-33"></path></g></svg>
+                            <p data-d-component="text" class="s2-30">Matches the step pattern</p>
+                          </div>
+                          <div data-d-component="box" data-d-direction="col" class="s2-68">
+                            <p data-d-component="text" class="s2-69">Step definition pattern</p>
+                            <p data-d-component="text" class="s2-29">When('I click the {string} link', ...)</p>
+                          </div>
+                          <div data-d-component="row" data-d-direction="row" class="s2-70">
+                            <svg width="1em" height="1em" viewBox="0 0 24 24" data-d-component="icon" data-icon-name="arrow-down" aria-hidden="true" focusable="false" class="s2-31" fill="none"><g class="s2-32"><path d="M11.9999 5C12.5522 5.00003 12.9999 5.44774 12.9999 6V15.5859L16.2929 12.293C16.6834 11.9025 17.3164 11.9025 17.707 12.293C18.0974 12.6835 18.0974 13.3165 17.707 13.707L12.8837 18.5303C12.8514 18.5626 12.817 18.5921 12.7822 18.6201C12.599 18.8509 12.3174 19 11.9999 19C11.6822 19 11.3999 18.8511 11.2167 18.6201C11.1821 18.5922 11.1483 18.5625 11.1161 18.5303L6.29289 13.707C5.90237 13.3165 5.90237 12.6835 6.29289 12.293C6.68342 11.9025 7.31644 11.9025 7.70696 12.293L10.9999 15.5859V6C10.9999 5.44771 11.4476 5 11.9999 5Z" fill="currentColor" class="s2-33"></path></g></svg>
+                            <p data-d-component="text" class="s2-30">Extracts parameter</p>
+                          </div>
+                          <div data-d-component="box" data-d-direction="col" class="s2-71">
+                            <p data-d-component="text" class="s2-69">TypeScript receives</p>
+                            <p data-d-component="text" class="s2-29">linkName = "Get started"</p>
+                          </div>
+                          <div data-d-component="row" data-d-direction="row" data-d-auto-spacing="" class="s2-72"><svg width="1em" height="1em" viewBox="0 0 24 24" data-d-component="icon" data-icon-name="arrow-down" aria-hidden="true" focusable="false" class="s2-31" fill="none"><g class="s2-32"><path d="M11.9999 5C12.5522 5.00003 12.9999 5.44774 12.9999 6V15.5859L16.2929 12.293C16.6834 11.9025 17.3164 11.9025 17.707 12.293C18.0974 12.6835 18.0974 13.3165 17.707 13.707L12.8837 18.5303C12.8514 18.5626 12.817 18.5921 12.7822 18.6201C12.599 18.8509 12.3174 19 11.9999 19C11.6822 19 11.3999 18.8511 11.2167 18.6201C11.1821 18.5922 11.1483 18.5625 11.1161 18.5303L6.29289 13.707C5.90237 13.3165 5.90237 12.6835 6.29289 12.293C6.68342 11.9025 7.31644 11.9025 7.70696 12.293L10.9999 15.5859V6C10.9999 5.44771 11.4476 5 11.9999 5Z" fill="currentColor" class="s2-33"></path></g></svg></div>
+                          <div data-d-component="box" data-d-direction="col" class="s2-73">
+                            <p data-d-component="text" class="s2-69">Playwright action</p>
+                            <p data-d-component="text" class="s2-29">Find the "Get started" link and click it.</p>
+                          </div>
+                        </div>
+                        <h3 data-d-component="title" class="s2-26" id="understanding-the-code">Understanding the code</h3>
+                        <p data-d-component="text" class="s2-24"><span data-d-component="text" data-d-inline="" class="s2-5"><code data-d-component="code" class="s2-6">createBdd()</code></span></p>
+                        <p data-d-component="text" class="s2-4">Creates the <code data-d-component="code" class="s2-6">Given</code>, <code data-d-component="code" class="s2-6">When</code>, and <code data-d-component="code" class="s2-6">Then</code> functions for registering BDD steps.</p>
+                        <p data-d-component="text" class="s2-4"><span data-d-component="text" data-d-inline="" class="s2-5"><code data-d-component="code" class="s2-6">async ({ page })</code></span></p>
+                        <p data-d-component="text" class="s2-4">Gets the Playwright <code data-d-component="code" class="s2-6">page</code> fixture. Playwright manages the page and its browser context for the test.</p>
+                        <p data-d-component="text" class="s2-4"><span data-d-component="text" data-d-inline="" class="s2-5"><code data-d-component="code" class="s2-6">await page.goto('/')</code></span></p>
+                        <p data-d-component="text" class="s2-4">Navigates to the configured <code data-d-component="code" class="s2-6">baseURL</code>.</p>
+                        <p data-d-component="text" class="s2-4"><span data-d-component="text" data-d-inline="" class="s2-5"><code data-d-component="code" class="s2-6">page.getByRole('link', { name: linkName })</code></span></p>
+                        <p data-d-component="text" class="s2-4">Finds a link using its accessible role and name.</p>
+                        <p data-d-component="text" class="s2-4"><span data-d-component="text" data-d-inline="" class="s2-5"><code data-d-component="code" class="s2-6">expect(page).toHaveURL()</code></span></p>
+                        <p data-d-component="text" class="s2-4">Checks the URL using Playwright's auto-retrying assertion.</p>
+                        <div data-d-component="divider" aria-hidden="true" class="s2-74"></div>
+                        <h2 data-d-component="title" class="s2-7" id="8-parameterization-in-step-definitions">8. Parameterization in step definitions</h2>
+                        <p data-d-component="text" class="s2-24">Parameterization allows one step definition to work with multiple values.</p>
+                        <h3 data-d-component="title" class="s2-26" id="example-string-parameter">Example: String parameter</h3>
+                        <p data-d-component="text" class="s2-24">Feature file:</p>
+                        <div class="s2-35">
+                          <span data-message-content-controls="" class="s2-36"><button class="s2-44" type="button" data-icon-only="" data-icon-position="start" data-icon-shape="non-circular" data-radius="full" data-size="small" data-variant="ghost" data-w-component="button" aria-label="Copy code" data-code-copy-state="idle" data-oai-tooltip="" data-oai-tooltip-side="bottom" data-oai-tooltip-side-offset="8" data-session-copy="session-code-8"><svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16" class="s2-38"><use href="#lightweight-conversation-copy-compact" class="s2-39"></use></svg></button></span>
+                          <div class="s2-40"><span class="s2-41">gherkin</span></div>
+                          <pre class="s2-42" id="session-code-8"><code data-code-language="gherkin" class="s2-43">When I click the "Get started" link</code></pre>
+                        </div>
+                        <p data-d-component="text" class="s2-4">Step definition:</p>
+                        <div class="s2-35">
+                          <span data-message-content-controls="" class="s2-36"><button class="s2-75" type="button" data-icon-only="" data-icon-position="start" data-icon-shape="non-circular" data-radius="full" data-size="small" data-variant="ghost" data-w-component="button" aria-label="Copy code" data-code-copy-state="idle" data-oai-tooltip="" data-oai-tooltip-side="bottom" data-oai-tooltip-side-offset="8" data-session-copy="session-code-9"><svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16" class="s2-38"><use href="#lightweight-conversation-copy-compact" class="s2-39"></use></svg></button></span>
+                          <div class="s2-40"><span class="s2-41">typescript</span></div>
+                          <pre class="s2-42" id="session-code-9"><code data-code-language="typescript" class="s2-43"><span class="s2-54">When</span><span class="s2-51">(</span><span class="s2-43">
+</span><span class="s2-51">  </span><span class="s2-52">'I click the {string} link'</span><span class="s2-51">,</span><span class="s2-43">
+</span><span class="s2-51">  </span><span class="s2-50">async</span><span class="s2-51"> ({ </span><span class="s2-55">page</span><span class="s2-51"> }, </span><span class="s2-55">linkName</span><span class="s2-50">:</span><span class="s2-51"> </span><span class="s2-53">string</span><span class="s2-51">) </span><span class="s2-50">=&gt;</span><span class="s2-51"> {</span><span class="s2-43">
+</span><span class="s2-51">    </span><span class="s2-50">await</span><span class="s2-51"> page</span><span class="s2-43">
+</span><span class="s2-51">      .</span><span class="s2-54">getByRole</span><span class="s2-51">(</span><span class="s2-52">'link'</span><span class="s2-51">, { name: linkName })</span><span class="s2-43">
+</span><span class="s2-51">      .</span><span class="s2-54">click</span><span class="s2-51">();</span><span class="s2-43">
+</span><span class="s2-51">  }</span><span class="s2-43">
+</span><span class="s2-51">);</span></code></pre>
+                        </div>
+                        <p data-d-component="text" class="s2-4">The <code data-d-component="code" class="s2-6">{string}</code> placeholder captures the quoted value.</p>
+                        <h3 data-d-component="title" class="s2-26" id="example-integer-parameter">Example: Integer parameter</h3>
+                        <div class="s2-35">
+                          <span data-message-content-controls="" class="s2-36"><button class="s2-44" type="button" data-icon-only="" data-icon-position="start" data-icon-shape="non-circular" data-radius="full" data-size="small" data-variant="ghost" data-w-component="button" aria-label="Copy code" data-code-copy-state="idle" data-oai-tooltip="" data-oai-tooltip-side="bottom" data-oai-tooltip-side-offset="8" data-session-copy="session-code-10"><svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16" class="s2-38"><use href="#lightweight-conversation-copy-compact" class="s2-39"></use></svg></button></span>
+                          <div class="s2-40"><span class="s2-41">gherkin</span></div>
+                          <pre class="s2-42" id="session-code-10"><code data-code-language="gherkin" class="s2-43">Then the cart should contain 3 products</code></pre>
+                        </div>
+                        <div class="s2-35">
+                          <span data-message-content-controls="" class="s2-36"><button class="s2-75" type="button" data-icon-only="" data-icon-position="start" data-icon-shape="non-circular" data-radius="full" data-size="small" data-variant="ghost" data-w-component="button" aria-label="Copy code" data-code-copy-state="idle" data-oai-tooltip="" data-oai-tooltip-side="bottom" data-oai-tooltip-side-offset="8" data-session-copy="session-code-11"><svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16" class="s2-38"><use href="#lightweight-conversation-copy-compact" class="s2-39"></use></svg></button></span>
+                          <div class="s2-40"><span class="s2-41">typescript</span></div>
+                          <pre class="s2-42" id="session-code-11"><code data-code-language="typescript" class="s2-43"><span class="s2-54">Then</span><span class="s2-51">(</span><span class="s2-43">
+</span><span class="s2-51">  </span><span class="s2-52">'the cart should contain {int} products'</span><span class="s2-51">,</span><span class="s2-43">
+</span><span class="s2-51">  </span><span class="s2-50">async</span><span class="s2-51"> ({ </span><span class="s2-55">page</span><span class="s2-51"> }, </span><span class="s2-55">count</span><span class="s2-50">:</span><span class="s2-51"> </span><span class="s2-53">number</span><span class="s2-51">) </span><span class="s2-50">=&gt;</span><span class="s2-51"> {</span><span class="s2-43">
+</span><span class="s2-51">    </span><span class="s2-50">await</span><span class="s2-51"> </span><span class="s2-54">expect</span><span class="s2-51">(</span><span class="s2-43">
+</span><span class="s2-51">      page.</span><span class="s2-54">locator</span><span class="s2-51">(</span><span class="s2-52">'[data-testid="cart-item"]'</span><span class="s2-51">)</span><span class="s2-43">
+</span><span class="s2-51">    ).</span><span class="s2-54">toHaveCount</span><span class="s2-51">(count);</span><span class="s2-43">
+</span><span class="s2-51">  }</span><span class="s2-43">
+</span><span class="s2-51">);</span></code></pre>
+                        </div>
+                        <p data-d-component="text" class="s2-4">The cart selector is illustrative; it requires an application with matching elements.</p>
+                        <h3 data-d-component="title" class="s2-26" id="example-multiple-parameters">Example: Multiple parameters</h3>
+                        <div class="s2-35">
+                          <span data-message-content-controls="" class="s2-36"><button class="s2-44" type="button" data-icon-only="" data-icon-position="start" data-icon-shape="non-circular" data-radius="full" data-size="small" data-variant="ghost" data-w-component="button" aria-label="Copy code" data-code-copy-state="idle" data-oai-tooltip="" data-oai-tooltip-side="bottom" data-oai-tooltip-side-offset="8" data-session-copy="session-code-12"><svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16" class="s2-38"><use href="#lightweight-conversation-copy-compact" class="s2-39"></use></svg></button></span>
+                          <div class="s2-40"><span class="s2-41">gherkin</span></div>
+                          <pre class="s2-42" id="session-code-12"><code data-code-language="gherkin" class="s2-43">When User enters "admin" and "admin123"</code></pre>
+                        </div>
+                        <div class="s2-35">
+                          <span data-message-content-controls="" class="s2-36"><button class="s2-65" type="button" data-icon-only="" data-icon-position="start" data-icon-shape="non-circular" data-radius="full" data-size="small" data-variant="ghost" data-w-component="button" aria-label="Copy code" data-code-copy-state="idle" data-oai-tooltip="" data-oai-tooltip-side="bottom" data-oai-tooltip-side-offset="8" data-session-copy="session-code-13"><svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16" class="s2-38"><use href="#lightweight-conversation-copy-compact" class="s2-39"></use></svg></button></span>
+                          <div class="s2-40"><span class="s2-41">typescript</span></div>
+                          <pre class="s2-42" id="session-code-13"><code data-code-language="typescript" class="s2-43"><span class="s2-54">When</span><span class="s2-51">(</span><span class="s2-43">
+</span><span class="s2-51">  </span><span class="s2-52">'User enters {string} and {string}'</span><span class="s2-51">,</span><span class="s2-43">
+</span><span class="s2-51">  </span><span class="s2-50">async</span><span class="s2-51"> ({ </span><span class="s2-55">page</span><span class="s2-51"> }, </span><span class="s2-55">username</span><span class="s2-50">:</span><span class="s2-51"> </span><span class="s2-53">string</span><span class="s2-51">, </span><span class="s2-55">password</span><span class="s2-50">:</span><span class="s2-51"> </span><span class="s2-53">string</span><span class="s2-51">) </span><span class="s2-50">=&gt;</span><span class="s2-51"> {</span><span class="s2-43">
+</span><span class="s2-51">    </span><span class="s2-50">await</span><span class="s2-51"> page.</span><span class="s2-54">getByLabel</span><span class="s2-51">(</span><span class="s2-52">'Username'</span><span class="s2-51">).</span><span class="s2-54">fill</span><span class="s2-51">(username);</span><span class="s2-43">
+</span><span class="s2-51">    </span><span class="s2-50">await</span><span class="s2-51"> page.</span><span class="s2-54">getByLabel</span><span class="s2-51">(</span><span class="s2-52">'Password'</span><span class="s2-51">).</span><span class="s2-54">fill</span><span class="s2-51">(password);</span><span class="s2-43">
+</span><span class="s2-51">  }</span><span class="s2-43">
+</span><span class="s2-51">);</span></code></pre>
+                        </div>
+                        <p data-d-component="text" class="s2-4">Here, two values are extracted from the Gherkin step and passed to the TypeScript function.</p>
+                        <h3 data-d-component="title" class="s2-26" id="common-parameter-types">Common parameter types</h3>
+                        <div data-d-component="table" data-d-column-sizing="auto" class="s2-8">
+                          <div data-d-table-viewport="" class="s2-9">
+                            <table class="s2-10">
+                              <tbody data-d-component="table-section" class="s2-11">
+                                <tr data-d-component="table-row" class="s2-12"><th data-d-component="table-cell" scope="col" class="s2-13"><p data-d-component="text" class="s2-14">Expression</p></th><th data-d-component="table-cell" scope="col" class="s2-76"><p data-d-component="text" class="s2-14">Example value</p></th><th data-d-component="table-cell" scope="col" class="s2-15"><p data-d-component="text" class="s2-14">TypeScript type</p></th></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">{string}</code></p></td><td data-d-component="table-cell" class="s2-77"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">"admin"</code></p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">string</code></p></td></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">{int}</code></p></td><td data-d-component="table-cell" class="s2-77"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">25</code></p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">number</code></p></td></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">{float}</code></p></td><td data-d-component="table-cell" class="s2-77"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">99.50</code></p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">number</code></p></td></tr>
+                                <tr data-d-component="table-row" class="s2-20"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">{word}</code></p></td><td data-d-component="table-cell" class="s2-77"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">admin</code></p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">string</code></p></td></tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <div aria-hidden="true" data-d-overflow-edges="" class="s2-45">
+                            <div data-d-overflow-edge="start" class="s2-22"></div>
+                            <div data-d-overflow-edge="end" class="s2-23"></div>
+                          </div>
+                        </div>
+                        <p data-d-component="text" class="s2-4">You can also use regular expressions for more flexible step matching.</p>
+                        <h2 data-d-component="title" class="s2-7" id="9-generate-and-execute-bdd-tests">9. Generate and execute BDD tests</h2>
+                        <p data-d-component="text" class="s2-24">Unlike standalone Cucumber, <code data-d-component="code" class="s2-6">playwright-bdd</code> has a generation phase followed by Playwright execution.</p>
+                        <h3 data-d-component="title" class="s2-26" id="step-1-generate-tests">Step 1 — Generate tests</h3>
+                        <p data-d-component="text" class="s2-24">Run:</p>
+                        <div class="s2-35">
+                          <span data-message-content-controls="" class="s2-36"><button class="s2-44" type="button" data-icon-only="" data-icon-position="start" data-icon-shape="non-circular" data-radius="full" data-size="small" data-variant="ghost" data-w-component="button" aria-label="Copy code" data-code-copy-state="idle" data-oai-tooltip="" data-oai-tooltip-side="bottom" data-oai-tooltip-side-offset="8" data-session-copy="session-code-14"><svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16" class="s2-38"><use href="#lightweight-conversation-copy-compact" class="s2-39"></use></svg></button></span>
+                          <div class="s2-40"><span class="s2-41">bash</span></div>
+                          <pre class="s2-42" id="session-code-14"><code data-code-language="bash" class="s2-43">npx bddgen</code></pre>
+                        </div>
+                        <p data-d-component="text" class="s2-4">This reads your feature files and step definitions and generates Playwright-compatible test files.</p>
+                        <h3 data-d-component="title" class="s2-26" id="step-2-execute-tests">Step 2 — Execute tests</h3>
+                        <div class="s2-35">
+                          <span data-message-content-controls="" class="s2-36"><button class="s2-44" type="button" data-icon-only="" data-icon-position="start" data-icon-shape="non-circular" data-radius="full" data-size="small" data-variant="ghost" data-w-component="button" aria-label="Copy code" data-code-copy-state="idle" data-oai-tooltip="" data-oai-tooltip-side="bottom" data-oai-tooltip-side-offset="8" data-session-copy="session-code-15"><svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16" class="s2-38"><use href="#lightweight-conversation-copy-compact" class="s2-39"></use></svg></button></span>
+                          <div class="s2-40"><span class="s2-41">bash</span></div>
+                          <pre class="s2-42" id="session-code-15"><code data-code-language="bash" class="s2-43">npx playwright test</code></pre>
+                        </div>
+                        <p data-d-component="text" class="s2-4">To run both steps together:</p>
+                        <div class="s2-35">
+                          <span data-message-content-controls="" class="s2-36"><button class="s2-44" type="button" data-icon-only="" data-icon-position="start" data-icon-shape="non-circular" data-radius="full" data-size="small" data-variant="ghost" data-w-component="button" aria-label="Copy code" data-code-copy-state="idle" data-oai-tooltip="" data-oai-tooltip-side="bottom" data-oai-tooltip-side-offset="8" data-session-copy="session-code-16"><svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16" class="s2-38"><use href="#lightweight-conversation-copy-compact" class="s2-39"></use></svg></button></span>
+                          <div class="s2-40"><span class="s2-41">bash</span></div>
+                          <pre class="s2-42" id="session-code-16"><code data-code-language="bash" class="s2-43">npx bddgen &amp;&amp; npx playwright test</code></pre>
+                        </div>
+                        <p data-d-component="text" class="s2-4">This two-stage approach is also used by the official <code data-d-component="code" class="s2-6">playwright-bdd</code> example project. <span data-d-component="text" data-d-inline="" class="s2-56"><span class="s2-36"><span id=":in-1l:-trigger" role="button" tabindex="0" aria-haspopup="dialog" aria-expanded="false" aria-controls=":in-1l:-content" data-d-component="popover-trigger" data-d-inline-text="" data-state="closed" class="s2-57"><span data-d-component="badge" data-color="secondary" data-variant="soft" data-d-hoverable="" class="s2-58"><div data-d-component="row" data-d-direction="row" data-d-auto-spacing="" class="s2-59"><span data-d-component="favicon" role="presentation" class="s2-60"><img src="https://www.google.com/s2/favicons?domain=https://github.com&amp;sz=32" draggable="false" class="s2-61" data-loaded=""></span></div><div data-d-component="row" data-d-direction="row" class="s2-62"><div data-d-component="row" data-d-direction="row" data-d-auto-spacing="" class="s2-63"><span data-d-component="text" data-d-inline="" class="s2-64">GitHub</span></div></div></span></span></span></span></p>
+                        <h3 data-d-component="title" class="s2-26" id="step-3-add-npm-scripts">Step 3 — Add npm scripts</h3>
+                        <p data-d-component="text" class="s2-24">Update the <code data-d-component="code" class="s2-6">scripts</code> section of <code data-d-component="code" class="s2-6">package.json</code>:</p>
+                        <div class="s2-35">
+                          <span data-message-content-controls="" class="s2-36"><button class="s2-78" type="button" data-icon-only="" data-icon-position="start" data-icon-shape="non-circular" data-radius="full" data-size="small" data-variant="ghost" data-w-component="button" aria-label="Copy code" data-code-copy-state="idle" data-oai-tooltip="" data-oai-tooltip-side="bottom" data-oai-tooltip-side-offset="8" data-session-copy="session-code-17"><svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16" class="s2-38"><use href="#lightweight-conversation-copy-compact" class="s2-39"></use></svg></button></span>
+                          <div class="s2-40"><span class="s2-41">json</span></div>
+                          <pre class="s2-42" id="session-code-17"><code data-code-language="json" class="s2-43">
+{
+  "scripts": {
+    "bddgen": "bddgen",
+    "test": "bddgen &amp;&amp; playwright test",
+    "test:headed": "bddgen &amp;&amp; playwright test --headed",
+    "test:ui": "bddgen &amp;&amp; playwright test --ui",
+    "test:debug": "bddgen &amp;&amp; playwright test --debug",
+    "report": "playwright show-report"
+  }
+}
+</code></pre>
+                        </div>
+                        <p data-d-component="text" class="s2-4">This is the <code data-d-component="code" class="s2-6">scripts</code> section only; retain the dependencies and other fields already in your <code data-d-component="code" class="s2-6">package.json</code>.</p>
+                        <p data-d-component="text" class="s2-4">Now run:</p>
+                        <div class="s2-35">
+                          <span data-message-content-controls="" class="s2-36"><button class="s2-44" type="button" data-icon-only="" data-icon-position="start" data-icon-shape="non-circular" data-radius="full" data-size="small" data-variant="ghost" data-w-component="button" aria-label="Copy code" data-code-copy-state="idle" data-oai-tooltip="" data-oai-tooltip-side="bottom" data-oai-tooltip-side-offset="8" data-session-copy="session-code-18"><svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16" class="s2-38"><use href="#lightweight-conversation-copy-compact" class="s2-39"></use></svg></button></span>
+                          <div class="s2-40"><span class="s2-41">bash</span></div>
+                          <pre class="s2-42" id="session-code-18"><code data-code-language="bash" class="s2-43">npm test</code></pre>
+                        </div>
+                        <h3 data-d-component="title" class="s2-26" id="expected-execution">Expected execution</h3>
+                        <p data-d-component="text" class="s2-24">If the website and its navigation remain unchanged, the expected result is similar to:</p>
+                        <div class="s2-35">
+                          <span data-message-content-controls="" class="s2-36"><button class="s2-79" type="button" data-icon-only="" data-icon-position="start" data-icon-shape="non-circular" data-radius="full" data-size="small" data-variant="ghost" data-w-component="button" aria-label="Copy code" data-code-copy-state="idle" data-oai-tooltip="" data-oai-tooltip-side="bottom" data-oai-tooltip-side-offset="8" data-session-copy="session-code-19"><svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16" class="s2-38"><use href="#lightweight-conversation-copy-compact" class="s2-39"></use></svg></button></span>
+                          <div class="s2-40"><span class="s2-41">text</span></div>
+                          <pre class="s2-42" id="session-code-19"><code data-code-language="text" class="s2-43">Running 1 test using 1 worker
+
+  ✓ Open the installation documentation
+
+  1 passed</code></pre>
+                        </div>
+                        <p data-d-component="text" class="s2-4">This is illustrative output, not a claim that the test was executed here.</p>
+                                                <h2 data-d-component="title" class="s2-7" id="vscode-step-definition-navigation">VS Code — Navigate from feature steps to step definitions</h2>
+                        <p data-d-component="text" class="s2-24">To use <strong>Ctrl+Click</strong> or <strong>F12</strong> on a Gherkin step, the editor extension needs to find your feature files and step-definition files. The extension is optional for running tests, but provides this navigation in the editor.</p>
+                        <p data-d-component="text" class="s2-4">If you installed <strong>Cucumber by Cucumber</strong>, create <code class="s2-19">.vscode/settings.json</code> in your automation project's root folder:</p>
+                        <div class="s2-35">
+                          <span data-message-content-controls="" class="s2-36"><button type="button" class="s2-37" aria-label="Copy code" data-session-copy="session-code-vscode-settings"><svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16" class="s2-38"><use href="#lightweight-conversation-copy-compact" class="s2-39"></use></svg></button></span>
+                          <div class="s2-40"><span class="s2-41">.vscode/settings.json</span></div>
+                          <pre class="s2-42" id="session-code-vscode-settings"><code data-code-language="json" class="s2-43">{
+  "cucumber.features": ["features/**/*.feature"],
+  "cucumber.glue": ["steps/**/*.ts"]
+}</code></pre>
+                        </div>
+                        <p data-d-component="text" class="s2-4">These paths assume your folders are named <code class="s2-19">features</code> and <code class="s2-19">steps</code>. Adjust them to match your project. The extension's default search paths may miss a separate <code class="s2-19">steps</code> folder.</p>
+                        <ol style="margin:0; padding-left:1.25rem">
+                          <li><p class="s2-4">Open the automation project's root folder in VS Code.</p></li>
+                          <li><p class="s2-4">Save <code class="s2-19">.vscode/settings.json</code> with the matching feature and step paths.</p></li>
+                          <li><p class="s2-4">Press <strong>Ctrl+Shift+P</strong> and run <strong>Developer: Reload Window</strong>.</p></li>
+                          <li><p class="s2-4">Open a <code class="s2-19">.feature</code> file and try <strong>F12</strong> or <strong>Ctrl+Click</strong> on a step.</p></li>
+                        </ol>
+                        <p data-d-component="text" class="s2-4">If navigation still fails, check the installed extension's name and confirm that the configured folder paths point to your actual feature and step-definition files. This editor configuration is separate from the step paths in <code class="s2-19">defineBddConfig()</code>.</p>
+
+                        <h2 data-d-component="title" class="s2-7" id="10-understand-the-generated-playwright-tests">10. Understand the generated Playwright tests</h2>
+                        <p data-d-component="text" class="s2-24">After running <code data-d-component="code" class="s2-6">bddgen</code>, the generated directory contains Playwright test files corresponding to your Gherkin scenarios.</p>
+                        <p data-d-component="text" class="s2-4">Conceptually, this is what happens:</p>
+                        <div data-d-component="box" data-d-direction="col" class="s2-27">
+                          <div data-d-component="box" data-d-direction="col" class="s2-71">
+                            <div data-d-component="row" data-d-direction="row" class="s2-80">
+                              <svg width="1em" height="1em" viewBox="0 0 24 24" data-d-component="icon" data-icon-name="file-document" aria-hidden="true" focusable="false" class="s2-81" fill="currentColor"><g class="s2-82"><path d="M3.5 15.7002V8.29981C3.5 7.47632 3.49898 6.79843 3.54395 6.24805C3.58988 5.686 3.68827 5.16891 3.93555 4.6836L4.08985 4.40821C4.47414 3.7817 5.02513 3.2711 5.6836 2.93555L5.86719 2.84962C6.29892 2.66443 6.7562 2.58414 7.24805 2.54395C7.79843 2.49898 8.47632 2.50001 9.29981 2.50001H13.5117C14.1979 2.50001 14.7043 2.49341 15.1914 2.61036L15.4941 2.6963C15.7926 2.79335 16.0794 2.92547 16.3477 3.08985L16.5049 3.19239C16.8652 3.44372 17.1889 3.7748 17.6133 4.19923L18.8008 5.38673L19.1426 5.7295C19.4613 6.05339 19.7139 6.3322 19.9102 6.65235L20.0645 6.92676C20.207 7.20655 20.3162 7.50257 20.3897 7.8086L20.4277 7.99317C20.5048 8.42563 20.5 8.88807 20.5 9.48829V15.7002C20.5 16.5237 20.501 17.2016 20.4561 17.752C20.4159 18.2438 20.3356 18.7011 20.1504 19.1328L20.0645 19.3164C19.7289 19.9749 19.2183 20.5259 18.5918 20.9102L18.3164 21.0645C17.8311 21.3117 17.314 21.4101 16.752 21.4561C16.2016 21.501 15.5237 21.5 14.7002 21.5H9.29981C8.47632 21.5 7.79843 21.501 7.24805 21.4561C6.7562 21.4159 6.29892 21.3356 5.86719 21.1504L5.6836 21.0645C5.02513 20.7289 4.47414 20.2183 4.08985 19.5918L3.93555 19.3164C3.68827 18.8311 3.58988 18.314 3.54395 17.752C3.49898 17.2016 3.5 16.5237 3.5 15.7002ZM13 13C13.5523 13 14 13.4477 14 14C14 14.5523 13.5523 15 13 15H9C8.44772 15 8 14.5523 8 14C8 13.4477 8.44772 13 9 13H13ZM15 9.00001C15.5523 9.00001 16 9.44772 16 10C16 10.5523 15.5523 11 15 11H9C8.44772 11 8 10.5523 8 10C8 9.44772 8.44772 9.00001 9 9.00001H15ZM5.5 15.7002C5.5 16.5566 5.50035 17.1388 5.53711 17.5889C5.57293 18.0273 5.63809 18.2518 5.71778 18.4082L5.79492 18.5459C5.98707 18.8592 6.26256 19.1145 6.5918 19.2822L6.72461 19.3389C6.87418 19.3924 7.08253 19.4361 7.41113 19.4629C7.86117 19.4997 8.44342 19.5 9.29981 19.5H14.7002C15.5566 19.5 16.1388 19.4997 16.5889 19.4629C17.0273 19.4271 17.2518 19.3619 17.4082 19.2822L17.5459 19.2051C17.8592 19.0129 18.1145 18.7374 18.2822 18.4082L18.3389 18.2754C18.3924 18.1258 18.436 17.9175 18.4629 17.5889C18.4997 17.1388 18.5 16.5566 18.5 15.7002V9.48829C18.5 8.9025 18.496 8.62789 18.4736 8.44141L18.4443 8.2754C18.4076 8.12258 18.3534 7.9747 18.2822 7.83497L18.2051 7.69727C18.1231 7.56363 18.0144 7.43719 17.7324 7.14942L17.3867 6.80079L16.1992 5.61329C15.7849 5.19901 15.5881 5.00666 15.4404 4.89063L15.3027 4.79493C15.1686 4.71275 15.0252 4.64619 14.876 4.59766L14.7246 4.55567C14.5212 4.50684 14.2931 4.50001 13.5117 4.50001H9.29981C8.44342 4.50001 7.86117 4.50036 7.41113 4.53712C7.08253 4.56396 6.87418 4.60763 6.72461 4.66114L6.5918 4.71778C6.26256 4.88555 5.98707 5.14086 5.79492 5.45411L5.71778 5.5918C5.63809 5.7482 5.57293 5.97272 5.53711 6.41114C5.50035 6.86118 5.5 7.44342 5.5 8.29981V15.7002Z" fill="currentColor" class="s2-82"></path></g></svg>
+                              <p data-d-component="text" class="s2-29"><span data-d-component="text" data-d-inline="" class="s2-5">navigation.feature</span></p>
+                            </div>
+                            <p data-d-component="text" class="s2-30">Contains the business-readable scenario</p>
+                          </div>
+                          <svg width="1em" height="1em" viewBox="0 0 24 24" data-d-component="icon" data-icon-name="arrow-down" aria-hidden="true" focusable="false" class="s2-31" fill="none"><g class="s2-32"><path d="M11.9999 5C12.5522 5.00003 12.9999 5.44774 12.9999 6V15.5859L16.2929 12.293C16.6834 11.9025 17.3164 11.9025 17.707 12.293C18.0974 12.6835 18.0974 13.3165 17.707 13.707L12.8837 18.5303C12.8514 18.5626 12.817 18.5921 12.7822 18.6201C12.599 18.8509 12.3174 19 11.9999 19C11.6822 19 11.3999 18.8511 11.2167 18.6201C11.1821 18.5922 11.1483 18.5625 11.1161 18.5303L6.29289 13.707C5.90237 13.3165 5.90237 12.6835 6.29289 12.293C6.68342 11.9025 7.31644 11.9025 7.70696 12.293L10.9999 15.5859V6C10.9999 5.44771 11.4476 5 11.9999 5Z" fill="currentColor" class="s2-33"></path></g></svg>
+                          <div data-d-component="box" data-d-direction="col" class="s2-71">
+                            <div data-d-component="row" data-d-direction="row" class="s2-80">
+                              <svg width="1em" height="1em" viewBox="0 0 24 24" data-d-component="icon" data-icon-name="file-code" aria-hidden="true" focusable="false" class="s2-81" fill="currentColor"><g class="s2-82"><path d="M14.4472 7.10558C14.9412 7.35257 15.1414 7.95324 14.8944 8.44722L10.8944 16.4472C10.6474 16.9412 10.0468 17.1414 9.55279 16.8944C9.05881 16.6474 8.85858 16.0468 9.10557 15.5528L13.1056 7.55279C13.3526 7.05881 13.9532 6.85859 14.4472 7.10558ZM6.6 7.20001C7.04183 7.53138 7.13137 8.15818 6.8 8.60001L4.25 12L6.8 15.4C7.13137 15.8418 7.04183 16.4686 6.6 16.8C6.15817 17.1314 5.53137 17.0418 5.2 16.6L2.2 12.6C1.93333 12.2444 1.93333 11.7556 2.2 11.4L5.2 7.40001C5.53137 6.95818 6.15817 6.86863 6.6 7.20001ZM17.4 7.20001C17.8418 6.86863 18.4686 6.95818 18.8 7.40001L21.8 11.4C22.0667 11.7556 22.0667 12.2444 21.8 12.6L18.8 16.6C18.4686 17.0418 17.8418 17.1314 17.4 16.8C16.9582 16.4686 16.8686 15.8418 17.2 15.4L19.75 12L17.2 8.60001C16.8686 8.15818 16.9582 7.53138 17.4 7.20001Z" fill="currentColor" class="s2-82"></path></g></svg>
+                              <p data-d-component="text" class="s2-29"><span data-d-component="text" data-d-inline="" class="s2-5">navigation.steps.ts</span></p>
+                            </div>
+                            <p data-d-component="text" class="s2-30">Defines matching TypeScript actions</p>
+                          </div>
+                          <svg width="1em" height="1em" viewBox="0 0 24 24" data-d-component="icon" data-icon-name="arrow-down" aria-hidden="true" focusable="false" class="s2-31" fill="none"><g class="s2-32"><path d="M11.9999 5C12.5522 5.00003 12.9999 5.44774 12.9999 6V15.5859L16.2929 12.293C16.6834 11.9025 17.3164 11.9025 17.707 12.293C18.0974 12.6835 18.0974 13.3165 17.707 13.707L12.8837 18.5303C12.8514 18.5626 12.817 18.5921 12.7822 18.6201C12.599 18.8509 12.3174 19 11.9999 19C11.6822 19 11.3999 18.8511 11.2167 18.6201C11.1821 18.5922 11.1483 18.5625 11.1161 18.5303L6.29289 13.707C5.90237 13.3165 5.90237 12.6835 6.29289 12.293C6.68342 11.9025 7.31644 11.9025 7.70696 12.293L10.9999 15.5859V6C10.9999 5.44771 11.4476 5 11.9999 5Z" fill="currentColor" class="s2-33"></path></g></svg>
+                          <div data-d-component="box" data-d-direction="col" class="s2-71">
+                            <div data-d-component="row" data-d-direction="row" class="s2-80">
+                              <svg width="1em" height="1em" viewBox="0 0 24 24" data-d-component="icon" data-icon-name="lucide:workflow" aria-hidden="true" focusable="false" class="s2-83" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g class="s2-84"><rect width="8" height="8" x="3" y="3" rx="2" class="s2-85"></rect><path d="M7 11v4a2 2 0 0 0 2 2h4" class="s2-84"></path><rect width="8" height="8" x="13" y="13" rx="2" class="s2-85"></rect></g></svg>
+                              <p data-d-component="text" class="s2-29"><span data-d-component="text" data-d-inline="" class="s2-5">bddgen</span></p>
+                            </div>
+                            <p data-d-component="text" class="s2-30">Converts Gherkin scenarios into Playwright test code</p>
+                          </div>
+                          <svg width="1em" height="1em" viewBox="0 0 24 24" data-d-component="icon" data-icon-name="arrow-down" aria-hidden="true" focusable="false" class="s2-31" fill="none"><g class="s2-32"><path d="M11.9999 5C12.5522 5.00003 12.9999 5.44774 12.9999 6V15.5859L16.2929 12.293C16.6834 11.9025 17.3164 11.9025 17.707 12.293C18.0974 12.6835 18.0974 13.3165 17.707 13.707L12.8837 18.5303C12.8514 18.5626 12.817 18.5921 12.7822 18.6201C12.599 18.8509 12.3174 19 11.9999 19C11.6822 19 11.3999 18.8511 11.2167 18.6201C11.1821 18.5922 11.1483 18.5625 11.1161 18.5303L6.29289 13.707C5.90237 13.3165 5.90237 12.6835 6.29289 12.293C6.68342 11.9025 7.31644 11.9025 7.70696 12.293L10.9999 15.5859V6C10.9999 5.44771 11.4476 5 11.9999 5Z" fill="currentColor" class="s2-33"></path></g></svg>
+                          <div data-d-component="box" data-d-direction="col" class="s2-71">
+                            <div data-d-component="row" data-d-direction="row" class="s2-80">
+                              <svg width="1em" height="1em" viewBox="0 0 20 20" data-d-component="icon" data-icon-name="play" aria-hidden="true" focusable="false" class="s2-86" fill="none"><g class="s2-87"><path d="M7.5498 7.54297C7.55006 6.76327 8.35487 6.26888 9.03613 6.57422L9.16992 6.64648L13.1709 9.15527C13.8323 9.5703 13.8317 10.5338 13.1699 10.9482L9.16992 13.4521C8.46509 13.8933 7.54991 13.3871 7.5498 12.5557V7.54297Z" fill="currentColor" class="s2-82"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M10 1.625C14.6254 1.625 18.375 5.37462 18.375 10C18.375 14.6254 14.6254 18.375 10 18.375C5.37462 18.375 1.625 14.6254 1.625 10C1.625 5.37462 5.37462 1.625 10 1.625ZM10 3.375C6.34111 3.375 3.375 6.34111 3.375 10C3.375 13.6589 6.34111 16.625 10 16.625C13.6589 16.625 16.625 13.6589 16.625 10C16.625 6.34111 13.6589 3.375 10 3.375Z" fill="currentColor" class="s2-82"></path></g></svg>
+                              <p data-d-component="text" class="s2-29"><span data-d-component="text" data-d-inline="" class="s2-5">playwright test</span></p>
+                            </div>
+                            <p data-d-component="text" class="s2-30">Runs the generated tests</p>
+                          </div>
+                        </div>
+                        <p data-d-component="text" class="s2-4"><span data-d-component="text" data-d-inline="" class="s2-5">Remember:</span> We maintain the <code data-d-component="code" class="s2-6">.feature</code> files and <code data-d-component="code" class="s2-6">.steps.ts</code> files. We do not edit generated test files.</p>
+                        <h2 data-d-component="title" class="s2-7" id="11-debugging-playwright-bdd-tests">11. Debugging Playwright BDD tests</h2>
+                        <p data-d-component="text" class="s2-24">Playwright provides several ways to debug tests.</p>
+                        <div data-d-component="table" data-d-column-sizing="auto" class="s2-8">
+                          <div data-d-table-viewport="" class="s2-9">
+                            <table class="s2-10">
+                              <tbody data-d-component="table-section" class="s2-11">
+                                <tr data-d-component="table-row" class="s2-12"><th data-d-component="table-cell" scope="col" class="s2-13"><p data-d-component="text" class="s2-14">Command</p></th><th data-d-component="table-cell" scope="col" class="s2-15"><p data-d-component="text" class="s2-14">Purpose</p></th></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">npm test</code></p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Generate and execute tests</p></td></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">npm run test:headed</code></p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Execute with a visible browser</p></td></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">npm run test:debug</code></p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Open Playwright Inspector</p></td></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">npm run test:ui</code></p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Open Playwright UI mode</p></td></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">npm run report</code></p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Open the HTML report</p></td></tr>
+                                <tr data-d-component="table-row" class="s2-20"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17"><code data-d-component="code" class="s2-19">npx tsc --noEmit</code></p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Check TypeScript types</p></td></tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <div aria-hidden="true" data-d-overflow-edges="" class="s2-21">
+                            <div data-d-overflow-edge="start" class="s2-22"></div>
+                            <div data-d-overflow-edge="end" class="s2-23"></div>
+                          </div>
+                        </div>
+                        <h3 data-d-component="title" class="s2-26" id="debugging-flow">Debugging flow</h3>
+                        <div class="s2-35">
+                          <span data-message-content-controls="" class="s2-36"><button class="s2-88" type="button" data-icon-only="" data-icon-position="start" data-icon-shape="non-circular" data-radius="full" data-size="small" data-variant="ghost" data-w-component="button" aria-label="Copy code" data-code-copy-state="idle" data-oai-tooltip="" data-oai-tooltip-side="bottom" data-oai-tooltip-side-offset="8" data-session-copy="session-code-20"><svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16" class="s2-38"><use href="#lightweight-conversation-copy-compact" class="s2-39"></use></svg></button></span>
+                          <div class="s2-40"><span class="s2-41">mermaid</span></div>
+                          <pre class="s2-42" id="session-code-20"><code data-code-language="mermaid" class="s2-43">flowchart TD
+    A["Run npm test"] --&gt; B{"Test passed?"}
+    B --&gt;|Yes| C["Review results"]
+    B --&gt;|No| D["Read error message"]
+    D --&gt; E{"Error type?"}
+    E --&gt;|Undefined step| F["Check Gherkin and step patterns"]
+    E --&gt;|Locator error| G["Check selectors and page state"]
+    E --&gt;|Assertion failure| H["Check actual and expected result"]
+    F --&gt; I["Fix and rerun"]
+    G --&gt; I
+    H --&gt; I
+    I --&gt; A</code></pre>
+                        </div>
+                        <h3 data-d-component="title" class="s2-26" id="common-errors-and-solutions">Common errors and solutions</h3>
+                        <div data-d-component="table" data-d-column-sizing="auto" class="s2-8">
+                          <div data-d-table-viewport="" class="s2-9">
+                            <table class="s2-10">
+                              <tbody data-d-component="table-section" class="s2-11">
+                                <tr data-d-component="table-row" class="s2-12"><th data-d-component="table-cell" scope="col" class="s2-13"><p data-d-component="text" class="s2-14">Error</p></th><th data-d-component="table-cell" scope="col" class="s2-76"><p data-d-component="text" class="s2-14">Possible cause</p></th><th data-d-component="table-cell" scope="col" class="s2-15"><p data-d-component="text" class="s2-14">Solution</p></th></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17">Undefined step</p></td><td data-d-component="table-cell" class="s2-77"><p data-d-component="text" class="s2-17">No matching step definition</p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Check step text and pattern</p></td></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17">Duplicate step definition</p></td><td data-d-component="table-cell" class="s2-77"><p data-d-component="text" class="s2-17">Same pattern defined more than once</p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Remove or rename duplicate</p></td></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17">No tests found</p></td><td data-d-component="table-cell" class="s2-77"><p data-d-component="text" class="s2-17">Generated tests missing or wrong configuration</p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Run <code data-d-component="code" class="s2-19">npx bddgen</code>, check <code data-d-component="code" class="s2-19">testDir</code></p></td></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17">Locator timeout</p></td><td data-d-component="table-cell" class="s2-77"><p data-d-component="text" class="s2-17">Element not found or not ready</p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Inspect locator and page state</p></td></tr>
+                                <tr data-d-component="table-row" class="s2-12"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17">Browser executable missing</p></td><td data-d-component="table-cell" class="s2-77"><p data-d-component="text" class="s2-17">Playwright browser not installed</p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Run <code data-d-component="code" class="s2-19">npx playwright install</code></p></td></tr>
+                                <tr data-d-component="table-row" class="s2-20"><td data-d-component="table-cell" class="s2-16"><p data-d-component="text" class="s2-17">Assertion failure</p></td><td data-d-component="table-cell" class="s2-77"><p data-d-component="text" class="s2-17">Actual result differs from expected</p></td><td data-d-component="table-cell" class="s2-18"><p data-d-component="text" class="s2-17">Inspect the page and assertion</p></td></tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <div aria-hidden="true" data-d-overflow-edges="" class="s2-89">
+                            <div data-d-overflow-edge="start" class="s2-22"></div>
+                            <div data-d-overflow-edge="end" class="s2-23"></div>
+                          </div>
+                        </div>
+                        <h3 data-d-component="title" class="s2-26" id="useful-debugging-tip">Useful debugging tip</h3>
+                        <p data-d-component="text" class="s2-24">For a failing test, run:</p>
+                        <div class="s2-35">
+                          <span data-message-content-controls="" class="s2-36"><button class="s2-44" type="button" data-icon-only="" data-icon-position="start" data-icon-shape="non-circular" data-radius="full" data-size="small" data-variant="ghost" data-w-component="button" aria-label="Copy code" data-code-copy-state="idle" data-oai-tooltip="" data-oai-tooltip-side="bottom" data-oai-tooltip-side-offset="8" data-session-copy="session-code-21"><svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16" class="s2-38"><use href="#lightweight-conversation-copy-compact" class="s2-39"></use></svg></button></span>
+                          <div class="s2-40"><span class="s2-41">bash</span></div>
+                          <pre class="s2-42" id="session-code-21"><code data-code-language="bash" class="s2-43">npm run test:debug</code></pre>
+                        </div>
+                        <p data-d-component="text" class="s2-4">This opens the Playwright Inspector, where you can step through browser actions and investigate locators.</p>
+                        <h2 data-d-component="title" class="s2-7" id="12-practice-exercise-login-automation">12. Practice exercise — Login automation</h2>
+                        <p data-d-component="text" class="s2-24">Now apply what you learned to the login feature from Session 1.</p>
+                        <p data-d-component="text" class="s2-4">The following is a template for an application you choose to test. Replace the sample URL, selectors, and credentials with valid test-environment values.</p>
+                        <h3 data-d-component="title" class="s2-26" id="feature-file">Feature file</h3>
+                        <p data-d-component="text" class="s2-24"><code data-d-component="code" class="s2-6">features/login.feature</code></p>
+                        <div class="s2-35">
+                          <span data-message-content-controls="" class="s2-36"><button class="s2-75" type="button" data-icon-only="" data-icon-position="start" data-icon-shape="non-circular" data-radius="full" data-size="small" data-variant="ghost" data-w-component="button" aria-label="Copy code" data-code-copy-state="idle" data-oai-tooltip="" data-oai-tooltip-side="bottom" data-oai-tooltip-side-offset="8" data-session-copy="session-code-22"><svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16" class="s2-38"><use href="#lightweight-conversation-copy-compact" class="s2-39"></use></svg></button></span>
+                          <div class="s2-40"><span class="s2-41">gherkin</span></div>
+                          <pre class="s2-42" id="session-code-22"><code data-code-language="gherkin" class="s2-43">
+Feature: Login functionality
+
+  Scenario: Login with valid credentials
+    Given User is on the login page
+    When User enters "testuser" and "testpass"
+    And User clicks the login button
+    Then User should see the dashboard
+</code></pre>
+                        </div>
+                        <h3 data-d-component="title" class="s2-26" id="step-definitions">Step definitions</h3>
+                        <p data-d-component="text" class="s2-24"><code data-d-component="code" class="s2-6">steps/login.steps.ts</code></p>
+                        <div class="s2-35">
+                          <span data-message-content-controls="" class="s2-36"><button class="s2-90" type="button" data-icon-only="" data-icon-position="start" data-icon-shape="non-circular" data-radius="full" data-size="small" data-variant="ghost" data-w-component="button" aria-label="Copy code" data-code-copy-state="idle" data-oai-tooltip="" data-oai-tooltip-side="bottom" data-oai-tooltip-side-offset="8" data-session-copy="session-code-23"><svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16" class="s2-38"><use href="#lightweight-conversation-copy-compact" class="s2-39"></use></svg></button></span>
+                          <div class="s2-40"><span class="s2-41">typescript</span></div>
+                          <pre class="s2-42" id="session-code-23"><code data-code-language="typescript" class="s2-43"><span class="s2-43">
+</span><span class="s2-50">import</span><span class="s2-51"> { createBdd } </span><span class="s2-50">from</span><span class="s2-51"> </span><span class="s2-52">'playwright-bdd'</span><span class="s2-51">;</span><span class="s2-43">
+</span><span class="s2-50">import</span><span class="s2-51"> { expect } </span><span class="s2-50">from</span><span class="s2-51"> </span><span class="s2-52">'@playwright/test'</span><span class="s2-51">;</span><span class="s2-43">
+
+</span><span class="s2-50">const</span><span class="s2-51"> { </span><span class="s2-53">Given</span><span class="s2-51">, </span><span class="s2-53">When</span><span class="s2-51">, </span><span class="s2-53">Then</span><span class="s2-51"> } </span><span class="s2-50">=</span><span class="s2-51"> </span><span class="s2-54">createBdd</span><span class="s2-51">();</span><span class="s2-43">
+
+</span><span class="s2-54">Given</span><span class="s2-51">(</span><span class="s2-43">
+</span><span class="s2-51">  </span><span class="s2-52">'User is on the login page'</span><span class="s2-51">,</span><span class="s2-43">
+</span><span class="s2-51">  </span><span class="s2-50">async</span><span class="s2-51"> ({ </span><span class="s2-55">page</span><span class="s2-51"> }) </span><span class="s2-50">=&gt;</span><span class="s2-51"> {</span><span class="s2-43">
+</span><span class="s2-51">    </span><span class="s2-50">await</span><span class="s2-51"> page.</span><span class="s2-54">goto</span><span class="s2-51">(</span><span class="s2-52">'https://your-test-app.example/login'</span><span class="s2-51">);</span><span class="s2-43">
+</span><span class="s2-51">  }</span><span class="s2-43">
+</span><span class="s2-51">);</span><span class="s2-43">
+
+</span><span class="s2-54">When</span><span class="s2-51">(</span><span class="s2-43">
+</span><span class="s2-51">  </span><span class="s2-52">'User enters {string} and {string}'</span><span class="s2-51">,</span><span class="s2-43">
+</span><span class="s2-51">  </span><span class="s2-50">async</span><span class="s2-51"> ({ </span><span class="s2-55">page</span><span class="s2-51"> }, </span><span class="s2-55">username</span><span class="s2-50">:</span><span class="s2-51"> </span><span class="s2-53">string</span><span class="s2-51">, </span><span class="s2-55">password</span><span class="s2-50">:</span><span class="s2-51"> </span><span class="s2-53">string</span><span class="s2-51">) </span><span class="s2-50">=&gt;</span><span class="s2-51"> {</span><span class="s2-43">
+</span><span class="s2-51">    </span><span class="s2-50">await</span><span class="s2-51"> page.</span><span class="s2-54">getByLabel</span><span class="s2-51">(</span><span class="s2-52">'Username'</span><span class="s2-51">).</span><span class="s2-54">fill</span><span class="s2-51">(username);</span><span class="s2-43">
+</span><span class="s2-51">    </span><span class="s2-50">await</span><span class="s2-51"> page.</span><span class="s2-54">getByLabel</span><span class="s2-51">(</span><span class="s2-52">'Password'</span><span class="s2-51">).</span><span class="s2-54">fill</span><span class="s2-51">(password);</span><span class="s2-43">
+</span><span class="s2-51">  }</span><span class="s2-43">
+</span><span class="s2-51">);</span><span class="s2-43">
+
+</span><span class="s2-54">When</span><span class="s2-51">(</span><span class="s2-43">
+</span><span class="s2-51">  </span><span class="s2-52">'User clicks the login button'</span><span class="s2-51">,</span><span class="s2-43">
+</span><span class="s2-51">  </span><span class="s2-50">async</span><span class="s2-51"> ({ </span><span class="s2-55">page</span><span class="s2-51"> }) </span><span class="s2-50">=&gt;</span><span class="s2-51"> {</span><span class="s2-43">
+</span><span class="s2-51">    </span><span class="s2-50">await</span><span class="s2-51"> page.</span><span class="s2-54">getByRole</span><span class="s2-51">(</span><span class="s2-52">'button'</span><span class="s2-51">, { name: </span><span class="s2-52">'Login'</span><span class="s2-51"> }).</span><span class="s2-54">click</span><span class="s2-51">();</span><span class="s2-43">
+</span><span class="s2-51">  }</span><span class="s2-43">
+</span><span class="s2-51">);</span><span class="s2-43">
+
+</span><span class="s2-54">Then</span><span class="s2-51">(</span><span class="s2-43">
+</span><span class="s2-51">  </span><span class="s2-52">'User should see the dashboard'</span><span class="s2-51">,</span><span class="s2-43">
+</span><span class="s2-51">  </span><span class="s2-50">async</span><span class="s2-51"> ({ </span><span class="s2-55">page</span><span class="s2-51"> }) </span><span class="s2-50">=&gt;</span><span class="s2-51"> {</span><span class="s2-43">
+</span><span class="s2-51">    </span><span class="s2-50">await</span><span class="s2-51"> </span><span class="s2-54">expect</span><span class="s2-51">(</span><span class="s2-43">
+</span><span class="s2-51">      page.</span><span class="s2-54">getByRole</span><span class="s2-51">(</span><span class="s2-52">'heading'</span><span class="s2-51">, { name: </span><span class="s2-52">'Dashboard'</span><span class="s2-51"> })</span><span class="s2-43">
+</span><span class="s2-51">    ).</span><span class="s2-54">toBeVisible</span><span class="s2-51">();</span><span class="s2-43">
+</span><span class="s2-51">  }</span><span class="s2-43">
+</span><span class="s2-51">);</span><span class="s2-43">
+</span></code></pre>
+                        </div>
+                        <p data-d-component="text" class="s2-4">Notice that the <code data-d-component="code" class="s2-6">And</code> step in the feature file is matched by a <code data-d-component="code" class="s2-6">When</code> step definition. <code data-d-component="code" class="s2-6">And</code> inherits the preceding step's context in Gherkin.</p>
+                        <p data-d-component="text" class="s2-4">This template will not run successfully until you connect it to a real application. For the first verified learning exercise, use the Playwright documentation navigation scenario from Section 6.</p>
+                        <div data-d-component="divider" aria-hidden="true" class="s2-74"></div>
+                        <h2 data-d-component="title" class="s2-7" id="13-session-2-knowledge-check">13. Session 2 knowledge check</h2>
+                        <div data-d-component="box" data-d-direction="col" class="s2-91">
+                          <div data-d-component="row" data-d-direction="row" data-d-auto-spacing="" class="s2-92">
+                            <p data-d-component="text" class="s2-29"><span data-d-component="text" data-d-inline="" class="s2-5">Quick Quiz</span></p>
+                            <p data-d-component="text" class="s2-93">0/5 answered</p>
+                          </div>
+                          <div data-d-component="box" data-d-direction="col" class="s2-94">
+                            <p data-d-component="text" class="s2-95">1. Which function configures Gherkin feature paths in playwright.config.ts?</p>
+                            <div role="radiogroup" data-d-component="radio-group" data-direction="col" aria-label="Options" aria-required="false" aria-disabled="false" class="s2-96">
+                              <div data-d-component="radio" class="s2-97"><label for=":in-29:" class="s2-98"><span class="s2-99"><input data-octane-input="b:1eee7b11" type="radio" id=":in-29:" tabindex="0" class="s2-100" value="0"></span>defineBddConfig()</label></div>
+                              <div data-d-component="radio" class="s2-97"><label for=":in-2a:" class="s2-98"><span class="s2-99"><input data-octane-input="b:1eee7b11" type="radio" id=":in-2a:" tabindex="-1" class="s2-100" value="1"></span>createBdd()</label></div>
+                              <div data-d-component="radio" class="s2-97"><label for=":in-2b:" class="s2-98"><span class="s2-99"><input data-octane-input="b:1eee7b11" type="radio" id=":in-2b:" tabindex="-1" class="s2-100" value="2"></span>test.describe()</label></div>
+                            </div>
+                          </div>
+                          <div data-d-component="divider" aria-hidden="true" class="s2-101"></div>
+                          <div data-d-component="box" data-d-direction="col" class="s2-94">
+                            <p data-d-component="text" class="s2-95">2. Which function provides Given, When and Then for step definitions?</p>
+                            <div role="radiogroup" data-d-component="radio-group" data-direction="col" aria-label="Options" aria-required="false" aria-disabled="false" class="s2-96">
+                              <div data-d-component="radio" class="s2-97"><label for=":in-2d:" class="s2-98"><span class="s2-99"><input data-octane-input="b:1eee7b11" type="radio" id=":in-2d:" tabindex="0" class="s2-100" value="0"></span>defineConfig()</label></div>
+                              <div data-d-component="radio" class="s2-97"><label for=":in-2e:" class="s2-98"><span class="s2-99"><input data-octane-input="b:1eee7b11" type="radio" id=":in-2e:" tabindex="-1" class="s2-100" value="1"></span>createBdd()</label></div>
+                              <div data-d-component="radio" class="s2-97"><label for=":in-2f:" class="s2-98"><span class="s2-99"><input data-octane-input="b:1eee7b11" type="radio" id=":in-2f:" tabindex="-1" class="s2-100" value="2"></span>expect()</label></div>
+                            </div>
+                          </div>
+                          <div data-d-component="divider" aria-hidden="true" class="s2-101"></div>
+                          <div data-d-component="box" data-d-direction="col" class="s2-94">
+                            <p data-d-component="text" class="s2-95">3. What does bddgen do?</p>
+                            <div role="radiogroup" data-d-component="radio-group" data-direction="col" aria-label="Options" aria-required="false" aria-disabled="false" class="s2-96">
+                              <div data-d-component="radio" class="s2-97"><label for=":in-2h:" class="s2-98"><span class="s2-99"><input data-octane-input="b:1eee7b11" type="radio" id=":in-2h:" tabindex="0" class="s2-100" value="0"></span>Starts Chromium</label></div>
+                              <div data-d-component="radio" class="s2-97"><label for=":in-2i:" class="s2-98"><span class="s2-99"><input data-octane-input="b:1eee7b11" type="radio" id=":in-2i:" tabindex="-1" class="s2-100" value="1"></span>Generates Playwright tests from feature files</label></div>
+                              <div data-d-component="radio" class="s2-97"><label for=":in-2j:" class="s2-98"><span class="s2-99"><input data-octane-input="b:1eee7b11" type="radio" id=":in-2j:" tabindex="-1" class="s2-100" value="2"></span>Creates HTML reports</label></div>
+                            </div>
+                          </div>
+                          <div data-d-component="divider" aria-hidden="true" class="s2-101"></div>
+                          <div data-d-component="box" data-d-direction="col" class="s2-94">
+                            <p data-d-component="text" class="s2-95">4. What is the first argument of a Playwright-style step callback?</p>
+                            <div role="radiogroup" data-d-component="radio-group" data-direction="col" aria-label="Options" aria-required="false" aria-disabled="false" class="s2-96">
+                              <div data-d-component="radio" class="s2-97"><label for=":in-2l:" class="s2-98"><span class="s2-99"><input data-octane-input="b:1eee7b11" type="radio" id=":in-2l:" tabindex="0" class="s2-100" value="0"></span>The World object</label></div>
+                              <div data-d-component="radio" class="s2-97"><label for=":in-2m:" class="s2-98"><span class="s2-99"><input data-octane-input="b:1eee7b11" type="radio" id=":in-2m:" tabindex="-1" class="s2-100" value="1"></span>A fixtures object</label></div>
+                              <div data-d-component="radio" class="s2-97"><label for=":in-2n:" class="s2-98"><span class="s2-99"><input data-octane-input="b:1eee7b11" type="radio" id=":in-2n:" tabindex="-1" class="s2-100" value="2"></span>The scenario name</label></div>
+                            </div>
+                          </div>
+                          <div data-d-component="divider" aria-hidden="true" class="s2-101"></div>
+                          <div data-d-component="box" data-d-direction="col" class="s2-94">
+                            <p data-d-component="text" class="s2-95">5. Which command runs the generated tests?</p>
+                            <div role="radiogroup" data-d-component="radio-group" data-direction="col" aria-label="Options" aria-required="false" aria-disabled="false" class="s2-96">
+                              <div data-d-component="radio" class="s2-97"><label for=":in-2p:" class="s2-98"><span class="s2-99"><input data-octane-input="b:1eee7b11" type="radio" id=":in-2p:" tabindex="0" class="s2-100" value="0"></span>npx cucumber-js</label></div>
+                              <div data-d-component="radio" class="s2-97"><label for=":in-2q:" class="s2-98"><span class="s2-99"><input data-octane-input="b:1eee7b11" type="radio" id=":in-2q:" tabindex="-1" class="s2-100" value="1"></span>npx playwright test</label></div>
+                              <div data-d-component="radio" class="s2-97"><label for=":in-2r:" class="s2-98"><span class="s2-99"><input data-octane-input="b:1eee7b11" type="radio" id=":in-2r:" tabindex="-1" class="s2-100" value="2"></span>npx tsc</label></div>
+                            </div>
+                          </div>
+                          <div data-d-component="row" data-d-direction="row" class="s2-102"><span class="s2-36"><span class="s2-36"><button type="button" data-d-component="button" data-d-block="" data-variant="solid" disabled="" aria-disabled="true" tabindex="-1" class="s2-103"><span class="s2-104">Check answers</span></button></span></span><span class="s2-36"><span class="s2-36"><button type="button" data-d-component="button" data-variant="outline" aria-disabled="false" class="s2-105"><span class="s2-106">Reset</span></button></span></span></div>
+                        </div>
+                        <h2 data-d-component="title" class="s2-7" id="14-session-2-completion-checklist">14. Session 2 completion checklist</h2>
+                        <div data-d-component="box" data-d-direction="col" class="s2-107">
+                          <div data-d-component="row" data-d-direction="row" data-d-auto-spacing="" class="s2-92">
+                            <p data-d-component="text" class="s2-29"><span data-d-component="text" data-d-inline="" class="s2-5">Your progress</span></p>
+                            <p data-d-component="text" class="s2-108">0/9</p>
+                          </div>
+                          <div data-d-component="box" data-d-direction="col" data-d-auto-spacing="" class="s2-109">
+                            <div data-d-component="box" data-d-direction="col" data-d-auto-spacing="" class="s2-110"></div>
+                          </div>
+                          <div class="s2-111"><span class="s2-112"><input data-octane-input="b:e668852b" id=":in-2z:" type="checkbox" data-d-component="checkbox" class="s2-113" value="on"></span><label for=":in-2z:" class="s2-114"><span class="s2-115">Create the Node.js + TypeScript project</span></label></div>
+                          <div class="s2-111"><span class="s2-112"><input data-octane-input="b:e668852b" id=":in-30:" type="checkbox" data-d-component="checkbox" class="s2-113" value="on"></span><label for=":in-30:" class="s2-114"><span class="s2-115">Install Playwright and playwright-bdd</span></label></div>
+                          <div class="s2-111"><span class="s2-112"><input data-octane-input="b:e668852b" id=":in-31:" type="checkbox" data-d-component="checkbox" class="s2-113" value="on"></span><label for=":in-31:" class="s2-114"><span class="s2-115">Configure playwright.config.ts</span></label></div>
+                          <div class="s2-111"><span class="s2-112"><input data-octane-input="b:e668852b" id=":in-32:" type="checkbox" data-d-component="checkbox" class="s2-113" value="on"></span><label for=":in-32:" class="s2-114"><span class="s2-115">Write a .feature file</span></label></div>
+                          <div class="s2-111"><span class="s2-112"><input data-octane-input="b:e668852b" id=":in-33:" type="checkbox" data-d-component="checkbox" class="s2-113" value="on"></span><label for=":in-33:" class="s2-114"><span class="s2-115">Create Given, When and Then step definitions</span></label></div>
+                          <div class="s2-111"><span class="s2-112"><input data-octane-input="b:e668852b" id=":in-34:" type="checkbox" data-d-component="checkbox" class="s2-113" value="on"></span><label for=":in-34:" class="s2-114"><span class="s2-115">Use {string} parameterization</span></label></div>
+                          <div class="s2-111"><span class="s2-112"><input data-octane-input="b:e668852b" id=":in-35:" type="checkbox" data-d-component="checkbox" class="s2-113" value="on"></span><label for=":in-35:" class="s2-114"><span class="s2-115">Generate tests with bddgen</span></label></div>
+                          <div class="s2-111"><span class="s2-112"><input data-octane-input="b:e668852b" id=":in-36:" type="checkbox" data-d-component="checkbox" class="s2-113" value="on"></span><label for=":in-36:" class="s2-114"><span class="s2-115">Run tests using Playwright Test</span></label></div>
+                          <div class="s2-111"><span class="s2-112"><input data-octane-input="b:e668852b" id=":in-37:" type="checkbox" data-d-component="checkbox" class="s2-113" value="on"></span><label for=":in-37:" class="s2-114"><span class="s2-115">Debug a test in headed or Inspector mode</span></label></div>
+                        </div>
+                        <h2 data-d-component="title" class="s2-7" id="next-session-3-advanced-playwright-bdd-framework">Next — Session 3: Advanced Playwright BDD Framework</h2>
+                        <p data-d-component="text" class="s2-24">We will build on this project by adding <span data-d-component="text" data-d-inline="" class="s2-5">hooks, custom fixtures, scenario state, Page Object Model, data-driven testing, tags, reporting, and parallel execution</span>.</p>
+                        </section>
+                    </div>
+                    <!-- Original copy-icon symbol referenced by the preserved note markup. -->
+                    <svg aria-hidden="true" width="0" height="0" style="position:absolute"><symbol id="lightweight-conversation-copy-compact" viewBox="0 0 16 16"><g transform="translate(0 0.040527)"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.001 1.43408C13.3951 1.43452 14.5254 2.56522 14.5254 3.95947V8.62646C14.5252 10.0206 13.395 11.1504 12.001 11.1509H11.1914V11.9604C11.191 13.3545 10.0611 14.4847 8.66699 14.4849H4C2.60575 14.4849 1.47505 13.3546 1.47461 11.9604V7.29346C1.47461 5.89894 2.60548 4.76807 4 4.76807H4.80859V3.95947C4.80859 2.56495 5.93947 1.43408 7.33398 1.43408H12.001ZM4 5.81885C3.18538 5.81885 2.52539 6.47884 2.52539 7.29346V11.9604C2.52583 12.7747 3.18565 13.4351 4 13.4351H8.66699C9.48119 13.4349 10.1412 12.7746 10.1416 11.9604V7.29346C10.1416 6.47895 9.48146 5.81902 8.66699 5.81885H4ZM7.33398 2.48486C6.51936 2.48486 5.85938 3.14485 5.85938 3.95947V4.76807H8.66699C10.0614 4.76824 11.1914 5.89905 11.1914 7.29346V10.1011H12.001C12.8151 10.1006 13.4754 9.44066 13.4756 8.62646V3.95947C13.4756 3.14512 12.8152 2.4853 12.001 2.48486H7.33398Z" fill="currentColor"></path></g></symbol></svg>
+                  </div>
+                  <footer class="sl-flex" data-astro-cid-ddtxxk7k="">
+                    <div class="meta sl-flex" data-astro-cid-ddtxxk7k=""></div>
+                    <div class="pagination-links print:hidden" dir="ltr" data-astro-cid-b5raizh3=""></div>
+                  </footer>
+                </div>
+              </div>
+            </main>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+

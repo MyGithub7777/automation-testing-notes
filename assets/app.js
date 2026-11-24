@@ -1,9 +1,12 @@
 // Standalone browser JavaScript. No Astro, React, npm packages, or build step.
 (() => {
-  const site = window.DOC_SITE;
+  const basePath = new URL('../', document.currentScript.src).pathname;
+  const siteUrl = url => url.startsWith('/') && !url.startsWith('//') && !url.startsWith(basePath) ? basePath + url.slice(1) : url;
+  window.documentationUrl = siteUrl;
+  const site = { ...window.DOC_SITE, pages: window.DOC_SITE.pages.map(page => ({ ...page, url: siteUrl(page.url) })) };
   const normalized = (url) => new URL(url, location.origin).pathname.replace(/\/$/, '') || '/';
   const current = normalized(location.pathname);
-  const pageIsHome = current === '/';
+  const pageIsHome = current === normalized(basePath);
 
   // Shared subject navigation: site-data.js is the only registry to maintain.
   const topList = document.querySelector('.sidebar-content ul.top-level') || document.querySelector('.sidebar-content ul');
@@ -12,7 +15,7 @@
     const home = topList.querySelector('li')?.cloneNode(true);
     if (groupTemplate && home) {
       const homeLink = home.querySelector('a');
-      homeLink.setAttribute('href', '/');
+      homeLink.setAttribute('href', basePath);
       if (pageIsHome) homeLink.setAttribute('aria-current', 'page'); else homeLink.removeAttribute('aria-current');
       topList.replaceChildren(home);
       for (const subject of site.subjects) {
@@ -30,7 +33,7 @@
           const row = linkTemplate.cloneNode(true);
           const link = row.querySelector('a');
           link.replaceChildren(document.createTextNode(entry.title));
-          link.href = entry.url;
+          link.href = siteUrl(entry.url);
           if (normalized(entry.url) === current && !entry.url.includes('#')) link.setAttribute('aria-current', 'page');
           else link.removeAttribute('aria-current');
           list.append(row);

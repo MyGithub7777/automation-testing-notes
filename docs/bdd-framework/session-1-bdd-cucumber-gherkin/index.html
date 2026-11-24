@@ -1,0 +1,1370 @@
+<!-- Plain HTML: edit visible text and markup directly in this file. -->
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="dark" data-has-toc="" data-has-sidebar="" data-astro-cid-g5ptsecz="">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Session 1 — BDD, Cucumber & Gherkin Fundamentals | Automation Testing</title>
+    <link rel="shortcut icon" href="/automation-testing-notes/favicon.svg" type="image/svg+xml">
+    <meta property="og:title" content="Session 1 — BDD, Cucumber &amp; Gherkin Fundamentals">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en">
+    <meta property="og:description" content="BDD, Cucumber, Gherkin, feature files, scenarios, and a Session 1 knowledge check.">
+    <meta property="og:site_name" content="Automation Testing">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="description" content="BDD, Cucumber, Gherkin, feature files, scenarios, and a Session 1 knowledge check.">
+    <link rel="stylesheet" href="/automation-testing-notes/assets/print.css" media="print">
+    <link rel="stylesheet" href="/automation-testing-notes/assets/layout.css">
+    <link rel="stylesheet" href="/automation-testing-notes/assets/session-1.css">
+    <link rel="stylesheet" href="/automation-testing-notes/assets/app.css">
+    <script src="/automation-testing-notes/assets/theme.js"></script>
+    <script defer="" src="/automation-testing-notes/assets/site-data.js"></script>
+    <script defer="" src="/automation-testing-notes/assets/app.js"></script>
+    <script defer="" src="/automation-testing-notes/assets/session.js"></script>
+  </head>
+  <body data-astro-cid-g5ptsecz="">
+    <a class="sl-skip-link" href="#_top" data-astro-cid-qb7clj6f="">Skip to content</a>
+    <div class="page sl-flex" data-astro-cid-yntsjkba="">
+      <header class="header" data-astro-cid-yntsjkba="">
+        <div class="header" data-astro-cid-by6fddyj="">
+          <div class="title-wrapper sl-flex" data-astro-cid-by6fddyj=""><a href="/automation-testing-notes/" class="site-title sl-flex" data-astro-cid-6rvad3va=""><img alt="" src="/automation-testing-notes/assets/logo.svg" width="32" height="32" data-astro-cid-6rvad3va=""><span translate="no" data-astro-cid-6rvad3va="">Automation Testing</span></a></div>
+          <div class="sl-flex print:hidden" data-astro-cid-by6fddyj=""><site-search data-translations="{&quot;placeholder&quot;:&quot;Search notes&quot;}" data-astro-cid-b5kgnn7o="true"><button data-open-modal="" disabled="" aria-label="Search notes" aria-keyshortcuts="Control+K" data-astro-cid-b5kgnn7o=""><svg data-astro-cid-b5kgnn7o="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;" data-astro-cid-hkc32dio=""><path d="M21.71 20.29 18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14Z" /></svg><span class="sl-hidden md:sl-block" aria-hidden="true" data-astro-cid-b5kgnn7o="">Search notes</span><kbd class="sl-hidden md:sl-flex" style="display: none" data-astro-cid-b5kgnn7o=""><kbd data-astro-cid-b5kgnn7o="">Ctrl</kbd><kbd data-astro-cid-b5kgnn7o="">K</kbd></kbd></button><dialog style="padding: 0" aria-label="Search notes" data-astro-cid-b5kgnn7o=""><div class="dialog-frame sl-flex" data-astro-cid-b5kgnn7o=""><button data-close-modal="" class="sl-flex md:sl-hidden" data-astro-cid-b5kgnn7o="">Cancel</button><div class="search-container" data-astro-cid-b5kgnn7o=""><div id="starlight__search" data-astro-cid-b5kgnn7o=""></div></div></div></dialog></site-search></div>
+          <div class="sl-hidden md:sl-flex print:hidden right-group" data-astro-cid-by6fddyj="">
+            <div class="sl-flex social-icons" data-astro-cid-by6fddyj=""></div>
+            <starlight-theme-select data-astro-cid-smhvfpqh="true"><label style="--sl-select-width: 6.25em" data-astro-cid-2z5xp7gb=""><span class="sr-only" data-astro-cid-2z5xp7gb="">Select theme</span><span class="icon label-icon" data-astro-cid-2z5xp7gb=""><svg class="sl-theme-icon-dark" data-astro-cid-smhvfpqh="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;" data-astro-cid-hkc32dio=""><path d="M21.64 13a1 1 0 0 0-1.05-.14 8.049 8.049 0 0 1-3.37.73 8.15 8.15 0 0 1-8.14-8.1 8.59 8.59 0 0 1 .25-2A1 1 0 0 0 8 2.36a10.14 10.14 0 1 0 14 11.69 1 1 0 0 0-.36-1.05Zm-9.5 6.69A8.14 8.14 0 0 1 7.08 5.22v.27a10.15 10.15 0 0 0 10.14 10.14 9.784 9.784 0 0 0 2.1-.22 8.11 8.11 0 0 1-7.18 4.32v-.04Z" /></svg><svg class="sl-theme-icon-light" data-astro-cid-smhvfpqh="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;" data-astro-cid-hkc32dio=""><path d="M5 12a1 1 0 0 0-1-1H3a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1Zm.64 5-.71.71a1 1 0 0 0 0 1.41 1 1 0 0 0 1.41 0l.71-.71A1 1 0 0 0 5.64 17ZM12 5a1 1 0 0 0 1-1V3a1 1 0 0 0-2 0v1a1 1 0 0 0 1 1Zm5.66 2.34a1 1 0 0 0 .7-.29l.71-.71a1 1 0 1 0-1.41-1.41l-.66.71a1 1 0 0 0 0 1.41 1 1 0 0 0 .66.29Zm-12-.29a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.71-.71a1.004 1.004 0 1 0-1.43 1.41l.73.71ZM21 11h-1a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2Zm-2.64 6A1 1 0 0 0 17 18.36l.71.71a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.76-.66ZM12 6.5a5.5 5.5 0 1 0 5.5 5.5A5.51 5.51 0 0 0 12 6.5Zm0 9a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Zm0 3.5a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 0-1-1Z" /></svg><svg class="sl-theme-icon-auto" data-astro-cid-smhvfpqh="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;" data-astro-cid-hkc32dio=""><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z" /></svg></span><select autocomplete="off" data-astro-cid-2z5xp7gb=""><option value="dark" data-astro-cid-2z5xp7gb="">Dark</option><option value="light" data-astro-cid-2z5xp7gb="">Light</option><option value="auto" selected="" data-astro-cid-2z5xp7gb="">Auto</option></select><svg class="icon caret" data-astro-cid-2z5xp7gb="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;" data-astro-cid-hkc32dio=""><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z" /></svg></label></starlight-theme-select>
+          </div>
+        </div>
+      </header>
+      <nav class="sidebar print:hidden" aria-label="Main" data-astro-cid-yntsjkba=""><button popovertarget="starlight__sidebar" class="sl-menu-button sl-flex md:sl-hidden print:hidden" data-astro-cid-r2osgdlg=""><svg class="open-menu" data-astro-cid-r2osgdlg="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;" data-astro-cid-hkc32dio=""><path d="M3 8h18a1 1 0 1 0 0-2H3a1 1 0 0 0 0 2Zm18 8H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Zm0-5H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Z" /></svg><svg class="close-menu" data-astro-cid-r2osgdlg="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;" data-astro-cid-hkc32dio=""><path d="m13.41 12 6.3-6.29a1.004 1.004 0 1 0-1.42-1.42L12 10.59l-6.29-6.3a1.004 1.004 0 0 0-1.42 1.42l6.3 6.29-6.3 6.29a1 1 0 0 0 0 1.42.998.998 0 0 0 1.42 0l6.29-6.3 6.29 6.3a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.42L13.41 12Z" /></svg><span class="sr-only" data-astro-cid-r2osgdlg="">Menu</span></button><sl-sidebar-pane popover="" id="starlight__sidebar" class="sidebar-pane" data-astro-cid-yntsjkba="true"><div class="sidebar-content sl-flex" data-astro-cid-yntsjkba=""><sl-sidebar-state-persist data-hash="0b553cu" data-astro-cid-ipdry5cl="true"><ul class="top-level" data-astro-cid-rmhv4bp6=""><li data-astro-cid-rmhv4bp6=""><a href="/automation-testing-notes/" class="large" data-astro-cid-rmhv4bp6=""><span data-astro-cid-rmhv4bp6="">Home</span></a></li><li data-astro-cid-rmhv4bp6=""><details data-astro-cid-rmhv4bp6=""><summary data-astro-cid-rmhv4bp6=""><span class="group-label" data-astro-cid-rmhv4bp6=""><span class="large" data-astro-cid-rmhv4bp6="">TypeScript</span></span><svg class="caret" data-astro-cid-rmhv4bp6="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;" data-astro-cid-hkc32dio=""><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z" /></svg></summary><sl-sidebar-restore data-index="0"></sl-sidebar-restore><ul data-astro-cid-rmhv4bp6=""><li data-astro-cid-rmhv4bp6=""><a href="/automation-testing-notes/#learning-path-typescript" data-astro-cid-rmhv4bp6=""><span data-astro-cid-rmhv4bp6="">Notes coming soon</span></a></li></ul></details></li><li data-astro-cid-rmhv4bp6=""><details data-astro-cid-rmhv4bp6=""><summary data-astro-cid-rmhv4bp6=""><span class="group-label" data-astro-cid-rmhv4bp6=""><span class="large" data-astro-cid-rmhv4bp6="">Playwright</span></span><svg class="caret" data-astro-cid-rmhv4bp6="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;" data-astro-cid-hkc32dio=""><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z" /></svg></summary><sl-sidebar-restore data-index="1"></sl-sidebar-restore><ul data-astro-cid-rmhv4bp6=""><li data-astro-cid-rmhv4bp6=""><a href="/automation-testing-notes/#learning-path-playwright" data-astro-cid-rmhv4bp6=""><span data-astro-cid-rmhv4bp6="">Notes coming soon</span></a></li></ul></details></li><li data-astro-cid-rmhv4bp6=""><details data-astro-cid-rmhv4bp6=""><summary data-astro-cid-rmhv4bp6=""><span class="group-label" data-astro-cid-rmhv4bp6=""><span class="large" data-astro-cid-rmhv4bp6="">POM</span></span><svg class="caret" data-astro-cid-rmhv4bp6="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;" data-astro-cid-hkc32dio=""><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z" /></svg></summary><sl-sidebar-restore data-index="2"></sl-sidebar-restore><ul data-astro-cid-rmhv4bp6=""><li data-astro-cid-rmhv4bp6=""><a href="/automation-testing-notes/#learning-path-pom" data-astro-cid-rmhv4bp6=""><span data-astro-cid-rmhv4bp6="">Notes coming soon</span></a></li></ul></details></li><li data-astro-cid-rmhv4bp6=""><details data-astro-cid-rmhv4bp6=""><summary data-astro-cid-rmhv4bp6=""><span class="group-label" data-astro-cid-rmhv4bp6=""><span class="large" data-astro-cid-rmhv4bp6="">Cucumber</span></span><svg class="caret" data-astro-cid-rmhv4bp6="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;" data-astro-cid-hkc32dio=""><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z" /></svg></summary><sl-sidebar-restore data-index="3"></sl-sidebar-restore><ul data-astro-cid-rmhv4bp6=""><li data-astro-cid-rmhv4bp6=""><a href="/automation-testing-notes/#learning-path-cucumber" data-astro-cid-rmhv4bp6=""><span data-astro-cid-rmhv4bp6="">Notes coming soon</span></a></li></ul></details></li><li data-astro-cid-rmhv4bp6=""><details open="" data-astro-cid-rmhv4bp6=""><summary data-astro-cid-rmhv4bp6=""><span class="group-label" data-astro-cid-rmhv4bp6=""><span class="large" data-astro-cid-rmhv4bp6="">BDD Framework</span></span><svg class="caret" data-astro-cid-rmhv4bp6="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;" data-astro-cid-hkc32dio=""><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z" /></svg></summary><sl-sidebar-restore data-index="4"></sl-sidebar-restore><ul data-astro-cid-rmhv4bp6=""><li data-astro-cid-rmhv4bp6=""><a href="/automation-testing-notes/bdd-framework/session-1-bdd-cucumber-gherkin/" aria-current="page" data-astro-cid-rmhv4bp6=""><span data-astro-cid-rmhv4bp6="">Session 1: BDD, Cucumber &amp; Gherkin</span></a></li></ul></details></li></ul></sl-sidebar-state-persist><div class="md:sl-hidden"><div class="mobile-preferences sl-flex" data-astro-cid-p4azlveh=""><div class="social-icons" data-astro-cid-p4azlveh=""></div><starlight-theme-select data-astro-cid-smhvfpqh="true"><label style="--sl-select-width: 6.25em" data-astro-cid-2z5xp7gb=""><span class="sr-only" data-astro-cid-2z5xp7gb="">Select theme</span><span class="icon label-icon" data-astro-cid-2z5xp7gb=""><svg class="sl-theme-icon-dark" data-astro-cid-smhvfpqh="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;" data-astro-cid-hkc32dio=""><path d="M21.64 13a1 1 0 0 0-1.05-.14 8.049 8.049 0 0 1-3.37.73 8.15 8.15 0 0 1-8.14-8.1 8.59 8.59 0 0 1 .25-2A1 1 0 0 0 8 2.36a10.14 10.14 0 1 0 14 11.69 1 1 0 0 0-.36-1.05Zm-9.5 6.69A8.14 8.14 0 0 1 7.08 5.22v.27a10.15 10.15 0 0 0 10.14 10.14 9.784 9.784 0 0 0 2.1-.22 8.11 8.11 0 0 1-7.18 4.32v-.04Z" /></svg><svg class="sl-theme-icon-light" data-astro-cid-smhvfpqh="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;" data-astro-cid-hkc32dio=""><path d="M5 12a1 1 0 0 0-1-1H3a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1Zm.64 5-.71.71a1 1 0 0 0 0 1.41 1 1 0 0 0 1.41 0l.71-.71A1 1 0 0 0 5.64 17ZM12 5a1 1 0 0 0 1-1V3a1 1 0 0 0-2 0v1a1 1 0 0 0 1 1Zm5.66 2.34a1 1 0 0 0 .7-.29l.71-.71a1 1 0 1 0-1.41-1.41l-.66.71a1 1 0 0 0 0 1.41 1 1 0 0 0 .66.29Zm-12-.29a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.71-.71a1.004 1.004 0 1 0-1.43 1.41l.73.71ZM21 11h-1a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2Zm-2.64 6A1 1 0 0 0 17 18.36l.71.71a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.76-.66ZM12 6.5a5.5 5.5 0 1 0 5.5 5.5A5.51 5.51 0 0 0 12 6.5Zm0 9a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Zm0 3.5a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 0-1-1Z" /></svg><svg class="sl-theme-icon-auto" data-astro-cid-smhvfpqh="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;" data-astro-cid-hkc32dio=""><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z" /></svg></span><select autocomplete="off" data-astro-cid-2z5xp7gb=""><option value="dark" data-astro-cid-2z5xp7gb="">Dark</option><option value="light" data-astro-cid-2z5xp7gb="">Light</option><option value="auto" selected="" data-astro-cid-2z5xp7gb="">Auto</option></select><svg class="icon caret" data-astro-cid-2z5xp7gb="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;" data-astro-cid-hkc32dio=""><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z" /></svg></label></starlight-theme-select></div></div></div></sl-sidebar-pane></nav>
+      <div class="main-frame" data-astro-cid-yntsjkba="">
+        <div class="lg:sl-flex" data-astro-cid-lrzkfocr="">
+          <aside class="right-sidebar-container print:hidden" data-astro-cid-lrzkfocr="">
+            <div class="right-sidebar" data-astro-cid-lrzkfocr="">
+              <div class="lg:sl-hidden" data-astro-cid-qok35upx=""><mobile-starlight-toc data-min-h="2" data-max-h="3" data-astro-cid-66cqc7ze="true"><nav aria-labelledby="starlight__on-this-page--mobile" data-astro-cid-66cqc7ze=""><details id="starlight__mobile-toc" data-astro-cid-66cqc7ze=""><summary id="starlight__on-this-page--mobile" class="sl-flex" data-astro-cid-66cqc7ze=""><span class="toggle sl-flex" data-astro-cid-66cqc7ze="">On this page<svg class="caret" data-astro-cid-66cqc7ze="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1rem;" data-astro-cid-hkc32dio=""><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z" /></svg></span><span class="display-current" data-astro-cid-66cqc7ze=""></span></summary><div class="dropdown" data-astro-cid-66cqc7ze=""><ul class="isMobile" style="--depth: 0;" data-astro-cid-jugkfwgx=""><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#_top" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">Overview</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#1-what-is-bdd" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">1. What is BDD?</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#2-what-is-cucumber" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">2. What is Cucumber?</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#3-what-is-gherkin" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">3. What is Gherkin?</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#4-given-when-then-and-but" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">4. Given, When, Then, And, But</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#5-what-is-background" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">5. What is Background?</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#6-scenario-outline-and-examples" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">6. Scenario Outline and Examples</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#_top-1" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">1 Scenario Outline + 3 Data Rows = 3 Tests</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#7-data-tables-and-doc-strings" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">7. Data Tables and Doc Strings</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#8-what-are-tags-in-gherkin" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">8. What are Tags in Gherkin?</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#9-rule-keyword" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">9. Rule keyword</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#10-gherkin-best-practices" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">10. Gherkin best practices</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#11-complete-practical-example" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">11. Complete practical example</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#12-quick-knowledge-check" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">12. Quick knowledge check</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#session-1-recap" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">Session 1 recap</span></a></li></ul></div></details></nav></mobile-starlight-toc></div>
+              <div class="right-sidebar-panel sl-hidden lg:sl-block" data-astro-cid-qok35upx="">
+                <div class="sl-container" data-astro-cid-qok35upx=""><starlight-toc data-min-h="2" data-max-h="3"><nav aria-labelledby="starlight__on-this-page"><h2 id="starlight__on-this-page">On this page</h2><ul style="--depth: 0;" data-astro-cid-jugkfwgx=""><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#_top" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">Overview</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#1-what-is-bdd" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">1. What is BDD?</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#2-what-is-cucumber" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">2. What is Cucumber?</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#3-what-is-gherkin" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">3. What is Gherkin?</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#4-given-when-then-and-but" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">4. Given, When, Then, And, But</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#5-what-is-background" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">5. What is Background?</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#6-scenario-outline-and-examples" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">6. Scenario Outline and Examples</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#_top-1" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">1 Scenario Outline + 3 Data Rows = 3 Tests</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#7-data-tables-and-doc-strings" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">7. Data Tables and Doc Strings</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#8-what-are-tags-in-gherkin" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">8. What are Tags in Gherkin?</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#9-rule-keyword" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">9. Rule keyword</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#10-gherkin-best-practices" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">10. Gherkin best practices</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#11-complete-practical-example" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">11. Complete practical example</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#12-quick-knowledge-check" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">12. Quick knowledge check</span></a></li><li style="--depth: 0;" data-astro-cid-jugkfwgx=""><a href="#session-1-recap" style="--depth: 0;" data-astro-cid-jugkfwgx=""><span style="--depth: 0;" data-astro-cid-jugkfwgx="">Session 1 recap</span></a></li></ul></nav></starlight-toc></div>
+              </div>
+            </div>
+          </aside>
+          <div class="main-pane" data-astro-cid-lrzkfocr="">
+            <main data-pagefind-body="" lang="en" dir="ltr" data-astro-cid-g5ptsecz="">
+              <div class="content-panel" data-astro-cid-a7po4psb="">
+                <div class="sl-container" data-astro-cid-a7po4psb="">
+                  <h1 id="_top" data-astro-cid-bebwqqxs="">Session 1 — BDD, Cucumber &amp; Gherkin Fundamentals</h1>
+                </div>
+              </div>
+              <div class="content-panel" data-astro-cid-a7po4psb="">
+                <div class="sl-container" data-astro-cid-a7po4psb="">
+                  <div class="sl-markdown-content">
+                    <div class="not-content">
+                      <section aria-label="DIL content" dir="auto" class="ss0 shared-snapshot">
+                        <h1 data-d-component="title" class="ss1" id="_top">Session 1 — BDD, Cucumber &amp; Gherkin Fundamentals</h1>
+                        <div data-d-component="row" data-d-direction="row" class="ss2"><span data-d-component="badge" data-color="secondary" data-variant="soft" class="ss3">Beginner Friendly</span><span data-d-component="badge" data-color="secondary" data-variant="soft" class="ss3">Theory + Examples</span><span data-d-component="badge" data-color="secondary" data-variant="soft" class="ss3">Playwright BDD Focus</span></div>
+                        <p data-d-component="text" class="ss4"><span data-d-component="text" data-d-inline="" class="ss5">Learning
+      objective:</span> Understand BDD, Cucumber, and Gherkin, and learn how to write professional <code data-d-component="code" class="ss6">.feature</code> files before integrating them with Playwright and TypeScript.
+  </p>
+                        
+                        <h2 data-d-component="title" class="ss7" id="1-what-is-bdd">1. What is BDD?</h2>
+                        <p data-d-component="text" class="ss8"><span data-d-component="text" data-d-inline="" class="ss5">BDD stands for
+      Behavior-Driven Development.</span></p>
+                        <p data-d-component="text" class="ss4">BDD is a software development approach that focuses on how an application
+    should behave from the user's perspective.</p>
+                        <p data-d-component="text" class="ss4">It encourages collaboration between:</p>
+                        <ul role="list" data-d-component="list" data-d-marker="bullet" data-d-marker-layout="native" class="ss9">
+                          <li data-d-component="list-item" data-d-marker-layout="native" class="ss10">
+                            <div class="ss11">
+                              <div class="ss12">
+                                <p data-d-component="text" class="ss12">Business Analysts (BA) / Product Owners (PO)</p>
+                              </div>
+                            </div>
+                          </li>
+                          <li data-d-component="list-item" data-d-marker-layout="native" class="ss10">
+                            <div class="ss11">
+                              <div class="ss12">
+                                <p data-d-component="text" class="ss12">Developers</p>
+                              </div>
+                            </div>
+                          </li>
+                          <li data-d-component="list-item" data-d-marker-layout="native" class="ss10">
+                            <div class="ss11">
+                              <div class="ss12">
+                                <p data-d-component="text" class="ss12">Testers / QA Engineers</p>
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                        <p data-d-component="text" class="ss4">In BDD, we describe application behavior using simple, understandable language
+    rather than technical automation code.</p>
+                        <h3 data-d-component="title" class="ss13" id="example-login-functionality">Example: Login functionality</h3>
+                        <p data-d-component="text" class="ss8">Imagine a requirement:</p>
+                        <blockquote data-d-component="blockquote" class="ss14">
+    <p data-d-component="text" class="ss15">A registered user should be able to log in using valid credentials and see
+      the dashboard.</p>
+  </blockquote>
+                        <p data-d-component="text" class="ss4">Without BDD, a tester might immediately write automation code to fill username
+    and password fields.</p>
+                        <p data-d-component="text" class="ss4">With BDD, the expected behavior is described first:</p>
+                        <div class="ss16">
+                          <span data-message-content-controls="" class="ss17"><button class="ss18" type="button" data-icon-only="" data-icon-position="start" data-icon-shape="non-circular" data-radius="full" data-size="small" data-variant="ghost" data-w-component="button" aria-label="Copy code" data-code-copy-state="idle" data-oai-tooltip="" data-oai-tooltip-side="bottom" data-oai-tooltip-side-offset="8" data-session-copy="session-code-0"><svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16" class="ss19">
+          <use href="#lightweight-conversation-copy-compact" class="ss20"></use>
+        </svg></button></span>
+                          <div class="ss21"><span class="ss22">gherkin</span></div>
+                          <pre class="ss23" id="session-code-0"><code data-code-language="gherkin" class="ss24">Feature: Login functionality
+
+  Scenario: Successful login
+    Given User is on the login page
+    When User enters valid credentials
+    Then User should see the dashboard</code></pre>
+                        </div>
+                        <p data-d-component="text" class="ss4">This scenario can be understood by a business analyst, developer, or tester
+    without knowing TypeScript.</p>
+                        <h3 data-d-component="title" class="ss13" id="bdd-workflow">BDD workflow</h3>
+                        <div data-d-component="box" data-d-direction="col" class="ss25">
+                          <div data-d-component="box" data-d-direction="col" class="ss26">
+                            <p data-d-component="text" class="ss15"><span data-d-component="text" data-d-inline="" class="ss5">Business
+          Requirement</span></p>
+                            <p data-d-component="text" class="ss27">User should log in successfully</p>
+                          </div>
+                          <svg width="1em" height="1em" viewBox="0 0 24 24" data-d-component="icon" data-icon-name="arrow-down" aria-hidden="true" focusable="false" class="ss28" fill="none">
+      <g class="ss29">
+        <path d="M11.9999 5C12.5522 5.00003 12.9999 5.44774 12.9999 6V15.5859L16.2929 12.293C16.6834 11.9025 17.3164 11.9025 17.707 12.293C18.0974 12.6835 18.0974 13.3165 17.707 13.707L12.8837 18.5303C12.8514 18.5626 12.817 18.5921 12.7822 18.6201C12.599 18.8509 12.3174 19 11.9999 19C11.6822 19 11.3999 18.8511 11.2167 18.6201C11.1821 18.5922 11.1483 18.5625 11.1161 18.5303L6.29289 13.707C5.90237 13.3165 5.90237 12.6835 6.29289 12.293C6.68342 11.9025 7.31644 11.9025 7.70696 12.293L10.9999 15.5859V6C10.9999 5.44771 11.4476 5 11.9999 5Z" fill="currentColor" class="ss30"></path>
+      </g>
+    </svg>
+                          <div data-d-component="box" data-d-direction="col" class="ss26">
+                            <p data-d-component="text" class="ss15"><span data-d-component="text" data-d-inline="" class="ss5">BDD
+          Discussion</span></p>
+                            <p data-d-component="text" class="ss27">BA + Developer + QA agree on behavior</p>
+                          </div>
+                          <svg width="1em" height="1em" viewBox="0 0 24 24" data-d-component="icon" data-icon-name="arrow-down" aria-hidden="true" focusable="false" class="ss28" fill="none">
+      <g class="ss29">
+        <path d="M11.9999 5C12.5522 5.00003 12.9999 5.44774 12.9999 6V15.5859L16.2929 12.293C16.6834 11.9025 17.3164 11.9025 17.707 12.293C18.0974 12.6835 18.0974 13.3165 17.707 13.707L12.8837 18.5303C12.8514 18.5626 12.817 18.5921 12.7822 18.6201C12.599 18.8509 12.3174 19 11.9999 19C11.6822 19 11.3999 18.8511 11.2167 18.6201C11.1821 18.5922 11.1483 18.5625 11.1161 18.5303L6.29289 13.707C5.90237 13.3165 5.90237 12.6835 6.29289 12.293C6.68342 11.9025 7.31644 11.9025 7.70696 12.293L10.9999 15.5859V6C10.9999 5.44771 11.4476 5 11.9999 5Z" fill="currentColor" class="ss30"></path>
+      </g>
+    </svg>
+                          <div data-d-component="box" data-d-direction="col" class="ss26">
+                            <p data-d-component="text" class="ss15"><span data-d-component="text" data-d-inline="" class="ss5">Gherkin
+          Scenario</span></p>
+                            <p data-d-component="text" class="ss27">Given → When → Then</p>
+                          </div>
+                          <svg width="1em" height="1em" viewBox="0 0 24 24" data-d-component="icon" data-icon-name="arrow-down" aria-hidden="true" focusable="false" class="ss28" fill="none">
+      <g class="ss29">
+        <path d="M11.9999 5C12.5522 5.00003 12.9999 5.44774 12.9999 6V15.5859L16.2929 12.293C16.6834 11.9025 17.3164 11.9025 17.707 12.293C18.0974 12.6835 18.0974 13.3165 17.707 13.707L12.8837 18.5303C12.8514 18.5626 12.817 18.5921 12.7822 18.6201C12.599 18.8509 12.3174 19 11.9999 19C11.6822 19 11.3999 18.8511 11.2167 18.6201C11.1821 18.5922 11.1483 18.5625 11.1161 18.5303L6.29289 13.707C5.90237 13.3165 5.90237 12.6835 6.29289 12.293C6.68342 11.9025 7.31644 11.9025 7.70696 12.293L10.9999 15.5859V6C10.9999 5.44771 11.4476 5 11.9999 5Z" fill="currentColor" class="ss30"></path>
+      </g>
+    </svg>
+                          <div data-d-component="box" data-d-direction="col" class="ss26">
+                            <p data-d-component="text" class="ss15"><span data-d-component="text" data-d-inline="" class="ss5">Automation
+          Implementation</span></p>
+                            <p data-d-component="text" class="ss27">Playwright + TypeScript</p>
+                          </div>
+                          <svg width="1em" height="1em" viewBox="0 0 24 24" data-d-component="icon" data-icon-name="arrow-down" aria-hidden="true" focusable="false" class="ss28" fill="none">
+      <g class="ss29">
+        <path d="M11.9999 5C12.5522 5.00003 12.9999 5.44774 12.9999 6V15.5859L16.2929 12.293C16.6834 11.9025 17.3164 11.9025 17.707 12.293C18.0974 12.6835 18.0974 13.3165 17.707 13.707L12.8837 18.5303C12.8514 18.5626 12.817 18.5921 12.7822 18.6201C12.599 18.8509 12.3174 19 11.9999 19C11.6822 19 11.3999 18.8511 11.2167 18.6201C11.1821 18.5922 11.1483 18.5625 11.1161 18.5303L6.29289 13.707C5.90237 13.3165 5.90237 12.6835 6.29289 12.293C6.68342 11.9025 7.31644 11.9025 7.70696 12.293L10.9999 15.5859V6C10.9999 5.44771 11.4476 5 11.9999 5Z" fill="currentColor" class="ss30"></path>
+      </g>
+    </svg>
+                          <div data-d-component="box" data-d-direction="col" class="ss31">
+                            <p data-d-component="text" class="ss15"><span data-d-component="text" data-d-inline="" class="ss5">Test Execution
+          &amp; Results</span></p>
+                            <p data-d-component="text" class="ss27">Pass / Fail</p>
+                          </div>
+                        </div>
+                        <h3 data-d-component="title" class="ss13" id="advantages-and-disadvantages-of-bdd">Advantages and disadvantages of BDD
+  </h3>
+                        <div data-d-component="table" data-d-column-sizing="auto" class="ss32">
+                          <div data-d-table-viewport="" class="ss33">
+                            <table class="ss34">
+                              <tbody data-d-component="table-section" class="ss35">
+                                <tr data-d-component="table-row" class="ss36">
+            <th data-d-component="table-cell" scope="col" class="ss37">
+              <p data-d-component="text" class="ss38">Advantages</p>
+            </th>
+            <th data-d-component="table-cell" scope="col" class="ss39">
+              <p data-d-component="text" class="ss38">Disadvantages</p>
+            </th>
+          </tr>
+                                <tr data-d-component="table-row" class="ss36">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41">Easy-to-understand test scenarios</p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Initial setup requires effort</p>
+            </td>
+          </tr>
+                                <tr data-d-component="table-row" class="ss36">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41">Better communication between teams</p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Learning Gherkin takes practice</p>
+            </td>
+          </tr>
+                                <tr data-d-component="table-row" class="ss36">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41">Reusable step definitions</p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Poorly designed steps cause duplication</p>
+            </td>
+          </tr>
+                                <tr data-d-component="table-row" class="ss36">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41">Feature files act as documentation</p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Scenarios can become lengthy</p>
+            </td>
+          </tr>
+                                <tr data-d-component="table-row" class="ss36">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41">Helps detect requirement gaps early</p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Requires ongoing collaboration</p>
+            </td>
+          </tr>
+                                <tr data-d-component="table-row" class="ss43">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41">Better requirement traceability</p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Maintenance overhead</p>
+            </td>
+          </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <div aria-hidden="true" data-d-overflow-edges="" class="ss44">
+                            <div data-d-overflow-edge="start" class="ss45"></div>
+                            <div data-d-overflow-edge="end" class="ss46"></div>
+                          </div>
+                        </div>
+                        <h3 data-d-component="title" class="ss13" id="when-should-we-use-bdd">When should we use BDD?</h3>
+                        <p data-d-component="text" class="ss8">BDD is useful when requirements change frequently, the team follows Agile
+    development, and business stakeholders want to understand test coverage.</p>
+                        <p data-d-component="text" class="ss4">For a very small project without business collaboration, BDD may introduce
+    unnecessary overhead.</p>
+                        <div data-d-component="divider" aria-hidden="true" class="ss47"></div>
+                        <h2 data-d-component="title" class="ss7" id="2-what-is-cucumber">2. What is Cucumber?</h2>
+                        <p data-d-component="text" class="ss8"><span data-d-component="text" data-d-inline="" class="ss5">Cucumber is an
+      open-source BDD tool that connects business-readable scenarios with automation code.</span></p>
+                        <p data-d-component="text" class="ss4">It uses Gherkin syntax to describe application behavior.</p>
+                        <p data-d-component="text" class="ss4">Cucumber-style scenarios are written in <code data-d-component="code" class="ss6">.feature</code> files.</p>
+                        <h3 data-d-component="title" class="ss13" id="cucumber-vs-gherkin-vs-playwright-bdd">Cucumber vs Gherkin vs Playwright
+    BDD</h3>
+                        <div data-d-component="table" data-d-column-sizing="auto" class="ss32">
+                          <div data-d-table-viewport="" class="ss33">
+                            <table class="ss34">
+                              <tbody data-d-component="table-section" class="ss35">
+                                <tr data-d-component="table-row" class="ss36">
+            <th data-d-component="table-cell" scope="col" class="ss37">
+              <p data-d-component="text" class="ss38">Technology</p>
+            </th>
+            <th data-d-component="table-cell" scope="col" class="ss39">
+              <p data-d-component="text" class="ss38">Purpose</p>
+            </th>
+          </tr>
+                                <tr data-d-component="table-row" class="ss36">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41">BDD</p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Development approach focused on behavior</p>
+            </td>
+          </tr>
+                                <tr data-d-component="table-row" class="ss36">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41">Cucumber</p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Tool for implementing BDD scenarios</p>
+            </td>
+          </tr>
+                                <tr data-d-component="table-row" class="ss36">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41">Gherkin</p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Language used to write scenarios</p>
+            </td>
+          </tr>
+                                <tr data-d-component="table-row" class="ss36">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41">Playwright</p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Browser automation and testing framework</p>
+            </td>
+          </tr>
+                                <tr data-d-component="table-row" class="ss36">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41">TypeScript</p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Programming language for automation code</p>
+            </td>
+          </tr>
+                                <tr data-d-component="table-row" class="ss43">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41"><code data-d-component="code" class="ss48">playwright-bdd</code>
+              </p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Integrates Gherkin/Cucumber-style scenarios with Playwright Test
+              </p>
+            </td>
+          </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <div aria-hidden="true" data-d-overflow-edges="" class="ss49">
+                            <div data-d-overflow-edge="start" class="ss45"></div>
+                            <div data-d-overflow-edge="end" class="ss46"></div>
+                          </div>
+                        </div>
+                        <h3 data-d-component="title" class="ss13" id="how-they-work-together">How they work together</h3>
+                        <div data-d-component="box" data-d-direction="col" class="ss25">
+                          <div data-d-component="box" data-d-direction="col" data-d-auto-spacing="" class="ss50">
+                            <p data-d-component="text" class="ss15"><span data-d-component="text" data-d-inline="" class="ss5">BDD —
+          Development Approach</span></p>
+                            <p data-d-component="text" class="ss27">Describe expected application behavior</p>
+                          </div>
+                          <svg width="1em" height="1em" viewBox="0 0 24 24" data-d-component="icon" data-icon-name="arrow-down" aria-hidden="true" focusable="false" class="ss28" fill="none">
+      <g class="ss29">
+        <path d="M11.9999 5C12.5522 5.00003 12.9999 5.44774 12.9999 6V15.5859L16.2929 12.293C16.6834 11.9025 17.3164 11.9025 17.707 12.293C18.0974 12.6835 18.0974 13.3165 17.707 13.707L12.8837 18.5303C12.8514 18.5626 12.817 18.5921 12.7822 18.6201C12.599 18.8509 12.3174 19 11.9999 19C11.6822 19 11.3999 18.8511 11.2167 18.6201C11.1821 18.5922 11.1483 18.5625 11.1161 18.5303L6.29289 13.707C5.90237 13.3165 5.90237 12.6835 6.29289 12.293C6.68342 11.9025 7.31644 11.9025 7.70696 12.293L10.9999 15.5859V6C10.9999 5.44771 11.4476 5 11.9999 5Z" fill="currentColor" class="ss30"></path>
+      </g>
+    </svg>
+                          <div data-d-component="box" data-d-direction="col" data-d-auto-spacing="" class="ss50">
+                            <p data-d-component="text" class="ss15"><span data-d-component="text" data-d-inline="" class="ss5">Gherkin —
+          Feature File</span></p>
+                            <p data-d-component="text" class="ss27">Given / When / Then</p>
+                          </div>
+                          <svg width="1em" height="1em" viewBox="0 0 24 24" data-d-component="icon" data-icon-name="arrow-down" aria-hidden="true" focusable="false" class="ss28" fill="none">
+      <g class="ss29">
+        <path d="M11.9999 5C12.5522 5.00003 12.9999 5.44774 12.9999 6V15.5859L16.2929 12.293C16.6834 11.9025 17.3164 11.9025 17.707 12.293C18.0974 12.6835 18.0974 13.3165 17.707 13.707L12.8837 18.5303C12.8514 18.5626 12.817 18.5921 12.7822 18.6201C12.599 18.8509 12.3174 19 11.9999 19C11.6822 19 11.3999 18.8511 11.2167 18.6201C11.1821 18.5922 11.1483 18.5625 11.1161 18.5303L6.29289 13.707C5.90237 13.3165 5.90237 12.6835 6.29289 12.293C6.68342 11.9025 7.31644 11.9025 7.70696 12.293L10.9999 15.5859V6C10.9999 5.44771 11.4476 5 11.9999 5Z" fill="currentColor" class="ss30"></path>
+      </g>
+    </svg>
+                          <div data-d-component="box" data-d-direction="col" data-d-auto-spacing="" class="ss50">
+                            <p data-d-component="text" class="ss15"><span data-d-component="text" data-d-inline="" class="ss5">playwright-bdd
+          — Integration</span></p>
+                            <p data-d-component="text" class="ss27">Connects Gherkin with Playwright tests</p>
+                          </div>
+                          <svg width="1em" height="1em" viewBox="0 0 24 24" data-d-component="icon" data-icon-name="arrow-down" aria-hidden="true" focusable="false" class="ss28" fill="none">
+      <g class="ss29">
+        <path d="M11.9999 5C12.5522 5.00003 12.9999 5.44774 12.9999 6V15.5859L16.2929 12.293C16.6834 11.9025 17.3164 11.9025 17.707 12.293C18.0974 12.6835 18.0974 13.3165 17.707 13.707L12.8837 18.5303C12.8514 18.5626 12.817 18.5921 12.7822 18.6201C12.599 18.8509 12.3174 19 11.9999 19C11.6822 19 11.3999 18.8511 11.2167 18.6201C11.1821 18.5922 11.1483 18.5625 11.1161 18.5303L6.29289 13.707C5.90237 13.3165 5.90237 12.6835 6.29289 12.293C6.68342 11.9025 7.31644 11.9025 7.70696 12.293L10.9999 15.5859V6C10.9999 5.44771 11.4476 5 11.9999 5Z" fill="currentColor" class="ss30"></path>
+      </g>
+    </svg>
+                          <div data-d-component="box" data-d-direction="col" data-d-auto-spacing="" class="ss50">
+                            <p data-d-component="text" class="ss15"><span data-d-component="text" data-d-inline="" class="ss5">Playwright +
+          TypeScript</span></p>
+                            <p data-d-component="text" class="ss27">Automates browser actions and validates results</p>
+                          </div>
+                        </div>
+                        <p data-d-component="text" class="ss51">Playwright BDD integration is additional context for your chosen framework;
+    your S1 and S2 sources explain BDD, Cucumber, and Gherkin generally.</p>
+                        <div data-d-component="divider" aria-hidden="true" class="ss47"></div>
+                        <h2 data-d-component="title" class="ss7" id="3-what-is-gherkin">3. What is Gherkin?</h2>
+                        <p data-d-component="text" class="ss8">Gherkin is a simple, structured language used to describe application behavior.
+  </p>
+                        <p data-d-component="text" class="ss4">It uses keywords such as <code data-d-component="code" class="ss6">Feature</code>, <code data-d-component="code" class="ss6">Scenario</code>, <code data-d-component="code" class="ss6">Given</code>, <code data-d-component="code" class="ss6">When</code>, and <code data-d-component="code" class="ss6">Then</code>.</p>
+                        <p data-d-component="text" class="ss4">Gherkin scenarios are saved in files with the <code data-d-component="code" class="ss6">.feature</code> extension.</p>
+                        <h3 data-d-component="title" class="ss13" id="gherkin-keywords">Gherkin keywords</h3>
+                        <div data-d-component="table" data-d-column-sizing="auto" class="ss32">
+                          <div data-d-table-viewport="" class="ss33">
+                            <table class="ss34">
+                              <tbody data-d-component="table-section" class="ss35">
+                                <tr data-d-component="table-row" class="ss36">
+            <th data-d-component="table-cell" scope="col" class="ss37">
+              <p data-d-component="text" class="ss38">Keyword</p>
+            </th>
+            <th data-d-component="table-cell" scope="col" class="ss39">
+              <p data-d-component="text" class="ss38">Purpose</p>
+            </th>
+          </tr>
+                                <tr data-d-component="table-row" class="ss36">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41"><code data-d-component="code" class="ss48">Feature</code></p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Describes the functionality being tested</p>
+            </td>
+          </tr>
+                                <tr data-d-component="table-row" class="ss36">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41"><code data-d-component="code" class="ss48">Scenario</code></p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Represents one test case</p>
+            </td>
+          </tr>
+                                <tr data-d-component="table-row" class="ss36">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41"><code data-d-component="code" class="ss48">Given</code></p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Defines the initial condition</p>
+            </td>
+          </tr>
+                                <tr data-d-component="table-row" class="ss36">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41"><code data-d-component="code" class="ss48">When</code></p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Describes an action</p>
+            </td>
+          </tr>
+                                <tr data-d-component="table-row" class="ss36">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41"><code data-d-component="code" class="ss48">Then</code></p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Describes the expected result</p>
+            </td>
+          </tr>
+                                <tr data-d-component="table-row" class="ss36">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41"><code data-d-component="code" class="ss48">And</code></p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Adds another related step</p>
+            </td>
+          </tr>
+                                <tr data-d-component="table-row" class="ss36">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41"><code data-d-component="code" class="ss48">But</code></p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Describes an exception or contrast</p>
+            </td>
+          </tr>
+                                <tr data-d-component="table-row" class="ss36">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41"><code data-d-component="code" class="ss48">Background</code></p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Common steps for scenarios</p>
+            </td>
+          </tr>
+                                <tr data-d-component="table-row" class="ss36">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41"><code data-d-component="code" class="ss48">Scenario Outline</code>
+              </p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Runs the same scenario with different data</p>
+            </td>
+          </tr>
+                                <tr data-d-component="table-row" class="ss36">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41"><code data-d-component="code" class="ss48">Examples</code></p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Supplies data for Scenario Outline</p>
+            </td>
+          </tr>
+                                <tr data-d-component="table-row" class="ss43">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41"><code data-d-component="code" class="ss48">Rule</code></p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Groups scenarios by business rule</p>
+            </td>
+          </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <div aria-hidden="true" data-d-overflow-edges="" class="ss49">
+                            <div data-d-overflow-edge="start" class="ss45"></div>
+                            <div data-d-overflow-edge="end" class="ss46"></div>
+                          </div>
+                        </div>
+                        <h3 data-d-component="title" class="ss13" id="example-feature-file">Example feature file</h3>
+                        <div class="ss16">
+                          <span data-message-content-controls="" class="ss17"><button class="ss52" type="button" data-icon-only="" data-icon-position="start" data-icon-shape="non-circular" data-radius="full" data-size="small" data-variant="ghost" data-w-component="button" aria-label="Copy code" data-code-copy-state="idle" data-oai-tooltip="" data-oai-tooltip-side="bottom" data-oai-tooltip-side-offset="8" data-session-copy="session-code-1"><svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16" class="ss19">
+          <use href="#lightweight-conversation-copy-compact" class="ss20"></use>
+        </svg></button></span>
+                          <div class="ss21"><span class="ss22">gherkin</span></div>
+                          <pre class="ss23" id="session-code-1"><code data-code-language="gherkin" class="ss24">
+Feature: Login functionality
+  Users should be able to log in
+  using valid credentials.
+
+  Scenario: Successful login
+    Given User is on the login page
+    When User enters valid username and password
+    Then User should see the dashboard
+
+  Scenario: Login with invalid credentials
+    Given User is on the login page
+    When User enters invalid username and password
+    Then User should see an error message
+</code></pre>
+                        </div>
+                        <p data-d-component="text" class="ss4">One feature can contain multiple scenarios. Each scenario should test one
+    specific behavior.</p>
+                        <div data-d-component="divider" aria-hidden="true" class="ss47"></div>
+                        <h2 data-d-component="title" class="ss7" id="4-given-when-then-and-but">4. Given, When, Then, And, But</h2>
+                        <p data-d-component="text" class="ss8">These are the most commonly used Gherkin keywords.</p>
+                        <div data-d-component="box" data-d-direction="col" class="ss53">
+                          <div data-d-component="grid" class="ss54">
+                            <div data-d-component="grid-item" data-d-direction="col" data-d-auto-spacing="" class="ss55">
+                              <div data-d-component="box" data-d-direction="col" class="ss26">
+                                <svg width="1em" height="1em" viewBox="0 0 24 24" data-d-component="icon" data-icon-name="settings" aria-hidden="true" focusable="false" class="ss56" fill="currentColor">
+            <g class="ss57">
+              <path fill-rule="evenodd" d="M11.568 3.5a1 1 0 0 0-.863.494l-.811 1.381A3.001 3.001 0 0 1 7.33 6.856l-1.596.013a1 1 0 0 0-.858.501l-.439.761a1 1 0 0 0-.004.992l.792 1.4a3 3 0 0 1 0 2.954l-.792 1.4a1 1 0 0 0 .004.992l.439.76a1 1 0 0 0 .858.502l1.596.013a3 3 0 0 1 2.564 1.48l.811 1.382a1 1 0 0 0 .863.494h.87a1 1 0 0 0 .862-.494l.812-1.381a3.001 3.001 0 0 1 2.563-1.481l1.596-.013a1 1 0 0 0 .86-.501l.438-.761a1 1 0 0 0 .004-.992l-.793-1.4a3 3 0 0 1 0-2.954l.793-1.4a1 1 0 0 0-.004-.992l-.439-.76a1 1 0 0 0-.858-.502l-1.597-.013a3 3 0 0 1-2.563-1.48L13.3 3.993a1 1 0 0 0-.862-.494h-.87ZM8.98 2.981A3.001 3.001 0 0 1 11.568 1.5h.87c1.064 0 2.049.564 2.588 1.481l.811 1.382a1 1 0 0 0 .855.494l1.596.013a3 3 0 0 1 2.575 1.502l.44.76a3 3 0 0 1 .011 2.975l-.792 1.4a1 1 0 0 0 0 .985l.792 1.401a3 3 0 0 1-.012 2.974l-.439.761a3.001 3.001 0 0 1-2.575 1.503l-1.597.012a1 1 0 0 0-.854.494l-.811 1.382a3.001 3.001 0 0 1-2.588 1.481h-.87a3.001 3.001 0 0 1-2.588-1.481l-.811-1.382a1 1 0 0 0-.855-.494l-1.596-.012a3.001 3.001 0 0 1-2.576-1.503l-.438-.76a3 3 0 0 1-.013-2.975l.793-1.4a1 1 0 0 0 0-.985l-.793-1.4a3 3 0 0 1 .013-2.975l.438-.761A3.001 3.001 0 0 1 5.718 4.87l1.596-.013a1 1 0 0 0 .855-.494l.81-1.382Z" clip-rule="evenodd" class="ss57"></path>
+              <path fill-rule="evenodd" d="M12.003 10.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3ZM8.502 12a3.5 3.5 0 1 1 7 .001 3.5 3.5 0 0 1-7-.001Z" clip-rule="evenodd" class="ss57"></path>
+            </g>
+          </svg>
+                                <p data-d-component="text" class="ss15"><span data-d-component="text" data-d-inline="" class="ss5">Given</span></p>
+                                <p data-d-component="text" class="ss58">Initial condition</p>
+                              </div>
+                            </div>
+                            <div data-d-component="grid-item" data-d-direction="col" data-d-auto-spacing="" class="ss55">
+                              <div data-d-component="box" data-d-direction="col" class="ss26">
+                                <svg width="1em" height="1em" viewBox="0 0 24 24" data-d-component="icon" data-icon-name="click-legacy" aria-hidden="true" focusable="false" class="ss56" fill="currentColor">
+            <g class="ss57">
+              <path fill-rule="evenodd" d="M12.945 1.17a1 1 0 0 1 .811 1.16l-.368 2.088a1 1 0 1 1-1.97-.347l.369-2.089a1 1 0 0 1 1.158-.811ZM5.85 2.73a1 1 0 0 1 1.393.246L8.39 4.614A1 1 0 1 1 6.751 5.76L5.604 4.123a1 1 0 0 1 .245-1.393Zm3.724 5.328a1 1 0 0 1 1.06-.06l10.244 5.646a1 1 0 0 1 .09 1.695l-1.749 1.225 1.139 1.654a1 1 0 0 1-.25 1.386l-3.282 2.298a1 1 0 0 1-1.393-.246l-1.147-1.638-1.634 1.144a1 1 0 0 1-1.56-.654L9.166 9.04a1 1 0 0 1 .408-.981Zm1.907 2.69 1.322 7.867 1.155-.809a1 1 0 0 1 1.393.246l1.147 1.638 1.65-1.155-1.139-1.655a1 1 0 0 1 .25-1.386l1.248-.873-7.026-3.873ZM1.957 8.865a1 1 0 0 1 1.159-.811l2.089.368a1 1 0 1 1-.348 1.97l-2.089-.369a1 1 0 0 1-.81-1.158Z" clip-rule="evenodd" class="ss57"></path>
+            </g>
+          </svg>
+                                <p data-d-component="text" class="ss15"><span data-d-component="text" data-d-inline="" class="ss5">When</span>
+          </p>
+                                <p data-d-component="text" class="ss58">User action</p>
+                              </div>
+                            </div>
+                            <div data-d-component="grid-item" data-d-direction="col" data-d-auto-spacing="" class="ss55">
+                              <div data-d-component="box" data-d-direction="col" class="ss26">
+                                <svg width="1em" height="1em" viewBox="0 0 24 24" data-d-component="icon" data-icon-name="check-circle" aria-hidden="true" focusable="false" class="ss59" fill="none">
+            <g class="ss60">
+              <path d="M14.5635 8.46289C14.871 8.00443 15.4925 7.88126 15.9512 8.18848C16.4096 8.49605 16.532 9.11755 16.2246 9.57617L12.0693 15.7754C11.621 16.4441 10.6665 16.5201 10.1172 15.9316L7.875 13.5293C7.49845 13.1256 7.52044 12.493 7.92383 12.1162C8.32766 11.7397 8.9612 11.7613 9.33789 12.165L10.9336 13.876L14.5635 8.46289Z" fill="currentColor" class="ss57"></path>
+              <path d="M12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2ZM12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4Z" fill-rule="evenodd" clip-rule="evenodd" fill="currentColor" class="ss57"></path>
+            </g>
+          </svg>
+                                <p data-d-component="text" class="ss15"><span data-d-component="text" data-d-inline="" class="ss5">Then</span>
+          </p>
+                                <p data-d-component="text" class="ss58">Expected result</p>
+                              </div>
+                            </div>
+                          </div>
+                          <p data-d-component="text" class="ss61">Given → When → Then describes the complete behavior of a scenario.</p>
+                        </div>
+                        <h3 data-d-component="title" class="ss13" id="given-preconditions">Given — Preconditions</h3>
+                        <p data-d-component="text" class="ss8">Defines the initial state before performing an action.</p>
+                        <div class="ss16">
+                          <span data-message-content-controls="" class="ss17"><button class="ss62" type="button" data-icon-only="" data-icon-position="start" data-icon-shape="non-circular" data-radius="full" data-size="small" data-variant="ghost" data-w-component="button" aria-label="Copy code" data-code-copy-state="idle" data-oai-tooltip="" data-oai-tooltip-side="bottom" data-oai-tooltip-side-offset="8" data-session-copy="session-code-2"><svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16" class="ss19">
+          <use href="#lightweight-conversation-copy-compact" class="ss20"></use>
+        </svg></button></span>
+                          <div class="ss21"><span class="ss22">gherkin</span></div>
+                          <pre class="ss23" id="session-code-2"><code data-code-language="gherkin" class="ss24">Given User is on the login page</code></pre>
+                        </div>
+                        <p data-d-component="text" class="ss4">Other examples:</p>
+                        <div class="ss16">
+                          <span data-message-content-controls="" class="ss17"><button class="ss63" type="button" data-icon-only="" data-icon-position="start" data-icon-shape="non-circular" data-radius="full" data-size="small" data-variant="ghost" data-w-component="button" aria-label="Copy code" data-code-copy-state="idle" data-oai-tooltip="" data-oai-tooltip-side="bottom" data-oai-tooltip-side-offset="8" data-session-copy="session-code-3"><svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16" class="ss19">
+          <use href="#lightweight-conversation-copy-compact" class="ss20"></use>
+        </svg></button></span>
+                          <div class="ss21"><span class="ss22">gherkin</span></div>
+                          <pre class="ss23" id="session-code-3"><code data-code-language="gherkin" class="ss24">Given User is logged into the application
+Given User has products in the cart</code></pre>
+                        </div>
+                        <h3 data-d-component="title" class="ss13" id="when-action">When — Action</h3>
+                        <p data-d-component="text" class="ss8">Describes what the user does.</p>
+                        <div class="ss16">
+                          <span data-message-content-controls="" class="ss17"><button class="ss62" type="button" data-icon-only="" data-icon-position="start" data-icon-shape="non-circular" data-radius="full" data-size="small" data-variant="ghost" data-w-component="button" aria-label="Copy code" data-code-copy-state="idle" data-oai-tooltip="" data-oai-tooltip-side="bottom" data-oai-tooltip-side-offset="8" data-session-copy="session-code-4"><svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16" class="ss19">
+          <use href="#lightweight-conversation-copy-compact" class="ss20"></use>
+        </svg></button></span>
+                          <div class="ss21"><span class="ss22">gherkin</span></div>
+                          <pre class="ss23" id="session-code-4"><code data-code-language="gherkin" class="ss24">When User enters valid credentials</code></pre>
+                        </div>
+                        <p data-d-component="text" class="ss4">Other examples:</p>
+                        <div class="ss16">
+                          <span data-message-content-controls="" class="ss17"><button class="ss63" type="button" data-icon-only="" data-icon-position="start" data-icon-shape="non-circular" data-radius="full" data-size="small" data-variant="ghost" data-w-component="button" aria-label="Copy code" data-code-copy-state="idle" data-oai-tooltip="" data-oai-tooltip-side="bottom" data-oai-tooltip-side-offset="8" data-session-copy="session-code-5"><svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16" class="ss19">
+          <use href="#lightweight-conversation-copy-compact" class="ss20"></use>
+        </svg></button></span>
+                          <div class="ss21"><span class="ss22">gherkin</span></div>
+                          <pre class="ss23" id="session-code-5"><code data-code-language="gherkin" class="ss24">When User clicks the login button
+When User adds a product to the cart</code></pre>
+                        </div>
+                        <h3 data-d-component="title" class="ss13" id="then-expected-result">Then — Expected result</h3>
+                        <p data-d-component="text" class="ss8">Describes what should happen after the action.</p>
+                        <div class="ss16">
+                          <span data-message-content-controls="" class="ss17"><button class="ss62" type="button" data-icon-only="" data-icon-position="start" data-icon-shape="non-circular" data-radius="full" data-size="small" data-variant="ghost" data-w-component="button" aria-label="Copy code" data-code-copy-state="idle" data-oai-tooltip="" data-oai-tooltip-side="bottom" data-oai-tooltip-side-offset="8" data-session-copy="session-code-6"><svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16" class="ss19">
+          <use href="#lightweight-conversation-copy-compact" class="ss20"></use>
+        </svg></button></span>
+                          <div class="ss21"><span class="ss22">gherkin</span></div>
+                          <pre class="ss23" id="session-code-6"><code data-code-language="gherkin" class="ss24">Then User should see the dashboard</code></pre>
+                        </div>
+                        <p data-d-component="text" class="ss4">Other examples:</p>
+                        <div class="ss16">
+                          <span data-message-content-controls="" class="ss17"><button class="ss63" type="button" data-icon-only="" data-icon-position="start" data-icon-shape="non-circular" data-radius="full" data-size="small" data-variant="ghost" data-w-component="button" aria-label="Copy code" data-code-copy-state="idle" data-oai-tooltip="" data-oai-tooltip-side="bottom" data-oai-tooltip-side-offset="8" data-session-copy="session-code-7"><svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16" class="ss19">
+          <use href="#lightweight-conversation-copy-compact" class="ss20"></use>
+        </svg></button></span>
+                          <div class="ss21"><span class="ss22">gherkin</span></div>
+                          <pre class="ss23" id="session-code-7"><code data-code-language="gherkin" class="ss24">Then User should see an error message
+Then Cart should contain one product</code></pre>
+                        </div>
+                        <h3 data-d-component="title" class="ss13" id="and-but-additional-steps">And / But — Additional steps</h3>
+                        <p data-d-component="text" class="ss8"><code data-d-component="code" class="ss6">And</code> adds another step of the
+    same kind. <code data-d-component="code" class="ss6">But</code> describes a contrasting condition or outcome.</p>
+                        <div class="ss16">
+                          <span data-message-content-controls="" class="ss17"><button class="ss64" type="button" data-icon-only="" data-icon-position="start" data-icon-shape="non-circular" data-radius="full" data-size="small" data-variant="ghost" data-w-component="button" aria-label="Copy code" data-code-copy-state="idle" data-oai-tooltip="" data-oai-tooltip-side="bottom" data-oai-tooltip-side-offset="8" data-session-copy="session-code-8"><svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16" class="ss19">
+          <use href="#lightweight-conversation-copy-compact" class="ss20"></use>
+        </svg></button></span>
+                          <div class="ss21"><span class="ss22">gherkin</span></div>
+                          <pre class="ss23" id="session-code-8"><code data-code-language="gherkin" class="ss24">Scenario: Login with empty password
+  Given User is on the login page
+  And User has a registered account
+  When User enters a valid username
+  But leaves the password empty
+  Then User should see a validation message
+  And User should remain on the login page</code></pre>
+                        </div>
+                        <p data-d-component="text" class="ss4"><span data-d-component="text" data-d-inline="" class="ss5">Best
+      practice:</span> Keep scenarios focused on business behavior, not technical details such as CSS selectors, XPath,
+    or browser commands.</p>
+                        <div data-d-component="divider" aria-hidden="true" class="ss47"></div>
+                        <h2 data-d-component="title" class="ss7" id="5-what-is-background">5. What is Background?</h2>
+                        <p data-d-component="text" class="ss8"><code data-d-component="code" class="ss6">Background</code> is used when
+    multiple scenarios in the same feature require common setup steps.</p>
+                        <p data-d-component="text" class="ss4">Background steps execute before each scenario in their scope.</p>
+                        <h3 data-d-component="title" class="ss13" id="without-background">Without Background</h3>
+                        <div class="ss16">
+                          <span data-message-content-controls="" class="ss17"><button class="ss65" type="button" data-icon-only="" data-icon-position="start" data-icon-shape="non-circular" data-radius="full" data-size="small" data-variant="ghost" data-w-component="button" aria-label="Copy code" data-code-copy-state="idle" data-oai-tooltip="" data-oai-tooltip-side="bottom" data-oai-tooltip-side-offset="8" data-session-copy="session-code-9"><svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16" class="ss19">
+          <use href="#lightweight-conversation-copy-compact" class="ss20"></use>
+        </svg></button></span>
+                          <div class="ss21"><span class="ss22">gherkin</span></div>
+                          <pre class="ss23" id="session-code-9"><code data-code-language="gherkin" class="ss24">Feature: Login
+
+  Scenario: Valid login
+    Given User is on the login page
+    When User enters valid credentials
+    Then User should see the dashboard
+
+  Scenario: Invalid login
+    Given User is on the login page
+    When User enters invalid credentials
+    Then User should see an error message</code></pre>
+                        </div>
+                        <p data-d-component="text" class="ss4">Notice that the <code data-d-component="code" class="ss6">Given</code> step is
+    repeated.</p>
+                        <h3 data-d-component="title" class="ss13" id="with-background">With Background</h3>
+                        <div class="ss16">
+                          <span data-message-content-controls="" class="ss17"><button class="ss66" type="button" data-icon-only="" data-icon-position="start" data-icon-shape="non-circular" data-radius="full" data-size="small" data-variant="ghost" data-w-component="button" aria-label="Copy code" data-code-copy-state="idle" data-oai-tooltip="" data-oai-tooltip-side="bottom" data-oai-tooltip-side-offset="8" data-session-copy="session-code-10"><svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16" class="ss19">
+          <use href="#lightweight-conversation-copy-compact" class="ss20"></use>
+        </svg></button></span>
+                          <div class="ss21"><span class="ss22">gherkin</span></div>
+                          <pre class="ss23" id="session-code-10"><code data-code-language="gherkin" class="ss24">Feature: Login
+
+  Background:
+    Given User is on the login page
+
+  Scenario: Valid login
+    When User enters valid credentials
+    Then User should see the dashboard
+
+  Scenario: Invalid login
+    When User enters invalid credentials
+    Then User should see an error message</code></pre>
+                        </div>
+                        <h3 data-d-component="title" class="ss13" id="execution-flow">Execution flow</h3>
+                        <div data-d-component="box" data-d-direction="col" class="ss67">
+                          <div data-d-component="box" data-d-direction="col" data-d-auto-spacing="" class="ss68">
+                            <p data-d-component="text" class="ss15"><span data-d-component="text" data-d-inline="" class="ss5">Background</span></p>
+                            <p data-d-component="text" class="ss27">Given User is on the login page</p>
+                          </div>
+                          <div data-d-component="row" data-d-direction="row" data-d-auto-spacing="" class="ss69"><svg width="1em" height="1em" viewBox="0 0 20 20" data-d-component="icon" data-icon-name="branch" aria-hidden="true" focusable="false" class="ss70" fill="none">
+        <g class="ss71">
+          <path d="M14.584 2.25C16.1025 2.25026 17.334 3.48138 17.334 5C17.334 6.21234 16.548 7.23856 15.459 7.60449V7.66699C15.4588 9.43867 14.0217 10.8749 12.25 10.875H7.75C6.94484 10.8752 6.29217 11.5279 6.29199 12.333V12.3945C7.38142 12.7602 8.16699 13.7874 8.16699 15C8.16699 16.5188 6.93578 17.75 5.41699 17.75C3.89821 17.75 2.66699 16.5188 2.66699 15C2.66699 13.7874 3.45257 12.7602 4.54199 12.3945V7.60449C3.45272 7.23869 2.66699 6.2125 2.66699 5C2.66699 3.48122 3.89821 2.25 5.41699 2.25C6.93578 2.25 8.16699 3.48122 8.16699 5C8.16699 6.2125 7.38126 7.23869 6.29199 7.60449V9.47559C6.72947 9.25193 7.22495 9.12505 7.75 9.125H12.25C13.0552 9.12487 13.7088 8.47218 13.709 7.66699V7.60449C12.6195 7.23882 11.834 6.21267 11.834 5C11.834 3.48122 13.0652 2.25 14.584 2.25ZM5.41699 14C4.86471 14 4.41699 14.4477 4.41699 15C4.41699 15.5523 4.86471 16 5.41699 16C5.96928 16 6.41699 15.5523 6.41699 15C6.41699 14.4477 5.96928 14 5.41699 14ZM5.41699 4C4.86471 4 4.41699 4.44772 4.41699 5C4.41699 5.55228 4.86471 6 5.41699 6C5.96928 6 6.41699 5.55228 6.41699 5C6.41699 4.44772 5.96928 4 5.41699 4ZM14.584 4C14.0317 4 13.584 4.44772 13.584 5C13.584 5.55228 14.0317 6 14.584 6C15.136 5.99974 15.584 5.55212 15.584 5C15.584 4.44788 15.136 4.00026 14.584 4Z" fill-rule="evenodd" clip-rule="evenodd" fill="currentColor" class="ss72"></path>
+        </g>
+      </svg></div>
+                          <div data-d-component="grid" class="ss73">
+                            <div data-d-component="grid-item" data-d-direction="col" data-d-auto-spacing="" class="ss55">
+                              <div data-d-component="box" data-d-direction="col" class="ss74">
+                                <p data-d-component="text" class="ss15"><span data-d-component="text" data-d-inline="" class="ss5">Scenario
+              1</span></p>
+                                <p data-d-component="text" class="ss58">Background → Valid login → Verify dashboard</p>
+                              </div>
+                            </div>
+                            <div data-d-component="grid-item" data-d-direction="col" data-d-auto-spacing="" class="ss55">
+                              <div data-d-component="box" data-d-direction="col" class="ss74">
+                                <p data-d-component="text" class="ss15"><span data-d-component="text" data-d-inline="" class="ss5">Scenario
+              2</span></p>
+                                <p data-d-component="text" class="ss58">Background → Invalid login → Verify error</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <p data-d-component="text" class="ss4">Background does not execute just once for the entire feature. It runs for every
+    scenario.</p>
+                        <p data-d-component="text" class="ss4">Use Background only for short, common preconditions. Do not use it for
+    unrelated setup.</p>
+                        <div data-d-component="divider" aria-hidden="true" class="ss47"></div>
+                        <h2 data-d-component="title" class="ss7" id="6-scenario-outline-and-examples">6. Scenario Outline and Examples</h2>
+                        <p data-d-component="text" class="ss8">A <code data-d-component="code" class="ss6">Scenario Outline</code> allows the
+    same scenario to run with multiple sets of test data.</p>
+                        <p data-d-component="text" class="ss4">It is one of the most important Gherkin concepts for data-driven testing.</p>
+                        <h3 data-d-component="title" class="ss13" id="example">Example</h3>
+                        <div class="ss16">
+                          <span data-message-content-controls="" class="ss17"><button class="ss66" type="button" data-icon-only="" data-icon-position="start" data-icon-shape="non-circular" data-radius="full" data-size="small" data-variant="ghost" data-w-component="button" aria-label="Copy code" data-code-copy-state="idle" data-oai-tooltip="" data-oai-tooltip-side="bottom" data-oai-tooltip-side-offset="8" data-session-copy="session-code-11"><svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16" class="ss19">
+          <use href="#lightweight-conversation-copy-compact" class="ss20"></use>
+        </svg></button></span>
+                          <div class="ss21"><span class="ss22">gherkin</span></div>
+                          <pre class="ss23" id="session-code-11"><code data-code-language="gherkin" class="ss24">Feature: Login functionality
+
+  Scenario Outline: Login with multiple users
+    Given User is on the login page
+    When User enters "&lt;username&gt;" and "&lt;password&gt;"
+    Then User should see "&lt;message&gt;"
+
+    Examples:
+      | username   | password | message             |
+      | admin      | admin123 | Welcome Admin       |
+      | user1      | wrong123 | Invalid credentials |
+      | lockedUser | lock123  | Account locked      |</code></pre>
+                        </div>
+                        <h3 data-d-component="title" class="ss13" id="how-scenario-outline-works">How Scenario Outline works</h3>
+                        <p data-d-component="text" class="ss8">Each row in the <code data-d-component="code" class="ss6">Examples</code> table
+    creates a separate scenario execution.</p>
+                        <div data-d-component="table" data-d-column-sizing="auto" class="ss32">
+                          <div data-d-table-viewport="" class="ss33">
+                            <table class="ss34">
+                              <tbody data-d-component="table-section" class="ss35">
+                                <tr data-d-component="table-row" class="ss36">
+            <th data-d-component="table-cell" scope="col" class="ss37">
+              <p data-d-component="text" class="ss38">Execution</p>
+            </th>
+            <th data-d-component="table-cell" scope="col" class="ss75">
+              <p data-d-component="text" class="ss38">Username</p>
+            </th>
+            <th data-d-component="table-cell" scope="col" class="ss75">
+              <p data-d-component="text" class="ss38">Password</p>
+            </th>
+            <th data-d-component="table-cell" scope="col" class="ss39">
+              <p data-d-component="text" class="ss38">Expected result</p>
+            </th>
+          </tr>
+                                <tr data-d-component="table-row" class="ss36">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41">1</p>
+            </td>
+            <td data-d-component="table-cell" class="ss76">
+              <p data-d-component="text" class="ss41">admin</p>
+            </td>
+            <td data-d-component="table-cell" class="ss76">
+              <p data-d-component="text" class="ss41">admin123</p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Welcome Admin</p>
+            </td>
+          </tr>
+                                <tr data-d-component="table-row" class="ss36">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41">2</p>
+            </td>
+            <td data-d-component="table-cell" class="ss76">
+              <p data-d-component="text" class="ss41">user1</p>
+            </td>
+            <td data-d-component="table-cell" class="ss76">
+              <p data-d-component="text" class="ss41">wrong123</p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Invalid credentials</p>
+            </td>
+          </tr>
+                                <tr data-d-component="table-row" class="ss43">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41">3</p>
+            </td>
+            <td data-d-component="table-cell" class="ss76">
+              <p data-d-component="text" class="ss41">lockedUser</p>
+            </td>
+            <td data-d-component="table-cell" class="ss76">
+              <p data-d-component="text" class="ss41">lock123</p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Account locked</p>
+            </td>
+          </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <div aria-hidden="true" data-d-overflow-edges="" class="ss49">
+                            <div data-d-overflow-edge="start" class="ss45"></div>
+                            <div data-d-overflow-edge="end" class="ss46"></div>
+                          </div>
+                        </div>
+                        <div data-d-component="box" data-d-direction="col" class="ss77">
+                          <h1 data-d-component="title" class="ss1" id="_top-1">1 Scenario Outline + 3 Data Rows = 3 Tests</h1>
+                          <p data-d-component="text" class="ss61">Each test uses its own values from the Examples table.</p>
+                        </div>
+                        <p data-d-component="text" class="ss4">Use Scenario Outline when the steps remain the same but the input or expected
+    result changes.</p>
+                        <div data-d-component="divider" aria-hidden="true" class="ss47"></div>
+                        <h2 data-d-component="title" class="ss7" id="7-data-tables-and-doc-strings">7. Data Tables and Doc Strings</h2>
+                        <p data-d-component="text" class="ss8">These are additional ways to pass information to Gherkin steps.</p>
+                        <h3 data-d-component="title" class="ss13" id="data-tables">Data Tables</h3>
+                        <p data-d-component="text" class="ss8">A Data Table supplies structured information to a step.</p>
+                        <p data-d-component="text" class="ss4">Example: Checkout form.</p>
+                        <div class="ss16">
+                          <span data-message-content-controls="" class="ss17"><button class="ss78" type="button" data-icon-only="" data-icon-position="start" data-icon-shape="non-circular" data-radius="full" data-size="small" data-variant="ghost" data-w-component="button" aria-label="Copy code" data-code-copy-state="idle" data-oai-tooltip="" data-oai-tooltip-side="bottom" data-oai-tooltip-side-offset="8" data-session-copy="session-code-12"><svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16" class="ss19">
+          <use href="#lightweight-conversation-copy-compact" class="ss20"></use>
+        </svg></button></span>
+                          <div class="ss21"><span class="ss22">gherkin</span></div>
+                          <pre class="ss23" id="session-code-12"><code data-code-language="gherkin" class="ss24">Scenario: Enter checkout details
+  Given User is on the checkout page
+  When User enters the following details
+    | field   | value     |
+    | name    | John Doe  |
+    | city    | New York  |
+    | country | USA       |
+  Then User should proceed to payment</code></pre>
+                        </div>
+                        <p data-d-component="text" class="ss4">The table is passed to the matching step definition, where TypeScript code can
+    read the rows.</p>
+                        <h3 data-d-component="title" class="ss13" id="scenario-outline-vs-data-table">Scenario Outline vs Data Table</h3>
+                        <div data-d-component="table" data-d-column-sizing="auto" class="ss32">
+                          <div data-d-table-viewport="" class="ss33">
+                            <table class="ss34">
+                              <tbody data-d-component="table-section" class="ss35">
+                                <tr data-d-component="table-row" class="ss36">
+            <th data-d-component="table-cell" scope="col" class="ss37">
+              <p data-d-component="text" class="ss38">Scenario Outline</p>
+            </th>
+            <th data-d-component="table-cell" scope="col" class="ss39">
+              <p data-d-component="text" class="ss38">Data Table</p>
+            </th>
+          </tr>
+                                <tr data-d-component="table-row" class="ss36">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41">Multiple test executions</p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Usually one scenario execution</p>
+            </td>
+          </tr>
+                                <tr data-d-component="table-row" class="ss36">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41">Data comes from Examples</p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Data is passed to a step</p>
+            </td>
+          </tr>
+                                <tr data-d-component="table-row" class="ss36">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41">Best for testing many input combinations</p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Best for forms and structured input</p>
+            </td>
+          </tr>
+                                <tr data-d-component="table-row" class="ss43">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41">Each Examples row becomes a test</p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Rows do not automatically become separate tests</p>
+            </td>
+          </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <div aria-hidden="true" data-d-overflow-edges="" class="ss79">
+                            <div data-d-overflow-edge="start" class="ss45"></div>
+                            <div data-d-overflow-edge="end" class="ss46"></div>
+                          </div>
+                        </div>
+                        <h3 data-d-component="title" class="ss13" id="doc-strings">Doc Strings</h3>
+                        <p data-d-component="text" class="ss8">Doc Strings pass multiline text to a step.</p>
+                        <div class="ss16">
+                          <span data-message-content-controls="" class="ss17"><button class="ss80" type="button" data-icon-only="" data-icon-position="start" data-icon-shape="non-circular" data-radius="full" data-size="small" data-variant="ghost" data-w-component="button" aria-label="Copy code" data-code-copy-state="idle" data-oai-tooltip="" data-oai-tooltip-side="bottom" data-oai-tooltip-side-offset="8" data-session-copy="session-code-13"><svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16" class="ss19">
+          <use href="#lightweight-conversation-copy-compact" class="ss20"></use>
+        </svg></button></span>
+                          <div class="ss21"><span class="ss22">gherkin</span></div>
+                          <pre class="ss23" id="session-code-13"><code data-code-language="gherkin" class="ss24">Scenario: Submit a support message
+  Given User is on the support page
+  When User submits the following message
+    """
+    Hello Support,
+    I cannot access my account.
+    Please help me reset my password.
+    """
+  Then User should see a confirmation message</code></pre>
+                        </div>
+                        <p data-d-component="text" class="ss4">Doc Strings are useful for long messages, JSON payloads, and other multiline
+    content.</p>
+                        <div data-d-component="divider" aria-hidden="true" class="ss47"></div>
+                        <h2 data-d-component="title" class="ss7" id="8-what-are-tags-in-gherkin">8. What are Tags in Gherkin?</h2>
+                        <p data-d-component="text" class="ss8">Tags are labels used to organize and filter scenarios.</p>
+                        <p data-d-component="text" class="ss4">Tags start with the <code data-d-component="code" class="ss6">@</code> symbol.
+  </p>
+                        <h3 data-d-component="title" class="ss13" id="example-1">Example</h3>
+                        <div class="ss16">
+                          <span data-message-content-controls="" class="ss17"><button class="ss52" type="button" data-icon-only="" data-icon-position="start" data-icon-shape="non-circular" data-radius="full" data-size="small" data-variant="ghost" data-w-component="button" aria-label="Copy code" data-code-copy-state="idle" data-oai-tooltip="" data-oai-tooltip-side="bottom" data-oai-tooltip-side-offset="8" data-session-copy="session-code-14"><svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16" class="ss19">
+          <use href="#lightweight-conversation-copy-compact" class="ss20"></use>
+        </svg></button></span>
+                          <div class="ss21"><span class="ss22">gherkin</span></div>
+                          <pre class="ss23" id="session-code-14"><code data-code-language="gherkin" class="ss24">@regression
+Feature: Login functionality
+
+  @smoke
+  Scenario: Successful login
+    Given User is on the login page
+    When User enters valid credentials
+    Then User should see the dashboard
+
+  @negative
+  Scenario: Invalid login
+    Given User is on the login page
+    When User enters invalid credentials
+    Then User should see an error message</code></pre>
+                        </div>
+                        <h3 data-d-component="title" class="ss13" id="common-tags">Common tags</h3>
+                        <div data-d-component="table" data-d-column-sizing="auto" class="ss32">
+                          <div data-d-table-viewport="" class="ss33">
+                            <table class="ss34">
+                              <tbody data-d-component="table-section" class="ss35">
+                                <tr data-d-component="table-row" class="ss36">
+            <th data-d-component="table-cell" scope="col" class="ss37">
+              <p data-d-component="text" class="ss38">Tag</p>
+            </th>
+            <th data-d-component="table-cell" scope="col" class="ss39">
+              <p data-d-component="text" class="ss38">Purpose</p>
+            </th>
+          </tr>
+                                <tr data-d-component="table-row" class="ss36">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41"><code data-d-component="code" class="ss48">@smoke</code></p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Critical functionality</p>
+            </td>
+          </tr>
+                                <tr data-d-component="table-row" class="ss36">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41"><code data-d-component="code" class="ss48">@regression</code></p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Regression testing</p>
+            </td>
+          </tr>
+                                <tr data-d-component="table-row" class="ss36">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41"><code data-d-component="code" class="ss48">@sanity</code></p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Quick validation</p>
+            </td>
+          </tr>
+                                <tr data-d-component="table-row" class="ss36">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41"><code data-d-component="code" class="ss48">@negative</code></p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Invalid or error scenarios</p>
+            </td>
+          </tr>
+                                <tr data-d-component="table-row" class="ss36">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41"><code data-d-component="code" class="ss48">@login</code></p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Login-related tests</p>
+            </td>
+          </tr>
+                                <tr data-d-component="table-row" class="ss43">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41"><code data-d-component="code" class="ss48">@wip</code></p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Work in progress</p>
+            </td>
+          </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <div aria-hidden="true" data-d-overflow-edges="" class="ss49">
+                            <div data-d-overflow-edge="start" class="ss45"></div>
+                            <div data-d-overflow-edge="end" class="ss46"></div>
+                          </div>
+                        </div>
+                        <p data-d-component="text" class="ss4">A feature-level tag applies to all scenarios in that feature. Scenario-level
+    tags apply to their individual scenarios.</p>
+                        <p data-d-component="text" class="ss4">In Playwright BDD, tags can be used for test filtering through the Playwright
+    integration. We'll cover the exact execution configuration in Session 2.</p>
+                        <div data-d-component="divider" aria-hidden="true" class="ss47"></div>
+                        <h2 data-d-component="title" class="ss7" id="9-rule-keyword">9. Rule keyword</h2>
+                        <p data-d-component="text" class="ss8"><code data-d-component="code" class="ss6">Rule</code> groups scenarios that
+    belong to the same business rule.</p>
+                        <p data-d-component="text" class="ss4">For example, a login feature can contain rules for successful and unsuccessful
+    authentication.</p>
+                        <div class="ss16">
+                          <span data-message-content-controls="" class="ss17"><button class="ss81" type="button" data-icon-only="" data-icon-position="start" data-icon-shape="non-circular" data-radius="full" data-size="small" data-variant="ghost" data-w-component="button" aria-label="Copy code" data-code-copy-state="idle" data-oai-tooltip="" data-oai-tooltip-side="bottom" data-oai-tooltip-side-offset="8" data-session-copy="session-code-15"><svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16" class="ss19">
+          <use href="#lightweight-conversation-copy-compact" class="ss20"></use>
+        </svg></button></span>
+                          <div class="ss21"><span class="ss22">gherkin</span></div>
+                          <pre class="ss23" id="session-code-15"><code data-code-language="gherkin" class="ss24">Feature: Login functionality
+
+  Rule: Valid users can log in
+
+    Scenario: Login with valid credentials
+      Given User is on the login page
+      When User enters valid credentials
+      Then User should see the dashboard
+
+  Rule: Invalid users cannot log in
+
+    Scenario: Login with invalid credentials
+      Given User is on the login page
+      When User enters invalid credentials
+      Then User should see an error message</code></pre>
+                        </div>
+                        <p data-d-component="text" class="ss4">Use Rule when a feature contains several distinct business rules. For small
+    feature files, it is optional.</p>
+                        <div data-d-component="divider" aria-hidden="true" class="ss47"></div>
+                        <h2 data-d-component="title" class="ss7" id="10-gherkin-best-practices">10. Gherkin best practices</h2>
+                        <div data-d-component="table" data-d-column-sizing="auto" class="ss32">
+                          <div data-d-table-viewport="" class="ss33">
+                            <table class="ss34">
+                              <tbody data-d-component="table-section" class="ss35">
+                                <tr data-d-component="table-row" class="ss36">
+            <th data-d-component="table-cell" scope="col" class="ss37">
+              <p data-d-component="text" class="ss38">Recommended</p>
+            </th>
+            <th data-d-component="table-cell" scope="col" class="ss39">
+              <p data-d-component="text" class="ss38">Avoid</p>
+            </th>
+          </tr>
+                                <tr data-d-component="table-row" class="ss36">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41">One scenario = one behavior</p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Combining unrelated workflows</p>
+            </td>
+          </tr>
+                                <tr data-d-component="table-row" class="ss36">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41">Use business-readable language</p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Writing CSS selectors in steps</p>
+            </td>
+          </tr>
+                                <tr data-d-component="table-row" class="ss36">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41">Use short, clear scenario names</p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Very long scenario titles</p>
+            </td>
+          </tr>
+                                <tr data-d-component="table-row" class="ss36">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41">Reuse existing step definitions</p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Creating duplicate steps</p>
+            </td>
+          </tr>
+                                <tr data-d-component="table-row" class="ss36">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41">Use Background for common preconditions</p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Large Background sections</p>
+            </td>
+          </tr>
+                                <tr data-d-component="table-row" class="ss36">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41">Use Scenario Outline for repeated data combinations</p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Copying similar scenarios many times</p>
+            </td>
+          </tr>
+                                <tr data-d-component="table-row" class="ss36">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41">Keep feature files updated</p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Outdated scenarios</p>
+            </td>
+          </tr>
+                                <tr data-d-component="table-row" class="ss43">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41">Group related scenarios logically</p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Mixing unrelated features</p>
+            </td>
+          </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <div aria-hidden="true" data-d-overflow-edges="" class="ss49">
+                            <div data-d-overflow-edge="start" class="ss45"></div>
+                            <div data-d-overflow-edge="end" class="ss46"></div>
+                          </div>
+                        </div>
+                        <h3 data-d-component="title" class="ss13" id="poor-vs-good-gherkin">Poor vs good Gherkin</h3>
+                        <div data-d-component="box" data-d-direction="col" class="ss82">
+                          <div data-d-component="row" data-d-direction="row" class="ss83">
+                            <svg width="1em" height="1em" viewBox="0 0 24 24" data-d-component="icon" data-icon-name="x-circle" aria-hidden="true" focusable="false" class="ss84" fill="currentColor">
+        <g class="ss85">
+          <path d="M10.207 8.793a1 1 0 0 0-1.414 1.414L10.586 12l-1.793 1.793a1 1 0 1 0 1.414 1.414L12 13.414l1.793 1.793a1 1 0 0 0 1.414-1.414L13.414 12l1.793-1.793a1 1 0 0 0-1.414-1.414L12 10.586l-1.793-1.793Z" class="ss85"></path>
+          <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2ZM4 12a8 8 0 1 1 16 0 8 8 0 0 1-16 0Z" clip-rule="evenodd" class="ss85"></path>
+        </g>
+      </svg>
+                            <p data-d-component="text" class="ss15"><span data-d-component="text" data-d-inline="" class="ss5">Poor example —
+          Too technical</span></p>
+                          </div>
+                          <div class="ss16">
+                            <span data-message-content-controls="" class="ss17"><button class="ss64" type="button" data-icon-only="" data-icon-position="start" data-icon-shape="non-circular" data-radius="full" data-size="small" data-variant="ghost" data-w-component="button" aria-label="Copy code" data-code-copy-state="idle" data-oai-tooltip="" data-oai-tooltip-side="bottom" data-oai-tooltip-side-offset="8" data-session-copy="session-code-16"><svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16" class="ss19">
+            <use href="#lightweight-conversation-copy-compact" class="ss20"></use>
+          </svg></button></span>
+                            <div class="ss21"><span class="ss22">gherkin</span></div>
+                            <pre class="ss23" id="session-code-16"><code data-code-language="gherkin" class="ss24">
+Scenario: Login
+  Given I open Chrome
+  When I click the element with id username
+  And I fill the element with id password
+  And I click button with CSS .login-btn
+  Then I check the dashboard URL
+</code></pre>
+                          </div>
+                          <div data-d-component="row" data-d-direction="row" class="ss83">
+                            <svg width="1em" height="1em" viewBox="0 0 24 24" data-d-component="icon" data-icon-name="check-circle" aria-hidden="true" focusable="false" class="ss86" fill="none">
+        <g class="ss87">
+          <path d="M14.5635 8.46289C14.871 8.00443 15.4925 7.88126 15.9512 8.18848C16.4096 8.49605 16.532 9.11755 16.2246 9.57617L12.0693 15.7754C11.621 16.4441 10.6665 16.5201 10.1172 15.9316L7.875 13.5293C7.49845 13.1256 7.52044 12.493 7.92383 12.1162C8.32766 11.7397 8.9612 11.7613 9.33789 12.165L10.9336 13.876L14.5635 8.46289Z" fill="currentColor" class="ss88"></path>
+          <path d="M12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2ZM12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4Z" fill-rule="evenodd" clip-rule="evenodd" fill="currentColor" class="ss88"></path>
+        </g>
+      </svg>
+                            <p data-d-component="text" class="ss15"><span data-d-component="text" data-d-inline="" class="ss5">Good example —
+          Business readable</span></p>
+                          </div>
+                          <div class="ss16">
+                            <span data-message-content-controls="" class="ss17"><button class="ss89" type="button" data-icon-only="" data-icon-position="start" data-icon-shape="non-circular" data-radius="full" data-size="small" data-variant="ghost" data-w-component="button" aria-label="Copy code" data-code-copy-state="idle" data-oai-tooltip="" data-oai-tooltip-side="bottom" data-oai-tooltip-side-offset="8" data-session-copy="session-code-17"><svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16" class="ss19">
+            <use href="#lightweight-conversation-copy-compact" class="ss20"></use>
+          </svg></button></span>
+                            <div class="ss21"><span class="ss22">gherkin</span></div>
+                            <pre class="ss23" id="session-code-17"><code data-code-language="gherkin" class="ss24">
+Scenario: Successful login
+  Given User is on the login page
+  When User logs in with valid credentials
+  Then User should see the dashboard
+</code></pre>
+                          </div>
+                        </div>
+                        <p data-d-component="text" class="ss4">The automation implementation should handle technical details such as browser
+    navigation, locators, clicks, and assertions.</p>
+                        <div data-d-component="divider" aria-hidden="true" class="ss47"></div>
+                        <h2 data-d-component="title" class="ss7" id="11-complete-practical-example">11. Complete practical example</h2>
+                        <p data-d-component="text" class="ss8">Below is a feature file that combines the main concepts from this session.</p>
+                        <div class="ss16">
+                          <span data-message-content-controls="" class="ss17"><button class="ss90" type="button" data-icon-only="" data-icon-position="start" data-icon-shape="non-circular" data-radius="full" data-size="small" data-variant="ghost" data-w-component="button" aria-label="Copy code" data-code-copy-state="idle" data-oai-tooltip="" data-oai-tooltip-side="bottom" data-oai-tooltip-side-offset="8" data-session-copy="session-code-18"><svg aria-hidden="true" fill="none" height="16" viewBox="0 0 16 16" width="16" class="ss19">
+          <use href="#lightweight-conversation-copy-compact" class="ss20"></use>
+        </svg></button></span>
+                          <div class="ss21"><span class="ss22">gherkin</span></div>
+                          <pre class="ss23" id="session-code-18"><code data-code-language="gherkin" class="ss24">
+@regression
+Feature: Login functionality
+  As a registered user
+  I want to log in to the application
+  So that I can access my account
+
+  Background:
+    Given User is on the login page
+
+  Rule: Valid users can access their accounts
+
+    @smoke
+    Scenario: Successful login
+      When User enters valid credentials
+      Then User should see the dashboard
+
+  Rule: Invalid users cannot access their accounts
+
+    @negative
+    Scenario Outline: Login with invalid credentials
+      When User enters "&lt;username&gt;" and "&lt;password&gt;"
+      Then User should see "&lt;message&gt;"
+
+      Examples:
+        | username | password | message             |
+        | admin    | wrong123 | Invalid credentials |
+        | unknown  | pass123  | Invalid credentials |
+        | admin    |          | Password is required |
+</code></pre>
+                        </div>
+                        <h3 data-d-component="title" class="ss13" id="understand-the-execution">Understand the execution</h3>
+                        <div data-d-component="table" data-d-column-sizing="auto" class="ss32">
+                          <div data-d-table-viewport="" class="ss33">
+                            <table class="ss34">
+                              <tbody data-d-component="table-section" class="ss35">
+                                <tr data-d-component="table-row" class="ss36">
+            <th data-d-component="table-cell" scope="col" class="ss37">
+              <p data-d-component="text" class="ss38">Concept</p>
+            </th>
+            <th data-d-component="table-cell" scope="col" class="ss39">
+              <p data-d-component="text" class="ss38">Where used</p>
+            </th>
+          </tr>
+                                <tr data-d-component="table-row" class="ss36">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41">Feature</p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Login functionality</p>
+            </td>
+          </tr>
+                                <tr data-d-component="table-row" class="ss36">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41">Background</p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Open login page</p>
+            </td>
+          </tr>
+                                <tr data-d-component="table-row" class="ss36">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41">Rule</p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Valid and invalid user behavior</p>
+            </td>
+          </tr>
+                                <tr data-d-component="table-row" class="ss36">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41">Scenario</p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Successful login</p>
+            </td>
+          </tr>
+                                <tr data-d-component="table-row" class="ss36">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41">Scenario Outline</p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Invalid login combinations</p>
+            </td>
+          </tr>
+                                <tr data-d-component="table-row" class="ss36">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41">Examples</p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Three sets of credentials</p>
+            </td>
+          </tr>
+                                <tr data-d-component="table-row" class="ss43">
+            <td data-d-component="table-cell" class="ss40">
+              <p data-d-component="text" class="ss41">Tags</p>
+            </td>
+            <td data-d-component="table-cell" class="ss42">
+              <p data-d-component="text" class="ss41">Regression, smoke, negative</p>
+            </td>
+          </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <div aria-hidden="true" data-d-overflow-edges="" class="ss91">
+                            <div data-d-overflow-edge="start" class="ss45"></div>
+                            <div data-d-overflow-edge="end" class="ss46"></div>
+                          </div>
+                        </div>
+                        <p data-d-component="text" class="ss4">This feature contains <span data-d-component="text" data-d-inline="" class="ss5">4 test executions</span>: one successful login scenario and three examples of invalid login.</p>
+                        <p data-d-component="text" class="ss4">The file is only a Gherkin specification at this stage. In Session 2, we will
+    connect these steps to TypeScript using <code data-d-component="code" class="ss6">playwright-bdd</code>.</p>
+                        <div data-d-component="divider" aria-hidden="true" class="ss47"></div>
+                        <h2 data-d-component="title" class="ss7" id="12-quick-knowledge-check">12. Quick knowledge check</h2>
+                        <p data-d-component="text" class="ss8">Test your understanding before moving to Session 2.</p>
+                        <div data-d-component="box" data-d-direction="col" class="ss53">
+                          <div data-d-component="row" data-d-direction="row" data-d-auto-spacing="" class="ss92">
+                            <p data-d-component="text" class="ss15"><span data-d-component="text" data-d-inline="" class="ss5">Session 1
+          Quiz</span></p>
+                            <p data-d-component="text" class="ss93">0 of 5 answered</p>
+                          </div>
+                          <div data-d-component="box" data-d-direction="col" class="ss94">
+                            <p data-d-component="text" class="ss95">1. What is the main purpose of BDD?</p>
+                            <div role="radiogroup" data-d-component="radio-group" data-direction="col" aria-label="Options" aria-required="false" aria-disabled="false" class="ss96">
+                              <div data-d-component="radio" class="ss97"><label for=":in-1z:" class="ss98"><span class="ss99"><input data-octane-input="b:1eee7b11" type="radio" id=":in-1z:" tabindex="0" class="ss100" value="0"></span>Write browser automation faster</label></div>
+                              <div data-d-component="radio" class="ss97"><label for=":in-20:" class="ss98"><span class="ss99"><input data-octane-input="b:1eee7b11" type="radio" id=":in-20:" tabindex="-1" class="ss100" value="1"></span>Describe application behavior collaboratively</label></div>
+                              <div data-d-component="radio" class="ss97"><label for=":in-21:" class="ss98"><span class="ss99"><input data-octane-input="b:1eee7b11" type="radio" id=":in-21:" tabindex="-1" class="ss100" value="2"></span>Replace TypeScript</label></div>
+                            </div>
+                          </div>
+                          <div data-d-component="divider" aria-hidden="true" class="ss101"></div>
+                          <div data-d-component="box" data-d-direction="col" class="ss94">
+                            <p data-d-component="text" class="ss95">2. Which keyword defines an expected result?</p>
+                            <div role="radiogroup" data-d-component="radio-group" data-direction="col" aria-label="Options" aria-required="false" aria-disabled="false" class="ss96">
+                              <div data-d-component="radio" class="ss97"><label for=":in-23:" class="ss98"><span class="ss99"><input data-octane-input="b:1eee7b11" type="radio" id=":in-23:" tabindex="0" class="ss100" value="0"></span>Given</label></div>
+                              <div data-d-component="radio" class="ss97"><label for=":in-24:" class="ss98"><span class="ss99"><input data-octane-input="b:1eee7b11" type="radio" id=":in-24:" tabindex="-1" class="ss100" value="1"></span>When</label></div>
+                              <div data-d-component="radio" class="ss97"><label for=":in-25:" class="ss98"><span class="ss99"><input data-octane-input="b:1eee7b11" type="radio" id=":in-25:" tabindex="-1" class="ss100" value="2"></span>Then</label></div>
+                            </div>
+                          </div>
+                          <div data-d-component="divider" aria-hidden="true" class="ss101"></div>
+                          <div data-d-component="box" data-d-direction="col" class="ss94">
+                            <p data-d-component="text" class="ss95">3. When does Background execute?</p>
+                            <div role="radiogroup" data-d-component="radio-group" data-direction="col" aria-label="Options" aria-required="false" aria-disabled="false" class="ss96">
+                              <div data-d-component="radio" class="ss97"><label for=":in-27:" class="ss98"><span class="ss99"><input data-octane-input="b:1eee7b11" type="radio" id=":in-27:" tabindex="0" class="ss100" value="0"></span>Once per feature</label></div>
+                              <div data-d-component="radio" class="ss97"><label for=":in-28:" class="ss98"><span class="ss99"><input data-octane-input="b:1eee7b11" type="radio" id=":in-28:" tabindex="-1" class="ss100" value="1"></span>Before each applicable scenario</label></div>
+                              <div data-d-component="radio" class="ss97"><label for=":in-29:" class="ss98"><span class="ss99"><input data-octane-input="b:1eee7b11" type="radio" id=":in-29:" tabindex="-1" class="ss100" value="2"></span>Only after failed scenarios</label></div>
+                            </div>
+                          </div>
+                          <div data-d-component="divider" aria-hidden="true" class="ss101"></div>
+                          <div data-d-component="box" data-d-direction="col" class="ss94">
+                            <p data-d-component="text" class="ss95">4. A Scenario Outline has four Examples rows. How many tests are created?
+      </p>
+                            <div role="radiogroup" data-d-component="radio-group" data-direction="col" aria-label="Options" aria-required="false" aria-disabled="false" class="ss96">
+                              <div data-d-component="radio" class="ss97"><label for=":in-2b:" class="ss98"><span class="ss99"><input data-octane-input="b:1eee7b11" type="radio" id=":in-2b:" tabindex="0" class="ss100" value="0"></span>One</label></div>
+                              <div data-d-component="radio" class="ss97"><label for=":in-2c:" class="ss98"><span class="ss99"><input data-octane-input="b:1eee7b11" type="radio" id=":in-2c:" tabindex="-1" class="ss100" value="1"></span>Two</label></div>
+                              <div data-d-component="radio" class="ss97"><label for=":in-2d:" class="ss98"><span class="ss99"><input data-octane-input="b:1eee7b11" type="radio" id=":in-2d:" tabindex="-1" class="ss100" value="2"></span>Four</label></div>
+                            </div>
+                          </div>
+                          <div data-d-component="divider" aria-hidden="true" class="ss101"></div>
+                          <div data-d-component="box" data-d-direction="col" class="ss94">
+                            <p data-d-component="text" class="ss95">5. What is the purpose of @smoke?</p>
+                            <div role="radiogroup" data-d-component="radio-group" data-direction="col" aria-label="Options" aria-required="false" aria-disabled="false" class="ss96">
+                              <div data-d-component="radio" class="ss97"><label for=":in-2f:" class="ss98"><span class="ss99"><input data-octane-input="b:1eee7b11" type="radio" id=":in-2f:" tabindex="0" class="ss100" value="0"></span>Define a browser</label></div>
+                              <div data-d-component="radio" class="ss97"><label for=":in-2g:" class="ss98"><span class="ss99"><input data-octane-input="b:1eee7b11" type="radio" id=":in-2g:" tabindex="-1" class="ss100" value="1"></span>Label and filter critical tests</label></div>
+                              <div data-d-component="radio" class="ss97"><label for=":in-2h:" class="ss98"><span class="ss99"><input data-octane-input="b:1eee7b11" type="radio" id=":in-2h:" tabindex="-1" class="ss100" value="2"></span>Create a step definition</label></div>
+                            </div>
+                          </div>
+                          <div data-d-component="row" data-d-direction="row" class="ss102"><span class="ss17"><span class="ss17"><button type="button" data-d-component="button" data-d-block="" data-variant="solid" disabled="" aria-disabled="true" tabindex="-1" class="ss103"><span class="ss104">Check
+              answers</span></button></span></span><span class="ss17"><span class="ss17"><button type="button" data-d-component="button" data-variant="outline" aria-disabled="false" class="ss105"><span class="ss106">Reset</span></button></span></span></div>
+                        </div>
+                        <h2 data-d-component="title" class="ss7" id="session-1-recap">Session 1 recap</h2>
+                        <p data-d-component="text" class="ss8">After completing this session, you should be comfortable with the following:
+  </p>
+                        <div data-d-component="box" data-d-direction="col" class="ss82">
+                          <div class="ss107"><span class="ss108"><input data-octane-input="b:e668852b" id=":in-2m:" type="checkbox" data-d-component="checkbox" class="ss109" value="on"></span><label for=":in-2m:" class="ss110"><span class="ss111">Explain BDD, Cucumber and Gherkin</span></label></div>
+                          <div class="ss107"><span class="ss108"><input data-octane-input="b:e668852b" id=":in-2n:" type="checkbox" data-d-component="checkbox" class="ss109" value="on"></span><label for=":in-2n:" class="ss110"><span class="ss111">Write Given, When and Then scenarios</span></label></div>
+                          <div class="ss107"><span class="ss108"><input data-octane-input="b:e668852b" id=":in-2o:" type="checkbox" data-d-component="checkbox" class="ss109" value="on"></span><label for=":in-2o:" class="ss110"><span class="ss111">Use Background to reduce repeated steps</span></label></div>
+                          <div class="ss107"><span class="ss108"><input data-octane-input="b:e668852b" id=":in-2p:" type="checkbox" data-d-component="checkbox" class="ss109" value="on"></span><label for=":in-2p:" class="ss110"><span class="ss111">Use Scenario Outline and Examples for data-driven tests</span></label></div>
+                          <div class="ss107"><span class="ss108"><input data-octane-input="b:e668852b" id=":in-2q:" type="checkbox" data-d-component="checkbox" class="ss109" value="on"></span><label for=":in-2q:" class="ss110"><span class="ss111">Understand Data Tables and Doc Strings</span></label></div>
+                          <div class="ss107"><span class="ss108"><input data-octane-input="b:e668852b" id=":in-2r:" type="checkbox" data-d-component="checkbox" class="ss109" value="on"></span><label for=":in-2r:" class="ss110"><span class="ss111">Apply tags and Rule to organize feature files</span></label></div>
+                          <div class="ss107"><span class="ss108"><input data-octane-input="b:e668852b" id=":in-2s:" type="checkbox" data-d-component="checkbox" class="ss109" value="on"></span><label for=":in-2s:" class="ss110"><span class="ss111">Write clean, business-readable Gherkin</span></label></div>
+                        </div>
+                        <p data-d-component="text" class="ss4"><span data-d-component="text" data-d-inline="" class="ss5">Next: Session 2 —
+      Playwright BDD Setup &amp; Step Definitions</span></p>
+                        <p data-d-component="text" class="ss4">We will create the actual TypeScript project, configure <code data-d-component="code" class="ss6">playwright.config.ts</code> with <code data-d-component="code" class="ss6">defineBddConfig()</code>, implement steps using <code data-d-component="code" class="ss6">createBdd()</code>, and run Gherkin scenarios using the Playwright Test runner.</p>
+                        <span class="ss17"><span class="ss17"><button type="button" data-d-component="button" data-d-block="" data-variant="solid" aria-disabled="false" class="ss112"><span class="ss113"><span class="ss114">Continue to Session 2 </span><svg width="1em" height="1em" viewBox="0 0 24 24" data-d-component="icon" data-d-inline="" data-icon-name="arrow-right" aria-hidden="true" focusable="false" class="ss115" fill="none">
+            <g class="ss116">
+              <path d="M12.293 6.29289C12.6835 5.90237 13.3165 5.90237 13.707 6.29289L18.3535 10.9394C18.9392 11.5252 18.9392 12.4747 18.3535 13.0605L13.707 17.707C13.3165 18.0974 12.6835 18.0974 12.293 17.707C11.9025 17.3164 11.9025 16.6834 12.293 16.2929L15.5859 12.9999H6C5.44774 12.9999 5.00003 12.5522 5 11.9999C5 11.4476 5.44771 10.9999 6 10.9999H15.5859L12.293 7.70696C11.9025 7.31644 11.9025 6.68342 12.293 6.29289Z" fill="currentColor" class="ss117"></path>
+            </g>
+          </svg></span></button></span></span>
+                      </section>
+                    </div>
+                    <!-- Original copy-icon symbol referenced by the preserved note markup. -->
+                    <svg aria-hidden="true" width="0" height="0" style="position:absolute"><symbol id="lightweight-conversation-copy-compact" viewBox="0 0 16 16"><g transform="translate(0 0.040527)"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.001 1.43408C13.3951 1.43452 14.5254 2.56522 14.5254 3.95947V8.62646C14.5252 10.0206 13.395 11.1504 12.001 11.1509H11.1914V11.9604C11.191 13.3545 10.0611 14.4847 8.66699 14.4849H4C2.60575 14.4849 1.47505 13.3546 1.47461 11.9604V7.29346C1.47461 5.89894 2.60548 4.76807 4 4.76807H4.80859V3.95947C4.80859 2.56495 5.93947 1.43408 7.33398 1.43408H12.001ZM4 5.81885C3.18538 5.81885 2.52539 6.47884 2.52539 7.29346V11.9604C2.52583 12.7747 3.18565 13.4351 4 13.4351H8.66699C9.48119 13.4349 10.1412 12.7746 10.1416 11.9604V7.29346C10.1416 6.47895 9.48146 5.81902 8.66699 5.81885H4ZM7.33398 2.48486C6.51936 2.48486 5.85938 3.14485 5.85938 3.95947V4.76807H8.66699C10.0614 4.76824 11.1914 5.89905 11.1914 7.29346V10.1011H12.001C12.8151 10.1006 13.4754 9.44066 13.4756 8.62646V3.95947C13.4756 3.14512 12.8152 2.4853 12.001 2.48486H7.33398Z" fill="currentColor"></path></g></symbol></svg>
+                  </div>
+                  <footer class="sl-flex" data-astro-cid-ddtxxk7k="">
+                    <div class="meta sl-flex" data-astro-cid-ddtxxk7k=""></div>
+                    <div class="pagination-links print:hidden" dir="ltr" data-astro-cid-b5raizh3=""></div>
+                  </footer>
+                </div>
+              </div>
+            </main>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
