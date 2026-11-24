@@ -1,0 +1,20 @@
+/* Hand-editable overrides for the standalone site. Base visual styles are in layout.css. */
+.plain-search{padding:1rem;color:var(--sl-color-white);background:var(--sl-color-bg);min-width:0}
+.plain-search-bar{display:flex;gap:.75rem;align-items:center}
+.plain-search-bar input{min-width:0;width:100%;font:inherit;padding:.8rem;border:1px solid var(--sl-color-gray-5);border-radius:.4rem;background:var(--sl-color-bg);color:var(--sl-color-white)}
+.plain-search-bar button{font:inherit;padding:.7rem;cursor:pointer;color:var(--sl-color-text-accent);border:0;background:transparent}
+.plain-search-status{font-size:.875rem;color:var(--sl-color-gray-3);margin:1rem .25rem}
+.plain-search-results{list-style:none;padding:0;margin:0;max-height:55vh;overflow:auto}
+.plain-search-results a{display:block;padding:1rem;border-radius:.4rem;text-decoration:none;color:var(--sl-color-text-accent)}
+.plain-search-results a:hover,.plain-search-results a:focus-visible{background:var(--sl-color-accent-low)}
+site-search dialog{width:min(40rem,calc(100% - 2rem));max-width:40rem}
+/* Formatting rule: source indentation is not teaching-note spacing.
+   Collapse ordinary HTML whitespace throughout the imported page.
+   Preserve all original pre/code whitespace and explicit <br> elements. */
+.shared-snapshot.shared-snapshot,
+.shared-snapshot.shared-snapshot *:not(pre):not(pre *) {
+  white-space: normal !important;
+}
+
+/* Preserve responsive placement of copy controls on all imported sessions. */
+.shared-snapshot.shared-snapshot [data-session-copy] { left: auto !important; right: 4px !important; }

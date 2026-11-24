@@ -1,0 +1,11 @@
+node_modules/
+.DS_Store
+astro-project-backup/
+reference/
+Teaching_Notes.md
+Teaching_notesv1.md
+template.png
+.env
+.env.*
+*.pem
+*.key
